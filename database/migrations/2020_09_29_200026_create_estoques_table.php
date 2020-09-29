@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePrecosTable extends Migration
+class CreateEstoquesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreatePrecosTable extends Migration
      */
     public function up()
     {
-        Schema::create('precos', function (Blueprint $table) {
+        Schema::create('estoques', function (Blueprint $table) {
             //$table->foreign('cdProduto')->references('id') on('Produto');
-            $table->float('valor');
-            $table->float('desconto');
-            $table->boolean('flPromocao');
-            $table->dateTime('vigencia');
+            $table->int('qtdItem');
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class CreatePrecosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('precos');
+        Schema::dropIfExists('estoques');
     }
 }
