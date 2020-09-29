@@ -15,6 +15,11 @@ class CreateNotasTable extends Migration
     {
         Schema::create('notas', function (Blueprint $table) {
             $table->id();
+            $table->double('vl_nota',2);
+            $table->foreign('pedido_id')->references('id')->on('pedidos');
+            $table->date('dt_emissao');
+            $table->bigInteger('nota');
+            $table->bigInteger('serie');
             $table->timestamps();
         });
     }
