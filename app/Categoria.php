@@ -8,11 +8,11 @@ class Categoria extends Model
 {
     //
     public function tipo_categorias(){
-        return $this->hasOne('App\Models\Tipo_Categoria');
+        return $this->belongsTo('App\Models\Tipo_Categoria');
     }
 
     public function produtos(){
-        return $this->belongsTo('App\Models\Produto');
+        return $this->hasMany('App\Models\Produto');
     }
 
 
