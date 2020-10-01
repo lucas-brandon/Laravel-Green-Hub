@@ -13,7 +13,7 @@ class CreateTipoContatosTable extends Migration
      */
     public function up()
     {
-        Schema::create('tipo__contatos', function (Blueprint $table) {
+        Schema::create('tipo_contatos', function (Blueprint $table) {
             $table->id();
             $table->string('descricao');
             $table->timestamps();
@@ -27,6 +27,6 @@ class CreateTipoContatosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo__contatos');
+        Schema::dropIfExists('tipo_contatos');
     }
 }

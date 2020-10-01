@@ -15,7 +15,7 @@ class CreateProdutosTable extends Migration
     {
         Schema::create('produtos', function (Blueprint $table) {
             $table->id();
-            $table->foreign('categoria_id')->references('id')->on('categorias');
+            $table->foreignId('categoria_id');
             $table->string('ds_produto');
             $table->double('peso', 8, 2);
             $table->string('nm_marca');
@@ -25,6 +25,8 @@ class CreateProdutosTable extends Migration
             $table->date('altura', 8 , 2);
             $table->date('comprimento', 8, 2);
             $table->timestamps();
+
+            $table->foreign('categoria_id')->references('id')->on('categorias');
         });
     }
 

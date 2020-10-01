@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEnderecoClientesTable extends Migration
+class CreateEnderecoFornecedoresTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateEnderecoClientesTable extends Migration
      */
     public function up()
     {
-        Schema::create('endereco_clientes', function (Blueprint $table) {
-            $table->foreignId('cliente_id');
+        Schema::create('endereco__fornecedores', function (Blueprint $table) {
+            $table->foreignId('fornecedor_id');
             $table->foreignId('endereco_id');
             $table->timestamps();
 
-            $table->primary('cliente_id', 'endereco_id');
-            $table->foreign('cliente_id')->references('id')->on('clientes');
+            $table->primary('fornecedor_id', 'endereco_id');
+            $table->foreign('fornecedor_id')->references('id')->on('fornecedores');
             $table->foreign('endereco_id')->references('id')->on('enderecos');
         });
     }
@@ -31,6 +31,6 @@ class CreateEnderecoClientesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('endereco_clientes');
+        Schema::dropIfExists('endereco__fornecedores');
     }
 }
