@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateNotasTable extends Migration
+class CreateCategoriasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateNotasTable extends Migration
      */
     public function up()
     {
-        Schema::create('notas', function (Blueprint $table) {
+        Schema::create('categorias', function (Blueprint $table) {
             $table->id();
-            $table->double('vl_nota',8,2);
-            $table->foreign('pedido_id')->references('id')->on('pedidos');
-            $table->date('dt_emissao');
-            $table->bigInteger('nota');
-            $table->bigInteger('serie');
+            $table->bigIncrements('tipo_cateoria_id');
+            $table->string('descricao');
             $table->timestamps();
+
+            $table->foreign('tipo_cateoria_id')->references('id')->on('tipo_categorias');
         });
     }
 
@@ -31,6 +30,6 @@ class CreateNotasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('notas');
+        Schema::dropIfExists('categorias');
     }
 }

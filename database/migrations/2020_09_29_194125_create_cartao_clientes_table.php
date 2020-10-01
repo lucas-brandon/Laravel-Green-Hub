@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClientesTable extends Migration
+class CreateCartaoClientesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,13 @@ class CreateClientesTable extends Migration
      */
     public function up()
     {
-        Schema::create('clientes', function (Blueprint $table) {
-            $table->id();
+        Schema::create('cartao_clientes', function (Blueprint $table) {
+            $table->bigIncrements('cliente_id');
+            $table->foreign('cliente_id')->references('id')->on('cliente');
+            $table->increments('cartao');
             $table->string('nome');
-            $table->string('sobrenome');
-            $table->string('cpf');
-            $table->date('dt_nascimento');
-            $table->string('senha');
+            $table->string('bandeira');
+            $table->date('validade'); 
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateClientesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clientes');
+        Schema::dropIfExists('cartao_clientes');
     }
 }
