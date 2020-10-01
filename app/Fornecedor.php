@@ -8,6 +8,6 @@ class Fornecedor extends Model
 {
     //
     public function endereco_fornecedores(){
-        return $this->hasMany('App\Models\Endereco_Fornecedor');
+        return $this->hasMany('App\Model\Endereco_Fornecedor');
     }
 }

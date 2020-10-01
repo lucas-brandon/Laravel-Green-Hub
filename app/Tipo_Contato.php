@@ -8,6 +8,6 @@ class Tipo_Contato extends Model
 {
     //
     public function contato(){
-        return $this->hasOne('App\Models\Contato');
+        return $this->hasOne('App\Model\Contato');
     }
 }
