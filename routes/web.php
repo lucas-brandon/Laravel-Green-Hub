@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/admin/clientes', 'Admin\ClienteController@index')->name('admin.clientes');
+
+Route::get('/admin/clientes/adicionar', 'Admin\ClienteController@adicionar')->name('admin.clientes.adicionar');
+
+Route::post('/admin/clientes/salvar', 'Admin\ClienteController@salvar')->name('admin.clientes.salvar');
+
