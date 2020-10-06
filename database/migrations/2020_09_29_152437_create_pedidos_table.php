@@ -15,9 +15,14 @@ class CreatePedidosTable extends Migration
     {
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
+            /*
             $table->foreignId('cliente_id');
             $table->foreignId('status_pedido_id');
             $table->foreignId('pagamento_id');
+            */
+            $table->foreignId('cliente_id')->nullable();
+            $table->foreignId('status_pedido_id')->nullable();
+            $table->foreignId('pagamento_id')->nullable();
             $table->bigInteger('nr_pedido');
             $table->date('dt_pedido');
 
