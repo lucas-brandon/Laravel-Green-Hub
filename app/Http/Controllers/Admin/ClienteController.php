@@ -36,7 +36,7 @@ class ClienteController extends Controller
         //Cria uma variavel mensagem na sessão atual
         $req->session()->flash('mensagem', 'Cliente cadastrado com sucesso');
 
-        return redirect()->route('admin.clientes.home');
+        return redirect()->route('admin.clientes.index');
     }
     
     public function editar($id)
@@ -55,7 +55,7 @@ class ClienteController extends Controller
         //Cria uma variavel mensagem na sessão atual
         $req->session()->flash('mensagem', 'Cliente editado com sucesso');
 
-        return redirect()->route('admin.clientes.home');
+        return redirect()->route('admin.clientes.index');
     }
 
     public function deletar(Request $req, $id)
@@ -67,7 +67,7 @@ class ClienteController extends Controller
 
         $req->session()->flash('mensagem', 'Cliente deletado com sucesso');
 
-        return redirect()->route('admin.clientes.home');
+        return redirect()->route('admin.clientes.index');
     }
 
 }

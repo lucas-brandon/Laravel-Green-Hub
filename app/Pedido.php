@@ -20,4 +20,8 @@ class Pedido extends Model
         'nr_pedido', 'dt_pedido',
     ];
 
+    public function pagamento(){
+        return $this->belongsTo('App\Model\Pagamento');
+    }
+
 }

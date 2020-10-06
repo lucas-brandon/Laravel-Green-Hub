@@ -35,7 +35,7 @@ class PedidoController extends Controller
         //Cria uma variavel mensagem na sessão atual
         $req->session()->flash('mensagem', 'Pedido cadastrado com sucesso');
 
-        return redirect()->route('admin.pedidos.home');
+        return redirect()->route('admin.pedidos.index');
     }
     
     public function editar($id)
@@ -54,7 +54,7 @@ class PedidoController extends Controller
         //Cria uma variavel mensagem na sessão atual
         $req->session()->flash('mensagem', 'Pedido editado com sucesso');
 
-        return redirect()->route('admin.pedidos.home');
+        return redirect()->route('admin.pedidos.index');
     }
 
     public function deletar(Request $req, $id)
@@ -66,6 +66,6 @@ class PedidoController extends Controller
 
         $req->session()->flash('mensagem', 'Pedido deletado com sucesso');
 
-        return redirect()->route('admin.pedidos.home');
+        return redirect()->route('admin.pedidos.index');
     }
 }

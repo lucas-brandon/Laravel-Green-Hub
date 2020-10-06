@@ -35,7 +35,7 @@ class ProdutoController extends Controller
         //Cria uma variavel mensagem na sessão atual
         $req->session()->flash('mensagem', 'Produto cadastrado com sucesso');
 
-        return redirect()->route('admin.produtos.home');
+        return redirect()->route('admin.produtos.index');
     }
     
     public function editar($id)
@@ -54,7 +54,7 @@ class ProdutoController extends Controller
         //Cria uma variavel mensagem na sessão atual
         $req->session()->flash('mensagem', 'Produto editado com sucesso');
 
-        return redirect()->route('admin.produtos.home');
+        return redirect()->route('admin.produtos.index');
     }
 
     public function deletar(Request $req, $id)
@@ -66,6 +66,6 @@ class ProdutoController extends Controller
 
         $req->session()->flash('mensagem', 'Produto deletado com sucesso');
 
-        return redirect()->route('admin.produtos.home');
+        return redirect()->route('admin.produtos.index');
     }
 }
