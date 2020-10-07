@@ -11,11 +11,11 @@ class Endereco extends Model
 
     public function endereco_cliente()
     {
-        return $this->hasMany(Endereco_cliente::class);
+        return $this->hasMany(EnderecoCliente::class);
     }
 
     public function endereco_fornecedor()
     {
-        return $this->hasMany(Endereco_fornecedor::class);
+        return $this->hasMany(EnderecoFornecedor::class);
     }
 }

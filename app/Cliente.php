@@ -15,12 +15,12 @@ class Cliente extends Model
 
     public function cartao_cliente()
     {
-        return $this->hasMany(Cartao_cliente::class);
+        return $this->hasMany(CartaoCliente::class);
     }
 
     public function endereco_cliente()
     {
-        return $this->hasMany(Endereco_cliente::class);
+        return $this->hasMany(EnderecoCliente::class);
     }
 
     public function pedido()

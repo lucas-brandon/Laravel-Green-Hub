@@ -39,7 +39,7 @@ class Pedido extends Model
     }
 
     public function pedido_item(){
-        return $this->hasMany(Pedido_item::class);
+        return $this->hasMany(PedidoItem::class);
     }
 
 }
