@@ -7,12 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Categoria extends Model
 {
     //
-    public function tipo_categorias(){
-        return $this->belongsTo('App\Model\Tipo_Categoria');
+    protected $table = 'categorias';
+    
+    public function tipo_categoria(){
+        return $this->belongsTo(Categoria::class);
     }
 
     public function produtos(){
-        return $this->hasMany('App\Model\Produto');
+        return $this->hasMany(Produto::class);
     }
 
 

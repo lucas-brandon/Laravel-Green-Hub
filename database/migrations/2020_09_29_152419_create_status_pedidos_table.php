@@ -14,9 +14,8 @@ class CreateStatusPedidosTable extends Migration
     public function up()
     {
         Schema::create('status_pedidos', function (Blueprint $table) {
-            $table->id();
-            //$table->foreign('idPedido')->references('id') on('pedidos'); 
-            $table->string('dsStatus');
+            $table->id(); 
+            $table->string('ds_status');
             $table->timestamps();
         });
     }

@@ -15,16 +15,19 @@ class CreateProdutosTable extends Migration
     {
         Schema::create('produtos', function (Blueprint $table) {
             $table->id();
-            $table->foreign('categoria_id')->references('id')->on('categorias');
+            $table->foreignId('categoria_id')->nullable();
+            $table->string('nome_produto');
             $table->string('ds_produto');
-            $table->double('peso', 8, 2);
+            $table->double('peso', 8, 2)->nullable();
             $table->string('nm_marca');
             $table->string('cd_barra');
-            $table->string('subcategoria');
-            $table->double('largura', 8, 2);
-            $table->date('altura', 8 , 2);
-            $table->date('comprimento', 8, 2);
+            //$table->string('subcategoria');
+            $table->double('largura', 8, 2)->nullable();
+            $table->date('altura', 8 , 2)->nullable();
+            $table->date('comprimento', 8, 2)->nullable();
             $table->timestamps();
+
+            $table->foreign('categoria_id')->references('id')->on('categorias');
         });
     }
 

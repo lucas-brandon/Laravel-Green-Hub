@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Fornecedor extends Model
 {
     //
-    public function endereco_fornecedores(){
-        return $this->hasMany('App\Model\Endereco_Fornecedor');
+    protected $table = 'fornecedores';
+
+    public function endereco_fornecedor(){
+        return $this->hasMany(Endereco_Fornecedor::class);
     }
 }
