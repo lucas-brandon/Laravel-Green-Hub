@@ -8,5 +8,5 @@
 </div>
 <div class="form-group">
     <label for="dt_pedido">Data de criação do pedido</label>
-    <input type="text" class="form-control" id="dt_pedido" name="dt_pedido" value="{{$pedido->dt_pedido ?? ''}}">
+    <input type="date" class="form-control" id="dt_pedido" name="dt_pedido" value="{{$pedido->dt_pedido ?? ''}}">
 </div>

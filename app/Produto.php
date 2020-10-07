@@ -6,13 +6,40 @@ use Illuminate\Database\Eloquent\Model;
 
 class Produto extends Model
 {
-    //no fillable tem que ser o mesmo nome de coluna e variavel pra dar match
+    
+    protected $table = 'produtos';
+
     protected $fillable = [
         'nome_produto', 'ds_produto', 'nm_marca', 'cd_barra',
     ];
 
     public function categorias()
     {
-        return $this->belongsTo('App\Models\Categoria');
+        return $this->belongsTo(Categoria::class);
+    }
+
+    public function imagem_produto()
+    {
+        return $this->hasMany(Imagem_Produto::class);
+    }
+
+    public function estoque()
+    {
+        return $this->hasOne(Estoque::class);
+    }
+
+    public function preco()
+    {
+        return $this->hasOne(Preco::class);
+    }
+
+    public function pedido_item()
+    {
+        return $this->hasMany(Pedido_item::class);
+    }
+
+    public function nota_item()
+    {
+        return $this->hasMany(Nota_item::class);
     }
 }

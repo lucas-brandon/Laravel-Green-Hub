@@ -1,4 +1,4 @@
-@extends('admin.produtos.layout.site')
+@extends('layout.site')
 
 @section('title', 'Editar produto')
 

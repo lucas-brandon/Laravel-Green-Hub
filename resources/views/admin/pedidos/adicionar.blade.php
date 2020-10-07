@@ -1,4 +1,4 @@
-@extends('admin.pedidos.layout.site')
+@extends('layout.site')
 
 @section('title', 'Adicionar pedido')
 

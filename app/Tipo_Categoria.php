@@ -8,6 +8,6 @@ class Tipo_Categoria extends Model
 {
     //
     public function categoria(){
-        return $this->hasOne('App\Model\Categoria');
+        return $this->hasMany(Categoria::class);
     }
 }

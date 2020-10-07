@@ -8,6 +8,6 @@ class Pagamento extends Model
 {
     //
     public function pedido(){
-        return $this->hasOne('App\Model\Pedido');
+        return $this->hasOne(Pedido::class);
     }
 }

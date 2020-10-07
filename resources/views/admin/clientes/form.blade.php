@@ -13,9 +13,9 @@
 </div>
 <div class="form-group">
     <label for="dt_nascimento">Data de Nascimento</label>
-    <input type="text" class="form-control" id="dt_nascimento" name="dt_nascimento" value="{{$cliente->dt_nascimento ?? ''}}">
+    <input type="date" class="form-control" id="dt_nascimento" name="dt_nascimento" value="{{$cliente->dt_nascimento ?? ''}}">
 </div>
 <div class="form-group">
     <label for="senha">Senha</label>
-    <input type="text" class="form-control" id="senha" name="senha" value="{{$cliente->senha ?? ''}}">
+    <input type="password" class="form-control" id="senha" name="senha" value="{{$cliente->senha ?? ''}}">
 </div>

@@ -1,4 +1,4 @@
-@extends('admin.clientes.layout.site')
+@extends('layout.site')
 
 @section('title', 'Clientes Título')
 

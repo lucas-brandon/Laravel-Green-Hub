@@ -13,7 +13,7 @@ class CreateEnderecoFornecedoresTable extends Migration
      */
     public function up()
     {
-        Schema::create('endereco__fornecedores', function (Blueprint $table) {
+        Schema::create('endereco_fornecedores', function (Blueprint $table) {
             $table->foreignId('fornecedor_id');
             $table->foreignId('endereco_id');
             $table->timestamps();
@@ -31,6 +31,6 @@ class CreateEnderecoFornecedoresTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('endereco__fornecedores');
+        Schema::dropIfExists('endereco_fornecedores');
     }
 }
