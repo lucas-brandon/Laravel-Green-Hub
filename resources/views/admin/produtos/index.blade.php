@@ -22,6 +22,7 @@
                         <th scope="col">Descrição</th>
                         <th scope="col">Marca</th>
                         <th scope="col">Código de Barra</th>
+                        <th scope="col">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
