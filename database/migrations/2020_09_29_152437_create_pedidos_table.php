@@ -15,11 +15,20 @@ class CreatePedidosTable extends Migration
     {
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
-            $table->foreign('client_id')->references('id')->on('clientes');
-            $table->foreign('status_id')->references('id')->on('status_pedidos');
-            $table->foreign('pagamento_id')->references('id')->on('pagamentos');
-            $table->increments('nr_pedido');
+            /*
+            $table->foreignId('cliente_id');
+            $table->foreignId('status_pedido_id');
+            $table->foreignId('pagamento_id');
+            */
+            $table->foreignId('cliente_id')->nullable();
+            $table->foreignId('status_pedido_id')->nullable();
+            $table->foreignId('pagamento_id')->nullable();
+            $table->bigInteger('nr_pedido');
             $table->date('dt_pedido');
+
+            $table->foreign('cliente_id')->references('id')->on('clientes');
+            $table->foreign('status_pedido_id')->references('id')->on('status_pedidos');
+            $table->foreign('pagamento_id')->references('id')->on('pagamentos');
             $table->timestamps();
         });
     }

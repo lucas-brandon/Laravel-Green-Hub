@@ -15,11 +15,11 @@ class CreateCategoriasTable extends Migration
     {
         Schema::create('categorias', function (Blueprint $table) {
             $table->id();
-            $table->bigIncrements('tipo_cateoria_id');
+            $table->foreignId('tipo_categoria_id');
             $table->string('descricao');
             $table->timestamps();
 
-            $table->foreign('tipo_cateoria_id')->references('id')->on('tipo_categorias');
+            $table->foreign('tipo_categoria_id')->references('id')->on('tipo_categorias');
         });
     }
 

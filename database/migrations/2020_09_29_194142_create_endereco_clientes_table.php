@@ -14,12 +14,13 @@ class CreateEnderecoClientesTable extends Migration
     public function up()
     {
         Schema::create('endereco_clientes', function (Blueprint $table) {
-            $table->bigIncrements('cliente_id');
-            $table->foreign('cliente_id')->references('id')->on('cliente');
-            $table->bigIncrements('endereco_id');
-            $table->foreign('endereco_id')->references('id')->on('endereco');
-            
+            $table->foreignId('cliente_id');
+            $table->foreignId('endereco_id');
             $table->timestamps();
+
+            $table->primary('cliente_id', 'endereco_id');
+            $table->foreign('cliente_id')->references('id')->on('clientes');
+            $table->foreign('endereco_id')->references('id')->on('enderecos');
         });
     }
 

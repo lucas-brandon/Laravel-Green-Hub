@@ -14,9 +14,12 @@ class CreateEstoquesTable extends Migration
     public function up()
     {
         Schema::create('estoques', function (Blueprint $table) {
-            //$table->foreign('cdProduto')->references('id') on('Produto');
-            $table->int('qtdItem');
+            $table->foreignId('produto_id');
+            $table->integer('qtd_item');
             $table->timestamps();
+
+            $table->primary('produto_id');
+            $table->foreign('produto_id')->references('id')->on('produtos');
         });
     }
 

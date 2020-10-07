@@ -14,12 +14,12 @@ class CreateImagemProdutosTable extends Migration
     public function up()
     {
         Schema::create('imagem__produtos', function (Blueprint $table) {
-            $table->id();
-            $table->bigIncrements('produto_id');
+            $table->foreignId('produto_id');
             $table->string('link_imagem');
             $table->string('descricao');
             $table->timestamps();
 
+            $table->primary('produto_id');
             $table->foreign('produto_id')->references('id')->on('produtos');
         });
     }
