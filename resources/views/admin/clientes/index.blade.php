@@ -23,6 +23,7 @@
                         <th scope="col">CPF</th>
                         <th scope="col">Data de Nascimento</th>
                         <th scope="col">Senha</th>
+                        <th scope="col">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,6 +32,7 @@
                             <td>{{ $cliente->id }}</td>
                             <td>{{ $cliente->nome }}</td>
                             <td>{{ $cliente->sobrenome }}</td>
+                            <td>{{ $cliente->cpf }}</td>
                             <td>{{ $cliente->dt_nascimento }}</td>
                             <td>{{ $cliente->senha }}</td>
                             <td>

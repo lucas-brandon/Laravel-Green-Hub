@@ -22,6 +22,7 @@
                         <th scope="col">Id</th>
                         <th scope="col">Número do pedido</th>
                         <th scope="col">Data de criação do pedido</th>
+                        <th scope="col">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
