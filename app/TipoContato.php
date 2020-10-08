@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tipo_Contato extends Model
+class TipoContato extends Model
 {
     //
     public function contato(){
-        return $this->hasOne('App\Model\Contato');
+        return $this->hasMany(Contato::class);
     }
 }

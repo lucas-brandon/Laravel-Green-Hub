@@ -14,13 +14,14 @@ class CreateCartaoClientesTable extends Migration
     public function up()
     {
         Schema::create('cartao_clientes', function (Blueprint $table) {
-            $table->bigIncrements('cliente_id');
-            $table->foreign('cliente_id')->references('id')->on('cliente');
-            $table->increments('cartao');
+            $table->foreignId('cliente_id');
+            $table->integer('nr_cartao');
             $table->string('nome');
             $table->string('bandeira');
             $table->date('validade'); 
             $table->timestamps();
+
+            $table->foreign('cliente_id')->references('id')->on('clientes');
         });
     }
 
