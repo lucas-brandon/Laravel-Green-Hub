@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tipo_Contato extends Model
+class TipoContato extends Model
 {
     //
     public function contato(){

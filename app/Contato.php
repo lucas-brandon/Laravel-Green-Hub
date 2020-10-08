@@ -16,6 +16,6 @@ class Contato extends Model
 
     public function tipo_contato()
     {
-        return $this->belongsTo(Tipo_Contato::class);
+        return $this->belongsTo(TipoContato::class);
     }
 }

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Cartao_cliente extends Model
+class CartaoCliente extends Model
 {
     //
     protected $table = 'cartao_clientes';

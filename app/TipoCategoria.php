@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tipo_Categoria extends Model
+class TipoCategoria extends Model
 {
     //
     public function categoria(){

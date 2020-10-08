@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Nota_item extends Model
+class NotaItem extends Model
 {
     //
     protected $table = 'nota_itens';
