@@ -16,3 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/pedido/{id}', 'PedidoController@index');
+Route::post('/pedido', 'PedidoController@criar');
+Route::put('/pedido', 'PedidoController@editar');
