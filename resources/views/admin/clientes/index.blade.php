@@ -1,6 +1,6 @@
 @extends('layout.site')
 
-@section('title', 'Clientes Título')
+@section('title', 'Lista de Clientes')
 
 @section('content')
     <div class="container">
@@ -22,7 +22,8 @@
                         <th scope="col">Sobrenome</th>
                         <th scope="col">CPF</th>
                         <th scope="col">Data de Nascimento</th>
-                        <th scope="col">Senha</th>
+                        <th scope="col">E-mail</th>
+                        <th scope="col">Telefone</th>
                         <th scope="col">Ações</th>
                     </tr>
                 </thead>
@@ -34,9 +35,26 @@
                             <td>{{ $cliente->sobrenome }}</td>
                             <td>{{ $cliente->cpf }}</td>
                             <td>{{ $cliente->dt_nascimento }}</td>
-                            <td>{{ $cliente->senha }}</td>
                             <td>
-                                <a class="btn btn-primary" href="{{route('admin.clientes.editar', $cliente->id)}}">Editar</a>
+                            @foreach ($contatos as $contato)
+                                
+                                @if ($contato->tipo_contato_id == 1 && $contato->cliente_id == $cliente->id)
+                                    {{ $contato->ds_contato }}<br>
+                                @endif
+                            @endforeach
+
+                            </td>
+                            <td>
+                                @foreach ($contatos as $contato)
+                                    
+                                    @if ($contato->tipo_contato_id == 2 && $contato->cliente_id == $cliente->id)
+                                        {{ $contato->ds_contato }}<br>
+                                    @endif
+                                @endforeach
+    
+                                </td>
+                            <td>
+                                <a class="btn btn-primary" href="{{route('admin.clientes.editar', $cliente->id, $contatos)}}">Editar</a>
 
                                 <form action="{{route('admin.clientes.deletar', $cliente->id)}}" method="POST">
                                     @csrf
