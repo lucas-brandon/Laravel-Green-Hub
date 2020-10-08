@@ -16,6 +16,6 @@ class Nota extends Model
 
     public function nota_item()
     {
-        return $this->hasMany(Nota_item::class);
+        return $this->hasMany(NotaItem::class);
     }
 }

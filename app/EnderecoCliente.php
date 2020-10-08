@@ -4,14 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Endereco_Fornecedor extends Model
+class EnderecoCliente extends Model
 {
     //
-    protected $table = 'endereco_fornecedores';
+    protected $table = 'endereco_clientes';
 
-    public function fornecedor()
+    public function cliente()
     {
-        return $this->belongsTo(Fornecedor::class);
+        return $this->belongsTo(Cliente::class);
     }
 
     public function endereco()

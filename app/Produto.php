@@ -20,7 +20,7 @@ class Produto extends Model
 
     public function imagem_produto()
     {
-        return $this->hasMany(Imagem_Produto::class);
+        return $this->hasMany(ImagemProduto::class);
     }
 
     public function estoque()
@@ -35,11 +35,11 @@ class Produto extends Model
 
     public function pedido_item()
     {
-        return $this->hasMany(Pedido_item::class);
+        return $this->hasMany(PedidoItem::class);
     }
 
     public function nota_item()
     {
-        return $this->hasMany(Nota_item::class);
+        return $this->hasMany(NotaItem::class);
     }
 }

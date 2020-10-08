@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Cliente;
 use App\Contato;
 use App\Http\Controllers\Controller;
-use App\Tipo_Contato;
+use App\TipoContato;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -39,12 +39,12 @@ class ClienteController extends Controller
         $cliente['dt_nascimento'] = $req['dt_nascimento'];
         $cliente['senha'] = $req['senha'];
 
-        $tipo_contato1 = Tipo_Contato::where('descricao', 'email')->first();
+        $tipo_contato1 = TipoContato::where('descricao', 'email')->first();
 
         $contato1['ds_contato'] = $req['email'];
         $contato1['tipo_contato_id'] = $tipo_contato1['id'];
 
-        $tipo_contato2 = Tipo_Contato::where('descricao', 'telefone')->first();
+        $tipo_contato2 = TipoContato::where('descricao', 'telefone')->first();
 
         $contato2['ds_contato'] = $req['telefone'];
         $contato2['tipo_contato_id'] = $tipo_contato2['id'];
@@ -66,7 +66,7 @@ class ClienteController extends Controller
     {
         $cliente = Cliente::find($id);
         $contatos = Contato::where('cliente_id', $id)->get();
-        $tipo_contatos = Tipo_Contato::all();
+        $tipo_contatos = TipoContato::all();
         return view('admin.clientes.editar', compact('cliente', 'contatos', 'tipo_contatos'));
     }
 
