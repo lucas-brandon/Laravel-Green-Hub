@@ -17,10 +17,10 @@ class CreateContatosTable extends Migration
             $table->id();
             $table->string('ds_contato');
             $table->foreignId('cliente_id');
-            $table->foreignId('tipo_cliente_id');
+            $table->foreignId('tipo_contato_id');
 
             $table->foreign('cliente_id')->references('id')->on('clientes');
-            $table->foreign('tipo_cliente_id')->references('id')->on('tipo_contatos');
+            $table->foreign('tipo_contato_id')->references('id')->on('tipo_contatos');
             $table->timestamps();
         });
     }

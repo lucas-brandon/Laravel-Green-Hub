@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Cliente extends Model
 {
     protected $table = 'clientes';
+    
 
     //no fillable tem que ser o mesmo nome de coluna e variavel pra dar match
     protected $fillable = [
