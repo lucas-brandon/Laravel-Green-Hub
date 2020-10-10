@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Pedido;
+use App\Cliente;
+use App\StatusPedido;
+use App\Pagamento;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -11,15 +14,22 @@ class PedidoController extends Controller
     //
     public function index(Request $req)
     {
+        //'cliente_id', 'status_pedido_id', 'pagamento_id', 'nr_pedido', 'dt_pedido',
+        $clientes = Cliente::all();
+        $statusPedidos = StatusPedido::all();
+        $pagamentos = Pagamento::all();
         $pedidos = Pedido::all();
         $mensagem = $req->session()->get('mensagem');
-        return view('admin.pedidos.index', compact('pedidos', 'mensagem'));
+        return view('admin.pedidos.index', compact('pedidos', 'clientes', 'statusPedidos', 'pagamentos','mensagem'));
     }
 
 
     public function adicionar()
     {
-        return view('admin.pedidos.adicionar');
+        $clientes = Cliente::all();
+        $statusPedidos = StatusPedido::all();
+        $pagamentos = Pagamento::all();
+        return view('admin.pedidos.adicionar', compact('clientes', 'statusPedidos', 'pagamentos'));
         
     }
 
@@ -40,8 +50,12 @@ class PedidoController extends Controller
     
     public function editar($id)
     {
+        $clientes = Cliente::all();
+        $statusPedidos = StatusPedido::all();
+        $pagamentos = Pagamento::all();
+        
         $pedido = Pedido::find($id);
-        return view('admin.pedidos.editar', compact('pedido'));
+        return view('admin.pedidos.editar', compact('pedido', 'clientes', 'statusPedidos', 'pagamentos'));
     }
 
     public function atualizar(Request $req, $id)

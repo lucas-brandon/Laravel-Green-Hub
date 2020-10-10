@@ -8,6 +8,10 @@ class Categoria extends Model
 {
     //
     protected $table = 'categorias';
+
+    protected $fillable = [
+        'ds_categoria',
+    ];
     
     public function tipo_categoria(){
         return $this->belongsTo(Categoria::class);

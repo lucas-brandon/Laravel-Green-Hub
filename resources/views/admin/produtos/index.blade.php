@@ -19,8 +19,8 @@
                     <tr>
                         <th scope="col">Id</th>
                         <th scope="col">Nome</th>
-                        <th scope="col">Descrição</th>
                         <th scope="col">Marca</th>
+                        <th scope="col">Preço (R$)</th>
                         <th scope="col">Código de Barra</th>
                         <th scope="col">Ações</th>
                     </tr>
@@ -30,8 +30,12 @@
                         <tr>
                             <td>{{ $produto->id }}</td>
                             <td>{{ $produto->nome_produto }}</td>
-                            <td>{{ $produto->ds_produto }}</td>
                             <td>{{ $produto->nm_marca }}</td>
+                            @foreach ($precos as $preco)
+                                @if ($produto->id == $preco->produto_id)
+                                    <td>{{ $preco->valor }}</td>
+                                @endif
+                            @endforeach
                             <td>{{ $produto->cd_barra }}</td>
                             <td>
                                 <a class="btn btn-primary" href="{{route('admin.produtos.editar', $produto->id)}}">Editar</a>
