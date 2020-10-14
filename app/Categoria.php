@@ -10,16 +10,10 @@ class Categoria extends Model
     protected $table = 'categorias';
 
     protected $fillable = [
-        'ds_categoria',
+        'descricao'
     ];
-    
-    public function tipo_categoria(){
-        return $this->belongsTo(Categoria::class);
-    }
 
     public function produtos(){
         return $this->hasMany(Produto::class);
     }
-
-
 }

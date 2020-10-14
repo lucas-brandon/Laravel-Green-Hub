@@ -28,3 +28,9 @@ Route::get ('/estoque/buscar/{id}','Api\EstoqueController@verificar');
 Route::post ('/estoque/salvar/','Api\EstoqueController@salvar');
 Route::put ('/estoque/atualizar/{id}','Api\EstoqueController@atualizar');
 Route::delete ('/estoque/deletar/{id}','Api\EstoqueController@deletar');
+
+//Rotas de Categoria
+Route::get('/categoria/listar', 'Api\CategoriaController@listar');
+Route::post('/categoria/salvar', 'Api\CategoriaController@salvar');
+Route::delete('/categoria/deletar/{id}','Api\CategoriaController@deletar');
+Route::get('/categoria/buscar/{id}', 'Api\CategoriaController@buscar');
