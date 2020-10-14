@@ -8,6 +8,6 @@ class Preco extends Model
 {
     public function Produto()
     {
-        return $this->hasOne('App\Models\Produto');
+        return $this->belongsTo(Produto::class);
     }
 }
