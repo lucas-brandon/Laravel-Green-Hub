@@ -16,4 +16,10 @@ class Estoque extends Model
     {
         return $this->belongsTo(Produto::class);
     }
+    public function nome($id)
+    {
+        return Produto::find($id)->nome;
+    }
+
+    
 }
