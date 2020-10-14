@@ -13,7 +13,7 @@ class CreateImagemProdutosTable extends Migration
      */
     public function up()
     {
-        Schema::create('imagem__produtos', function (Blueprint $table) {
+        Schema::create('imagem_produtos', function (Blueprint $table) {
             $table->foreignId('produto_id');
             $table->string('link_imagem');
             $table->string('descricao');
@@ -31,6 +31,6 @@ class CreateImagemProdutosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('imagem__produtos');
+        Schema::dropIfExists('imagem_produtos');
     }
 }

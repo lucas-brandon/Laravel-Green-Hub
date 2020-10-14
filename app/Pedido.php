@@ -17,9 +17,13 @@ class Pedido extends Model
 
     protected $table = 'pedidos';
 
-    //no fillable tem que ser o mesmo nome de coluna e variavel pra dar match
+    /*
+        $table->foreignId('cliente_id')->nullable();
+        $table->foreignId('status_pedido_id')->nullable();
+        $table->foreignId('pagamento_id')->nullable();
+    */
     protected $fillable = [
-        'nr_pedido', 'dt_pedido',
+        'cliente_id', 'status_pedido_id', 'pagamento_id', 'nr_pedido', 'dt_pedido', 'valor',
     ];
 
     public function pagamento(){

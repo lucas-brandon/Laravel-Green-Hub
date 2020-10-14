@@ -18,7 +18,8 @@ class CreatePrecosTable extends Migration
             $table->float('valor');
             $table->float('desconto');
             $table->boolean('fl_promocao');
-            $table->dateTime('vigencia');
+            $table->date('dt_vigencia_ini');
+            $table->date('dt_vigencia_fim');
             $table->timestamps();
 
             $table->primary('produto_id');
