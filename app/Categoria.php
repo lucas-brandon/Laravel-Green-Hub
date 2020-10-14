@@ -8,14 +8,12 @@ class Categoria extends Model
 {
     //
     protected $table = 'categorias';
-    
-    public function tipo_categoria(){
-        return $this->belongsTo(Categoria::class);
-    }
+
+    protected $fillable = [
+        'descricao'
+    ];
 
     public function produtos(){
         return $this->hasMany(Produto::class);
     }
-
-
 }
