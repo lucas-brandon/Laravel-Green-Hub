@@ -26,6 +26,7 @@ Route::get('/produtos/buscar/{id}', 'Api\ProdutoController@buscar');
 Route::put('/produtos/atualizar/{id}', 'Api\ProdutoController@atualizar');
 Route::delete('/produtos/deletar/{id}', 'Api\ProdutoController@deletar');
 //Estoque
+Route::get ('/estoque/listar/','Api\EstoqueController@listar');
 Route::get ('/estoque/buscar/{id}','Api\EstoqueController@buscar');
 Route::post ('/estoque/salvar/','Api\EstoqueController@salvar');
 Route::put ('/estoque/atualizar/{id}','Api\EstoqueController@atualizar');

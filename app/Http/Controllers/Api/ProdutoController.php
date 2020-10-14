@@ -35,7 +35,7 @@ class ProdutoController extends Controller
             {
                 if ($produto->categoria_id == $categoria->id)
                 {
-                    $dado['categoria'] = $categoria->ds_categoria;
+                    $dado['categoria'] = $categoria->descricao;
                 }    
             }
             foreach ($precos as $preco)
@@ -84,7 +84,7 @@ class ProdutoController extends Controller
         $produto['nm_marca'] = $req['nm_marca'];
         $produto['cd_barra'] = $req['cd_barra'];
 
-        $categoria = Categoria::where('ds_categoria', $req['ds_categoria'])->first();
+        $categoria = Categoria::where('descricao', $req['ds_categoria'])->first();
 
         $produto['categoria_id'] = $categoria['id'];
         
@@ -169,7 +169,7 @@ class ProdutoController extends Controller
         $produto['nm_marca'] = $req['nm_marca'];
         $produto['cd_barra'] = $req['cd_barra'];
 
-        $categoria = Categoria::where('ds_categoria', $req['ds_categoria'])->first();
+        $categoria = Categoria::where('descricao', $req['ds_categoria'])->first();
 
         $produto['categoria_id'] = $categoria['id'];
         

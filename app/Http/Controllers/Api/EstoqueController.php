@@ -12,6 +12,12 @@ use Illuminate\Http\Request;
 
 class EstoqueController extends BaseController
 {
+    public function listar(Request $req)
+    {
+        $dados = Estoque::all();
+
+        return response()->json($dados, 201);
+    }
 
     public function buscar($id)
     {
