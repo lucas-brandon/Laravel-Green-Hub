@@ -25,6 +25,7 @@ class CreatePedidosTable extends Migration
             $table->foreignId('pagamento_id')->nullable();
             $table->bigInteger('nr_pedido');
             $table->date('dt_pedido');
+            $table->float('valor');
 
             $table->foreign('cliente_id')->references('id')->on('clientes');
             $table->foreign('status_pedido_id')->references('id')->on('status_pedidos');
