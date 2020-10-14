@@ -16,7 +16,7 @@ class CartaoClienteController extends BaseController
         $this->classe = CartaoCliente::class;
     }
 
-    public function cadastrar(Request $req)
+    public function salvar(Request $req)
     {
         //$dados = $req->all();
         $dados['id_cliente'] = Cliente::user('id_cliente');
@@ -26,5 +26,56 @@ class CartaoClienteController extends BaseController
         $dados['validade'] = $req->validade;
 
         return response()->json(CartaoCliente::create($dados), 201);
+    }
+
+    public function listar(Request $req) {
+        $array = array();
+        $cartoes = CartaoCliente::all();
+        $clientes = Cliente::all();
+
+        foreach ($cartoes as $cartao) {
+            $dados['id_cliente'] = $cartao->id_cliente;
+            $dados['nr_cartao'] = $cartao->nr_cartao;
+            $dados['nome'] = $cartao->nome;
+            $dados['bandeira'] = $cartao->bandeira;
+            $dados['validade'] = $cartao->validade;
+        }
+        array_push($array, $dados);
+        return response()->json($array, 201);
+    }
+
+    public function editar($id)
+    {
+        $cartao = CartaoCliente::find($id);
+        $cliente = Cliente::where('id_cliente', $id)->first();
+
+        return view('cartoes.editar', compact('cartao', 'cliente'));
+    }
+
+    public function buscar($id)
+    {
+        $dados = CartaoCliente::find($id);
+        if (is_null($dados)) {
+            return response()->json('Cartao não encontrado', 404);
+        }
+
+        return response()->json($dados, 200);
+    }
+
+    public function atualizar(Request $req, $id)
+    {
+        $cartao['nr_cartao'] = $req['nr_cartao'];
+        $cartao['bandeira'] = $req['bandeira'];
+        $cartao['validade'] = $req['validade'];
+
+        $cartaoCliente = CartaoCliente::find($id);
+
+        if (is_null($cartaoCliente)){
+            return response()->json(['erro' => 'Recurso não encontrado'], 404);
+        }
+
+        $cartaoCliente->update($cartao);
+
+        return response()->json($cartao, 200);
     }
 }
