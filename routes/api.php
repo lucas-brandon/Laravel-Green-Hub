@@ -36,3 +36,8 @@ Route::get ('/endereco/buscar/{id}','Api\EnderecoController@buscar');
 Route::post ('/endereco/salvar/','Api\EnderecoController@salvar');
 Route::put ('/endereco/atualizar/{id}','Api\EnderecoController@atualizar');
 Route::delete ('/endereco/deletar/{id}','Api\EnderecoController@deletar');
+//Rotas de Categoria
+Route::get('/categoria/listar', 'Api\CategoriaController@listar');
+Route::post('/categoria/salvar', 'Api\CategoriaController@salvar');
+Route::delete('/categoria/deletar/{id}','Api\CategoriaController@deletar');
+Route::get('/categoria/buscar/{id}', 'Api\CategoriaController@buscar');
