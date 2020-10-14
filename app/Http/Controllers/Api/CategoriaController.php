@@ -11,8 +11,14 @@ use Illuminate\Http\Request;
 
 class CategoriaController extends BaseController
 {
-    public function __construct()
+    //public function __construct()
+    //{
+    //    $this->classe = Categoria::class;
+    //}
+
+    public function listar()
     {
-        $this->classe = Categoria::class;
+        return response()->json(Categoria::all(), 200);
     }
+
 }
