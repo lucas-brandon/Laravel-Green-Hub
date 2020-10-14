@@ -19,7 +19,7 @@ abstract class BaseController extends Controller
             }
         }
 
-        return $this->classe::paginate($req->per_page);
+        return response()->json($this->classe::create($req->per_page), 201);
     }
 
     public function salvar(Request $req)
