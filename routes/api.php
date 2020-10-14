@@ -18,6 +18,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+//Rotas de Categoria
 Route::get('/categoria/listar', 'Api\CategoriaController@listar');
 Route::post('/categoria/salvar', 'Api\CategoriaController@salvar');
 Route::delete('/categoria/deletar/{id}','Api\CategoriaController@deletar');
