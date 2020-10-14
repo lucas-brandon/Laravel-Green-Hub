@@ -9,6 +9,10 @@ class Endereco extends Model
     //
     protected $table = 'enderecos';
 
+    protected $fillable = [
+        'ds_endereco', 'cep', 'numero', 'bairro', 'cidade', 'estado',
+    ];
+
     public function endereco_cliente()
     {
         return $this->hasMany(EnderecoCliente::class);

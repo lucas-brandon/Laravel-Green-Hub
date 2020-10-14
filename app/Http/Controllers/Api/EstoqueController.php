@@ -10,16 +10,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 
-class EstoqueController extends Controller
+class EstoqueController extends BaseController
 {
 
-    public function busca($id)
+    public function buscar($id)
     {
         $estoques = Estoque::all();
 
         foreach ($estoques as $estoque) {
 
-            if ($estoque['id'] == $id) {
+            if ($estoque['produto_id'] == $id) {
                 return response()->json($estoque, 201);
             }
         }
@@ -32,15 +32,16 @@ class EstoqueController extends Controller
 
         foreach ($produtos as $produto) {
 
-            if ($produto['id'] == $req['id']) {
-                $estoque['produto_id'] = $req['id'];
+            if ($produto['id'] == $req['produt_id']) {
+                $estoque['produto_id'] = $req['produt_id'];
                 $estoque['qtd_item'] = $req['qtd_item'];
 
                 Estoque::create($estoque);
 
-                return response()->json('Produto não encontrado', 404);
+                return response()->json($estoque, 201);
             }
         }
+        return response()->json('Produto não encontrado', 404);
     }
 
     public function atualizar(Request $req, $id)
@@ -48,15 +49,25 @@ class EstoqueController extends Controller
         //echo 'salvando no banco';
 
 
-        Estoque::where('produto_id', $id)->update($req->all());
+        $estoque = Estoque::where('produto_id', $req['produto_id']);
+        
+        if(is_null($estoque)){
+            return response()->json('Produto não encontrado. Falha ao atualizar', 404);
+        }
+        $estoque->update($req->all());
 
-        return response()->json($req, 201);
+        return response()->json($req->all(), 200);
     }
 
     public function deletar($id)
     {
-        Estoque::where('produto_id', $id)->delete();
+        $estoque = Estoque::where('produto_id', $id);
 
-        return response()->json('Produto deletado', 404);;
+        if(is_null($estoque)){
+            return response()->json('Produto não encontrado. Falha ao deletar', 404);
+        }
+
+        $estoque->delete();
+        return response()->json('Produto deletado do estoque', 200);
     }
 }
