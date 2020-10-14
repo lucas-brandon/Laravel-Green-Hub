@@ -21,3 +21,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('/categoria/listar', 'Api\CategoriaController@listar');
 Route::post('/categoria/salvar', 'Api\CategoriaController@salvar');
 Route::delete('/categoria/deletar/{id}','Api\CategoriaController@deletar');
+Route::get('/categoria/buscar/{id}', 'Api\CategoriaController@buscar');
