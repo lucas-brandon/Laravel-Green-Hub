@@ -13,9 +13,11 @@ class Produto extends Model
         'nome_produto', 'ds_produto', 'categoria_id', 'nm_marca', 'cd_barra',
     ];
 
+
     public function categorias()
     {
         return $this->belongsTo(Categoria::class);
+
     }
 
     public function imagem_produto()
@@ -41,5 +43,6 @@ class Produto extends Model
     public function nota_item()
     {
         return $this->hasMany(NotaItem::class);
+
     }
 }

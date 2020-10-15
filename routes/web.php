@@ -58,10 +58,13 @@ Route::group(['middleware'=>'auth'], function (){
     Route::delete('/admin/pedidos/deletar/{id}', 'Admin\PedidoController@deletar')->name('admin.pedidos.deletar');
 });
 
+Route::get('/pedido/{id}', 'PedidoController@index');
+Route::post('/pedido', 'PedidoController@criar');
+Route::put('/pedido', 'PedidoController@editar');
+
 Auth::routes();
 
 //Route::get('/home', 'Admin\HomeController@index')->name('home');
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
