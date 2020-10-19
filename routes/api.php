@@ -70,9 +70,27 @@ Route::get('/pagamento/buscar/{id}', 'Api\PagamentoController@buscar');
 Route::put('/pagamento/atualizar/{id}', 'Api\PagamentoController@atualizar');
 Route::delete('/pagamento/deletar/{id}', 'Api\PagamentoController@deletar');
 
-//Fornecedores
+//Tipo de Contatos
 Route::get('/tipoContatos/listar', 'Api\TipoContatoController@listar');
 Route::post('/tipoContatos/salvar', 'Api\TipoContatoController@salvar');
 Route::get('/tipoContatos/buscar/{id}', 'Api\TipoContatoController@buscar');
 Route::put('/tipoContatos/atualizar/{id}', 'Api\TipoContatoController@atualizar');
 Route::delete('/tipoContatos/deletar/{id}', 'Api\TipoContatoController@deletar');
+
+//Cliente
+Route::get('/clientes/listar', 'Api\ClienteController@listar');
+Route::post('/clientes/salvar', 'Api\ClienteController@salvar');
+Route::get('/clientes/buscar/{id}', 'Api\ClienteController@buscar');
+Route::put('/clientes/atualizar/{id}', 'Api\ClienteController@atualizar');
+Route::delete('/clientes/deletar/{id}', 'Api\ClienteController@deletar');
+
+
+//Pedido
+Route::post('/pedidos/salvar/','Api\PedidoController@cadastro');
+Route::get('/pedidos/listar/','Api\PedidoController@listar');
+Route::get('/pedidos/listarProdutos/{id}','Api\PedidoController@listarProdutos');
+Route::delete('/pedidos/deletar/{id}','Api\PedidoController@deletar');
+
+//Pedido Item
+Route::get('/pedidoItens/listar/','Api\PedidoItemController@listar');
+Route::delete('/pedidoItens/deletar/','Api\PedidoItemController@deletar');

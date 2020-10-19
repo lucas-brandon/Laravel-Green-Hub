@@ -14,6 +14,16 @@ class CreatePedidoItensTable extends Migration
     public function up()
     {
         Schema::create('pedido_itens', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('pedido_id');
+            $table->foreignId('produto_id');
+            $table->string('valor_unitario');
+            $table->foreignId('qtd_item');
+
+            //$table->primary('pedido_id', 'produto_id');
+            $table->foreign('pedido_id')->references('id')->on('pedidos');
+            $table->foreign('produto_id')->references('id')->on('produtos');
+            /*
             $table->foreignId('pedido_id');
             $table->foreignId('produto_id');
             $table->string('valor_unitario');
@@ -22,6 +32,7 @@ class CreatePedidoItensTable extends Migration
             $table->primary('pedido_id', 'produto_id');
             $table->foreign('pedido_id')->references('id')->on('pedidos');
             $table->foreign('produto_id')->references('id')->on('produtos');
+            */
             $table->timestamps();
         });
     }

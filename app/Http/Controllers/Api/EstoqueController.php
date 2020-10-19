@@ -36,8 +36,8 @@ class EstoqueController extends BaseController
 
         foreach ($produtos as $produto) {
 
-            if ($produto['id'] == $req['produt_id']) {
-                $estoque['produto_id'] = $req['produt_id'];
+            if ($produto['id'] == $req['produto_id']) {
+                $estoque['produto_id'] = $req['produto_id'];
                 $estoque['qtd_item'] = $req['qtd_item'];
 
                 Estoque::create($estoque);
