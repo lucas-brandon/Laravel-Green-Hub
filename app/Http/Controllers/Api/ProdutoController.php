@@ -24,7 +24,7 @@ class ProdutoController extends Controller
         $precos = Preco::all();
         $categorias = Categoria::all();
         $imagensProdutos = ImagemProduto::all();
-        $itensEstoque = Estoque::all();
+        
         
         foreach($produtos as $produto)
         {
@@ -50,13 +50,6 @@ class ProdutoController extends Controller
                 }
             }
             $dado['cd_barra'] = $produto->cd_barra;
-            foreach($itensEstoque as $item)
-            {
-                if ($item->produto_id == $produto->id)
-                {
-                    $dado['qtd_item_estoque'] = $item->qtd_item;
-                }
-            }
             
             foreach($imagensProdutos as $imagem)
             {
@@ -106,11 +99,6 @@ class ProdutoController extends Controller
         //dd($req['fl_promocao']);
 
         Preco::create($preco);
-
-        $produtoEstoque['produto_id'] = $produtoBanco['id'];
-        $produtoEstoque['qtd_item'] = $req['qtd_item_estoque'];
-
-        Estoque::create($produtoEstoque);
         
         if ($req->hasFile('imagem')) {
             $imagemProduto['produto_id'] = $produtoBanco['id'];
@@ -124,7 +112,6 @@ class ProdutoController extends Controller
         $dado['ds_categoria'] = $req['ds_categoria'];
         $dado['valor'] = $preco['valor'];
         $dado['fl_promocao'] = $preco['fl_promocao'];
-        $dado['qtd_item_estoque'] = $req['qtd_item_estoque'];
 
         
 
@@ -184,8 +171,6 @@ class ProdutoController extends Controller
             $preco['fl_promocao'] = true;
         }
 
-        $produtoEstoque['qtd_item'] = $req['qtd_item_estoque'];
-
         //$produtoBanco = Produto::create($produto);
         $produtoBanco = Produto::find($id);
 
@@ -196,7 +181,6 @@ class ProdutoController extends Controller
         $produtoBanco->update($produto);
         $preco['produto_id'] = $id;
         Preco::where('produto_id', $id)->update($preco);
-        Estoque::where('produto_id', $id)->update($produtoEstoque);
 
         $dado = $produtoBanco;
         $dado['categoria_id'] = $categoria['id'];

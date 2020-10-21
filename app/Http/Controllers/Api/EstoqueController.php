@@ -17,13 +17,8 @@ class EstoqueController extends BaseController
         $this->classe = Estoque::class;
     }
 
-<<<<<<< HEAD
 
-
-    public function busca($id)
-=======
     public function buscar($id)
->>>>>>> 47ca3b1d68ce96b9f531e1395e417d8bdeff0fd0
     {
         $estoques = Estoque::all();
 
@@ -42,8 +37,8 @@ class EstoqueController extends BaseController
 
         foreach ($produtos as $produto) {
 
-            if ($produto['id'] == $req['produt_id']) {
-                $estoque['produto_id'] = $req['produt_id'];
+            if ($produto['id'] == $req['produto_id']) {
+                $estoque['produto_id'] = $req['produto_id'];
                 $estoque['qtd_item'] = $req['qtd_item'];
 
                 Estoque::create($estoque);
@@ -60,8 +55,8 @@ class EstoqueController extends BaseController
 
 
         $estoque = Estoque::where('produto_id', $req['produto_id']);
-        
-        if(is_null($estoque)){
+
+        if (is_null($estoque)) {
             return response()->json('Produto não encontrado. Falha ao atualizar', 404);
         }
         $estoque->update($req->all());
@@ -73,15 +68,10 @@ class EstoqueController extends BaseController
     {
         $estoque = Estoque::where('produto_id', $id);
 
-        if(is_null($estoque)){
+        if (is_null($estoque)) {
             return response()->json('Produto não encontrado. Falha ao deletar', 404);
         }
-
-<<<<<<< HEAD
-        return response()->json('Produto deletado', 404);
-=======
         $estoque->delete();
         return response()->json('Produto deletado do estoque', 200);
->>>>>>> 47ca3b1d68ce96b9f531e1395e417d8bdeff0fd0
     }
 }
