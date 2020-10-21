@@ -87,3 +87,6 @@ Route::delete('/pedidos/deletar/{id}','Api\PedidoController@deletar');
 //Pedido Item
 Route::get('/pedidoItens/listar/','Api\PedidoItemController@listar');
 Route::delete('/pedidoItens/deletar/','Api\PedidoItemController@deletar');
+
+//Estoque
+Route::get('/estoque/listar/','Api\EstoqueController@listar');

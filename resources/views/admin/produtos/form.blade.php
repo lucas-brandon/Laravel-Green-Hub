@@ -13,7 +13,7 @@
     <label for="categoria">Categoria</label>
     <select class="form-control" id="categoria" name="categoria">
         @foreach ($categorias as $categoria)
-            <option>{{ $categoria->ds_categoria }}</option>
+            <option>{{ $categoria->descricao }}</option>
         @endforeach
     </select>
 </div>
@@ -51,10 +51,20 @@
 </div>
 
 <div class="form-group">
-    <label for="categoria">Quantidade</label>
-    <select class="form-control" id="qtd_item" name="qtd_item">
-        @foreach ($estoques as $estoque)
-            <option>{{ $estoque->qtd_item }}</option>
-        @endforeach
-    </select>
+
+    <label for="estoques">Quantidade</label>
+  
+    @if(Isset($produto))
+      @foreach ($estoques as $estoque)
+        @if ($estoque->produto_id == $produto->id)
+            <input type="number" class="form-control" id="qtd_item" name="qtd_item"
+                value="{{ $estoque->qtd_item ?? '' }}">
+        @endif
+    @endforeach
+    @else 
+    <input type="number" class="form-control" id="qtd_item" name="qtd_item"
+    value="">  
+    @endif
+
+    
 </div>
