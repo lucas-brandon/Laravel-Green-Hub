@@ -13,13 +13,8 @@ abstract class BaseController extends Controller
     public function listar(Request $req)
     {
         $dados = $this->classe::all();
-        if ($dados['imagem'] != '') {
-            foreach ($dados as $dado) {
-                $dado['imagem'] = url($dado['imagem']);
-            }
-        }
 
-        return response()->json($this->classe::create($req->per_page), 201);
+        return response()->json($dados, 201);
     }
 
     public function salvar(Request $req)
