@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 class EstoqueController extends Controller
 {
 
+
+
     public function busca($id)
     {
         $estoques = Estoque::all();
@@ -38,9 +40,10 @@ class EstoqueController extends Controller
 
                 Estoque::create($estoque);
 
-                return response()->json('Produto não encontrado', 404);
+                return response()->json($estoque, 201);
             }
         }
+        return response()->json('Produto não encontrado', 404);
     }
 
     public function atualizar(Request $req, $id)
@@ -57,6 +60,6 @@ class EstoqueController extends Controller
     {
         Estoque::where('produto_id', $id)->delete();
 
-        return response()->json('Produto deletado', 404);;
+        return response()->json('Produto deletado', 404);
     }
 }

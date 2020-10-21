@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Produto;
 use App\Preco;
 use App\Categoria;
+use App\Estoque;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -16,15 +17,17 @@ class ProdutoController extends Controller
         $produtos = Produto::all();
         $precos = Preco::all();
         $categorias = Categoria::all();
+        $estoque = Estoque::all();
         $mensagem = $req->session()->get('mensagem');
-        return view('admin.produtos.index', compact('produtos', 'precos', 'categorias', 'mensagem'));
+        return view('admin.produtos.index', compact('produtos', 'precos', 'categorias', 'mensagem', 'estoques'));
     }
 
 
     public function adicionar()
     {
         $categorias = Categoria::all();
-        return view('admin.produtos.adicionar', compact('categorias'));
+        $estoque = Estoque::all();
+        return view('admin.produtos.adicionar', compact('categorias','estoques'));
     }
 
     public function salvar(Request $req)
@@ -38,6 +41,8 @@ class ProdutoController extends Controller
         $produto['ds_produto'] = $req['ds_produto'];
         $produto['nm_marca'] = $req['nm_marca'];
         $produto['cd_barra'] = $req['cd_barra'];
+
+        
 
         $categoria = Categoria::where('ds_categoria', $req['ds_categoria'])->first();
 
@@ -57,10 +62,17 @@ class ProdutoController extends Controller
 
         $produtoBanco = Produto::create($produto);
         $preco['produto_id'] = $produtoBanco['id'];
+        
+        $estoque['produto_id'] = $produtoBanco['id'];
+        $estoque['qtd_item'] = $req['quantidade'];
+
+        Estoque::create($estoque);
 
         //dd($req['fl_promocao']);
 
         Preco::create($preco);
+
+        
 
         //Cria uma variavel mensagem na sessão atual
         $req->session()->flash('mensagem', 'Produto cadastrado com sucesso');
@@ -73,7 +85,8 @@ class ProdutoController extends Controller
         $produto = Produto::find($id);
         $preco = Preco::where('produto_id', $id)->first();
         $categorias = Categoria::all();
-        return view('admin.produtos.editar', compact('produto', 'preco', 'categorias'));
+        $estoque = Estoque::all();
+        return view('admin.produtos.editar', compact('produto', 'preco', 'categorias', 'estoques'));
     }
 
     public function atualizar(Request $req, $id)
@@ -109,6 +122,9 @@ class ProdutoController extends Controller
         $preco['produto_id'] = $id;
         Preco::where('produto_id', $id)->update($preco);
 
+        $quantidade = $req['qtd_item'];
+        Estoque::where('produto_id', $id)->update($quantidade);
+
         //Cria uma variavel mensagem na sessão atual
         $req->session()->flash('mensagem', 'Produto editado com sucesso');
 
@@ -119,6 +135,7 @@ class ProdutoController extends Controller
     {
         $produto = Produto::find($id);
         $preco = Preco::where('produto_id', $id)->delete();
+        $estoque = Estoque::where('produto_id', $id)->delete();
         
         $produto->delete();
 
