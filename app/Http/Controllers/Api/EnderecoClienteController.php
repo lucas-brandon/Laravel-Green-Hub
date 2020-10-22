@@ -27,10 +27,10 @@ class EnderecoClienteController extends BaseController
         return response()->json(EnderecoCliente::create($dados), 201);
     }
 
-    public function listar($id)
+    public function listar($idCliente)
     {
         $enderecoCliente = [];
-        $cliente = Cliente::find($id);
+        $cliente = Cliente::find($idCliente);
         $enderecos = EnderecoCliente::all();
         foreach($enderecos as $endereco) {
             if($endereco['id_cliente'] == $cliente){
@@ -43,7 +43,7 @@ class EnderecoClienteController extends BaseController
     public function buscar($idEnd)
     {
         if ($endereco = EnderecoCliente::find($idEnd)){
-            return response()->json($endereco, 200);;
+            return response()->json($endereco, 200);
         } else {
             return response()->json('Endereço não encontrado', 404);
         }

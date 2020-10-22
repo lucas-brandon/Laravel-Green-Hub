@@ -62,6 +62,24 @@ Route::get('/pedido/{id}', 'PedidoController@index');
 Route::post('/pedido', 'PedidoController@criar');
 Route::put('/pedido', 'PedidoController@editar');
 
+//Login
+Route::post('/login/cadastrar', 'LoginController@cadastrar');
+Route::get('/login/logIn', 'LoginController@logIn');
+
+//EndereçoCliente
+Route::get('/enderecoCliente/listar/{idCliente}', 'EnderecoClienteController@listar');
+Route::get('/enderecoCliente/buscar/{idEnd}', 'EnderecoClienteController@buscar');
+Route::post('/enderecoCliente/salvar', 'EnderecoClienteController@salvar');
+Route::delete('/enderecoCliente/deletar', 'EnderecoClienteController@deletar');
+
+//CartaoCliente
+Route::get('/cartaoCliente/listar', 'CartaoClienteController@listar');
+Route::get('/cartaoCliente/buscar/{id_cliente}', 'CartaoClienteController@buscar');
+Route::post('/cartaoCliente/salvar', 'CartaoClienteController@salvar');
+Route::put('/cartaoCliente/atualizar/{id_cliente}', 'CartaoClienteController@atualizar');
+Route::put('/cartaoCliente/editar/{id_cliente}', 'CartaoClienteController@editar');
+Route::delete('/cartaoCliente/deletar/{id_cliente}', 'CartaoClienteController@deletar');
+
 Auth::routes();
 
 //Route::get('/home', 'Admin\HomeController@index')->name('home');

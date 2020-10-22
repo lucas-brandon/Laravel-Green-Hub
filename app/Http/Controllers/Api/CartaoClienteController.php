@@ -6,7 +6,7 @@ use App\CartaoCliente;
 use App\Cliente;
 use http\Env\Response;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Auth;
+use App\Http\Controllers\Auth\Auth;
 use Illuminate\Http\Request;
 
 class CartaoClienteController extends BaseController
@@ -18,10 +18,10 @@ class CartaoClienteController extends BaseController
 
     public function salvar(Request $req)
     {
-        //$dados = $req->all();
-        $dados['id_cliente'] = Cliente::user('id_cliente');
+        $dados = $req->all();
+        $dados['id_cliente'] = Auth::user()->id_cliente;
         $dados['nr_cartao'] = $req->nr_cartao;
-        $dados['nome'] = Cliente::user('nome');
+        $dados['nome'] = Auth::user()->nome;
         $dados['bandeira'] = $req->bandeira;
         $dados['validade'] = $req->validade;
 
@@ -77,5 +77,15 @@ class CartaoClienteController extends BaseController
         $cartaoCliente->update($cartao);
 
         return response()->json($cartao, 200);
+    }
+
+    public function deletar($id)
+    {
+        $cartaoCliente = CartaoCliente::find($id);
+        if (is_null($cartaoCliente)) {
+            return response()->json(['erro' => 'Cartão não encontrado'], 404);
+        }
+        $cartaoCliente->delete();
+        return response()->json('Cartão Removido', 200);
     }
 }
