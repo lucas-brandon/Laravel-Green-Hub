@@ -22,7 +22,9 @@
                         <th scope="col">Marca</th>
                         <th scope="col">Preço (R$)</th>
                         <th scope="col">Código de Barra</th>
+                        <th scope="col">Quantidade</th>
                         <th scope="col">Ações</th>
+                        
                     </tr>
                 </thead>
                 <tbody>
@@ -37,6 +39,11 @@
                                 @endif
                             @endforeach
                             <td>{{ $produto->cd_barra }}</td>
+                            @foreach ($estoques as $estoque)
+                            @if ($produto->id == $estoque->produto_id)
+                                <td>{{ $estoque->qtd_item }}</td>
+                            @endif
+                        @endforeach
                             <td>
                                 <a class="btn btn-primary" href="{{route('admin.produtos.editar', $produto->id)}}">Editar</a>
 
@@ -46,6 +53,7 @@
                                     <button type="submit" class="btn btn-danger">Deletar</button>
                                 </form>
                             </td>
+
                         </tr>
                     @endforeach
                 </tbody>
