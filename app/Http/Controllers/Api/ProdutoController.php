@@ -25,6 +25,7 @@ class ProdutoController extends Controller
         $categorias = Categoria::all();
         $imagensProdutos = ImagemProduto::all();
         
+        
         foreach($produtos as $produto)
         {
             $dado['id'] = $produto->id;

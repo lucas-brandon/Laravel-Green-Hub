@@ -27,17 +27,10 @@ Route::get('/produtos/buscarNome/{id}', 'Api\ProdutoController@buscarNome');
 Route::put('/produtos/atualizar/{id}', 'Api\ProdutoController@atualizar');
 Route::delete('/produtos/deletar/{id}', 'Api\ProdutoController@deletar');
 
-//Estoque
-Route::get ('/estoque/listar/','Api\EstoqueController@listar');
-Route::get ('/estoque/buscar/{id}','Api\EstoqueController@buscar');
-Route::post ('/estoque/salvar/','Api\EstoqueController@salvar');
-Route::put ('/estoque/atualizar/{id}','Api\EstoqueController@atualizar');
-Route::delete ('/estoque/deletar/{id}','Api\EstoqueController@deletar');
-
 //Endereço
 Route::get('/endereco/listar', 'Api\EnderecoController@listar');
 Route::get ('/endereco/buscar/{id}','Api\EnderecoController@buscar');
-Route::post ('/endereco/salvar/','Api\EnderecoController@salvar');
+Route::post ('//salvar/','Api\EnderecoController@salvar');
 Route::put ('/endereco/atualizar/{id}','Api\EnderecoController@atualizar');
 Route::delete ('/endereco/deletar/{id}','Api\EnderecoController@deletar');
 
@@ -94,3 +87,6 @@ Route::delete('/pedidos/deletar/{id}','Api\PedidoController@deletar');
 //Pedido Item
 Route::get('/pedidoItens/listar/','Api\PedidoItemController@listar');
 Route::delete('/pedidoItens/deletar/','Api\PedidoItemController@deletar');
+
+//Estoque
+Route::get('/estoque/listar/','Api\EstoqueController@listar');

@@ -10,6 +10,7 @@ use App\PedidoItem;
 use App\StatusPedido;
 use App\Pagamento;
 use App\Preco;
+use App\Estoque;
 use Illuminate\Http\Request;
 
 class PedidoController extends BaseController
@@ -38,6 +39,13 @@ class PedidoController extends BaseController
 
     public function cadastro(Request $req)
     {
+        $produtos = $req['produtos'];
+        foreach ($produtos as $produto) {
+            $estoqueBanco =  Estoque::where('produto_id', $produto['id'])->first();
+            if ($estoqueBanco['qtd_item'] < $produto['qtd_item']) {
+                return response()->json('Quantidade indisponivel', 400);
+            }
+        }
         //$produtos = $req->all();
         $status = StatusPedido::where('ds_status', 'Em Andamento')->first();
 
@@ -53,19 +61,26 @@ class PedidoController extends BaseController
 
         $pedidoBanco = Pedido::create($pedido);
 
-        $produtos = $req['produtos'];
+
         $valorTotal = 0;
-        foreach($produtos as $produto){
+        foreach ($produtos as $produto) {
             $item['pedido_id'] = $pedidoBanco['id'];
             $item['produto_id'] = $produto['id'];
             $item['valor_unitario'] = Preco::where('produto_id', $produto['id'])->first()['valor'];
             $item['qtd_item'] = $produto['qtd_item'];
+
+            $estoqueBanco =  Estoque::where('produto_id', $produto['id'])->first();
+            $estoque['qtd_item'] = $estoqueBanco['qtd_item'] - $item['qtd_item'];
+            $estoque['produto_id'] = $estoqueBanco['produto_id'];
+            Estoque::where('produto_id', $produto['id'])->update($estoque);
+
 
             PedidoItem::create($item);
 
             $valorTotal += $item['valor_unitario'] * $item['qtd_item'];
             //return response()->json($produto, 200);
         }
+
 
         $valorTotal += $frete;
         $pedido['valor'] = $valorTotal;
@@ -80,8 +95,7 @@ class PedidoController extends BaseController
         $pedidos = Pedido::all();
         $dados = array();
 
-        foreach($pedidos as $pedido)
-        {
+        foreach ($pedidos as $pedido) {
             $status = StatusPedido::where('id', $pedido['status_pedido_id'])->first();
 
             $pedido['ds_status'] = $status['ds_status'];
@@ -99,10 +113,8 @@ class PedidoController extends BaseController
         $pedidoItens = PedidoItem::all();
         $dados = array();
 
-        foreach($pedidoItens as $item)
-        {
-            if($item['pedido_id'] == $id)
-            {
+        foreach ($pedidoItens as $item) {
+            if ($item['pedido_id'] == $id) {
                 array_push($dados, $item);
             }
         }
