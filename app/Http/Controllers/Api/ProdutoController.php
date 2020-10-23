@@ -129,6 +129,9 @@ class ProdutoController extends Controller
             return response()->json('Produto não encontrado', 404);
         }
 
+        $preco = Preco::where('produto_id', $id)->first();
+        $dados['valor'] = $preco['valor'];
+
         return response()->json($dados, 200);
     }
 

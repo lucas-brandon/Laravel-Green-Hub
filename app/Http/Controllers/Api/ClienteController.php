@@ -52,7 +52,21 @@ class ClienteController extends BaseController
         //Cria uma variavel mensagem na sessão atual
         $req->session()->flash('mensagem', 'Cliente cadastrado com sucesso');
 
-        return redirect()->route('admin.clientes.index');
+        //return redirect()->route('admin.clientes.index');
+        return response()->json($cliente, 200);
+    }
+
+    public function buscarNome($nome)
+    {
+        $cliente = Cliente::where('nome', $nome)->first();
+
+        if(is_null($cliente))
+        {
+            return response()->json('Cliente não encontrado', 404);
+        }
+
+        return response()->json($cliente, 200);
+
     }
     
     public function atualizar(Request $req, $id)
@@ -65,6 +79,8 @@ class ClienteController extends BaseController
         //Cria uma variavel mensagem na sessão atual
         $req->session()->flash('mensagem', 'Cliente editado com sucesso');
 
-        return redirect()->route('admin.clientes.index');
+        //return redirect()->route('admin.clientes.index');
+
+        return response()->json($cliente, 200);
     }
 }

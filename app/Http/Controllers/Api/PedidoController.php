@@ -86,7 +86,7 @@ class PedidoController extends BaseController
 
             $pedido['ds_status'] = $status['ds_status'];
 
-            dd($pedido);
+            //dd($pedido);
 
             array_push($dados, $pedido);
         }
