@@ -59,4 +59,27 @@ class CategoriaController extends Controller
 
         return response()->json($valor, 200);
     }
+    
+    public function buscaTermo(Request $req)
+    {        
+
+    $categorias = Categoria::all();
+    $produtos = Produto::all();
+
+    foreach($categorias as $ctg)
+    {
+        if($req->descricao == $ctg->descricao){
+            return response()->json($ctg, 200);
+        }           
+    } 
+    
+    foreach($produtos as $prod)
+    {
+        if($req->nome_produto == $prod->nome_produto){
+            return response()->json($prod, 200);
+        }           
+    }
+    return response()->json('Item não encontrado', 404);
+    
+    }
 }
