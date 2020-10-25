@@ -6,21 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pedido extends Model
 {
-    /*
-    $table->id();
-    $table->foreignId('cliente_id');
-    $table->foreignId('status_pedido_id');
-    $table->foreignId('pagamento_id');
-    $table->bigInteger('nr_pedido');
-    $table->date('dt_pedido');
-    */
 
     protected $table = 'pedidos';
 
     /*
         $table->foreignId('cliente_id')->nullable();
-        $table->foreignId('status_pedido_id')->nullable();
-        $table->foreignId('pagamento_id')->nullable();
+            $table->foreignId('status_pedido_id')->nullable();
+            $table->foreignId('pagamento_id')->nullable();
+            $table->bigInteger('nr_pedido');
+            $table->date('dt_pedido');
+            $table->float('valor');
     */
     protected $fillable = [
         'cliente_id', 'status_pedido_id', 'pagamento_id', 'nr_pedido', 'dt_pedido', 'valor',

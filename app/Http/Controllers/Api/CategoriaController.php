@@ -8,39 +8,15 @@ use http\Env\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class CategoriaController extends Controller
+class CategoriaController extends BaseController
 {
 
-    public function listar()
+    public function __construct()
     {
-        $categorias = Categoria::all();
+        $this->classe = Categoria::class;
+    }  
 
-        return response()->json($categorias, 201);
-
-    }
-
-    public function salvar(Request $req)
-    {
-        $dados = $req->all();
-
-        return response()->json(Categoria::create($dados), 201);
-    }
-
-    public function deletar($id)
-    {
-        $categoria = Categoria::find($id);
-
-        if (is_null($categoria)){
-            return response()->json(['erro' => 'Recurso não encontrado'], 404);
-        }
-
-        $categoria->delete();
-
-        return response()->json('Item Removido', 200);
-    }
-
-
-    public function buscar($id)
+    public function buscarProdutos($id)
     {
         $categoria = Categoria::find($id);
 

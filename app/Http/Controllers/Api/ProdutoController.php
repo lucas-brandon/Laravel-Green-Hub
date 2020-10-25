@@ -24,7 +24,7 @@ class ProdutoController extends Controller
         $precos = Preco::all();
         $categorias = Categoria::all();
         $imagensProdutos = ImagemProduto::all();
-        $itensEstoque = Estoque::all();
+        
         
         foreach($produtos as $produto)
         {
@@ -35,7 +35,7 @@ class ProdutoController extends Controller
             {
                 if ($produto->categoria_id == $categoria->id)
                 {
-                    $dado['categoria'] = $categoria->ds_categoria;
+                    $dado['categoria'] = $categoria->descricao;
                 }    
             }
             foreach ($precos as $preco)
@@ -50,13 +50,6 @@ class ProdutoController extends Controller
                 }
             }
             $dado['cd_barra'] = $produto->cd_barra;
-            foreach($itensEstoque as $item)
-            {
-                if ($item->produto_id == $produto->id)
-                {
-                    $dado['qtd_item_estoque'] = $item->qtd_item;
-                }
-            }
             
             foreach($imagensProdutos as $imagem)
             {
@@ -74,17 +67,17 @@ class ProdutoController extends Controller
 
     public function salvar(Request $req)
     {   
-
-        /*categoria: ds_categoria
-        produto: 'nome_produto', 'ds_produto', 'categoria_id', 'nm_marca', 'cd_barra',
-        preco: 'produto_id', 'valor', 'desconto', 'fl_promocao', 'dt_vigencia_ini', 'dt_vigencia_fim',
-        */
         $produto['nome_produto'] = $req['nome_produto'];
         $produto['ds_produto'] = $req['ds_produto'];
         $produto['nm_marca'] = $req['nm_marca'];
         $produto['cd_barra'] = $req['cd_barra'];
 
-        $categoria = Categoria::where('ds_categoria', $req['ds_categoria'])->first();
+        $categoria = Categoria::where('descricao', $req['ds_categoria'])->first();
+
+        if(is_null($categoria))
+        {
+            return response()->json('Categoria inválida', 200);
+        }
 
         $produto['categoria_id'] = $categoria['id'];
         
@@ -106,11 +99,6 @@ class ProdutoController extends Controller
         //dd($req['fl_promocao']);
 
         Preco::create($preco);
-
-        $produtoEstoque['produto_id'] = $produtoBanco['id'];
-        $produtoEstoque['qtd_item'] = $req['qtd_item_estoque'];
-
-        Estoque::create($produtoEstoque);
         
         if ($req->hasFile('imagem')) {
             $imagemProduto['produto_id'] = $produtoBanco['id'];
@@ -124,7 +112,6 @@ class ProdutoController extends Controller
         $dado['ds_categoria'] = $req['ds_categoria'];
         $dado['valor'] = $preco['valor'];
         $dado['fl_promocao'] = $preco['fl_promocao'];
-        $dado['qtd_item_estoque'] = $req['qtd_item_estoque'];
 
         
 
@@ -135,21 +122,20 @@ class ProdutoController extends Controller
         //return redirect()->route('admin.produtos.index');
         return response()->json($dado, 201);
     }
-    
-    public function editar($id)
-    {
-        $produto = Produto::find($id);
-        $preco = Preco::where('produto_id', $id)->first();
-        $categorias = Categoria::all();
-        $produtoEstoque = Estoque::where('produto_id', $id)->first();
-
-
-        return view('admin.produtos.editar', compact('produto', 'preco', 'categorias'));
-    }
 
     public function buscar($id)
     {
         $dados = Produto::find($id);
+        if (is_null($dados)) {
+            return response()->json('Produto não encontrado', 404);
+        }
+
+        return response()->json($dados, 200);
+    }
+
+    public function buscarNome($nome)
+    {
+        $dados = Produto::where('nome_produto', $nome)->get();
         if (is_null($dados)) {
             return response()->json('Produto não encontrado', 404);
         }
@@ -169,7 +155,7 @@ class ProdutoController extends Controller
         $produto['nm_marca'] = $req['nm_marca'];
         $produto['cd_barra'] = $req['cd_barra'];
 
-        $categoria = Categoria::where('ds_categoria', $req['ds_categoria'])->first();
+        $categoria = Categoria::where('descricao', $req['ds_categoria'])->first();
 
         $produto['categoria_id'] = $categoria['id'];
         
@@ -185,19 +171,16 @@ class ProdutoController extends Controller
             $preco['fl_promocao'] = true;
         }
 
-        $produtoEstoque['qtd_item'] = $req['qtd_item_estoque'];
-
         //$produtoBanco = Produto::create($produto);
         $produtoBanco = Produto::find($id);
 
         if (is_null($produtoBanco)){
-            return response()->json(['erro' => 'Recurso não encontrado'], 404);
+            return response()->json(['erro' => 'Produto não encontrado'], 404);
         }
 
         $produtoBanco->update($produto);
         $preco['produto_id'] = $id;
         Preco::where('produto_id', $id)->update($preco);
-        Estoque::where('produto_id', $id)->update($produtoEstoque);
 
         $dado = $produtoBanco;
         $dado['categoria_id'] = $categoria['id'];
@@ -212,13 +195,17 @@ class ProdutoController extends Controller
     public function deletar(Request $req, $id)
     {
         $produto = Produto::find($id);
-        $preco = Preco::where('produto_id', $id)->delete();
         
+        if (is_null($produto)) {
+            return response()->json(['erro' => 'Produto não encontrado'], 404);
+        }
+
+        Estoque::where('produto_id', $id)->delete();
+        Preco::where('produto_id', $id)->delete();
+
         $produto->delete();
 
-        $req->session()->flash('mensagem', 'Produto deletado com sucesso');
-
-        return redirect()->route('admin.produtos.index');
+        return response()->json('Produto Removido', 200);
     }
 
     public function tratarImagem(Request $req)
