@@ -2,39 +2,42 @@
 
 <div class="form-group">
     <label for="nome_produto">Nome</label>
-<input type="text" class="form-control" id="nome_produto" name="nome_produto" value="{{$produto->nome_produto ?? ''}}">
+    <input type="text" class="form-control" id="nome_produto" name="nome_produto"
+        value="{{ $produto->nome_produto ?? '' }}">
 </div>
 <div class="form-group">
     <label for="ds_produto">Descrição</label>
-    <input type="text" class="form-control" id="ds_produto" name="ds_produto" value="{{$produto->ds_produto ?? ''}}">
+    <input type="text" class="form-control" id="ds_produto" name="ds_produto" value="{{ $produto->ds_produto ?? '' }}">
 </div>
 <div class="form-group">
     <label for="categoria">Categoria</label>
-    <select class="form-control" id="categoria" name="categoria">      
-      @foreach ($categorias as $categoria)
-        <option>{{$categoria->ds_categoria}}</option>
-      @endforeach
+    <select class="form-control" id="categoria" name="categoria">
+        @foreach ($categorias as $categoria)
+            <option>{{ $categoria->descricao }}</option>
+        @endforeach
     </select>
 </div>
 <div class="form-group">
     <label for="nm_marca">Marca</label>
-    <input type="text" class="form-control" id="nm_marca" name="nm_marca" value="{{$produto->nm_marca ?? ''}}">
+    <input type="text" class="form-control" id="nm_marca" name="nm_marca" value="{{ $produto->nm_marca ?? '' }}">
 </div>
 <div class="form-group">
     <label for="valor">Preço (R$)</label>
-    <input type="number" class="form-control" id="valor" name="valor" value="{{$preco->valor ?? ''}}">
+    <input type="number" class="form-control" id="valor" name="valor" value="{{ $preco->valor ?? '' }}">
 </div>
 <div class="form-group">
     <label for="desconto">Desconto (%)</label>
-    <input type="number" class="form-control" id="desconto" name="desconto" value="{{$preco->desconto ?? ''}}">
+    <input type="number" class="form-control" id="desconto" name="desconto" value="{{ $preco->desconto ?? '' }}">
 </div>
 <div class="form-group">
     <label for="dt_vigencia_ini">Data de vigência inicial do preço</label>
-    <input type="date" class="form-control" id="dt_vigencia_ini" name="dt_vigencia_ini" value="{{$preco->dt_vigencia_ini ?? ''}}">
+    <input type="date" class="form-control" id="dt_vigencia_ini" name="dt_vigencia_ini"
+        value="{{ $preco->dt_vigencia_ini ?? '' }}">
 </div>
 <div class="form-group">
     <label for="dt_vigencia_fim">Data de vigência final do preço</label>
-    <input type="date" class="form-control" id="dt_vigencia_fim" name="dt_vigencia_fim" value="{{$preco->dt_vigencia_fim ?? ''}}">
+    <input type="date" class="form-control" id="dt_vigencia_fim" name="dt_vigencia_fim"
+        value="{{ $preco->dt_vigencia_fim ?? '' }}">
 </div>
 <div class="form-group">
     <div class="form-check form-check-inline">
@@ -44,5 +47,24 @@
 </div>
 <div class="form-group">
     <label for="cd_barra">Código de Barra</label>
-    <input type="text" class="form-control" id="cd_barra" name="cd_barra" value="{{$produto->cd_barra ?? ''}}">
+    <input type="text" class="form-control" id="cd_barra" name="cd_barra" value="{{ $produto->cd_barra ?? '' }}">
+</div>
+
+<div class="form-group">
+
+    <label for="estoques">Quantidade</label>
+  
+    @if(Isset($produto))
+      @foreach ($estoques as $estoque)
+        @if ($estoque->produto_id == $produto->id)
+            <input type="number" class="form-control" id="qtd_item" name="qtd_item"
+                value="{{ $estoque->qtd_item ?? '' }}">
+        @endif
+    @endforeach
+    @else 
+    <input type="number" class="form-control" id="qtd_item" name="qtd_item"
+    value="">  
+    @endif
+
+    
 </div>

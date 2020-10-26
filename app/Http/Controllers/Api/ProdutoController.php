@@ -25,6 +25,7 @@ class ProdutoController extends Controller
         $categorias = Categoria::all();
         $imagensProdutos = ImagemProduto::all();
         
+        
         foreach($produtos as $produto)
         {
             $dado['id'] = $produto->id;
@@ -125,11 +126,20 @@ class ProdutoController extends Controller
     public function buscar($id)
     {
         $dados = Produto::find($id);
+        $preco = Preco::where('produto_id', $id)->first();
+
         if (is_null($dados)) {
             return response()->json('Produto não encontrado', 404);
         }
 
+<<<<<<< HEAD
         $preco = Preco::where('produto_id', $id)->first();
+=======
+        if (is_null($preco)) {
+            return response()->json('Preço não encontrado', 404);
+        }
+
+>>>>>>> 28efe22f42a67a8926ac32c88350cd63d2a21d8d
         $dados['valor'] = $preco['valor'];
 
         return response()->json($dados, 200);

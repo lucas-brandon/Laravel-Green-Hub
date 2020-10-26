@@ -83,4 +83,5 @@ class ClienteController extends BaseController
 
         return response()->json($cliente, 200);
     }
+
 }
