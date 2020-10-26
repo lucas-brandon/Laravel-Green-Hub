@@ -57,6 +57,7 @@ class PedidoController extends BaseController
         $pedido['nr_pedido'] = $req['nr_pedido'];
         $pedido['dt_pedido'] = $req['dt_pedido'];
         $pedido['status_pedido_id'] = $status['id'];
+        $pedido['pagamento_id'] = $pagamento['id'];
         $pedido['valor'] = 0.0;
 
         $pedidoBanco = Pedido::create($pedido);
@@ -100,7 +101,7 @@ class PedidoController extends BaseController
 
             $pedido['ds_status'] = $status['ds_status'];
 
-            dd($pedido);
+            //dd($pedido);
 
             array_push($dados, $pedido);
         }

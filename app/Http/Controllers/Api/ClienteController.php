@@ -67,4 +67,14 @@ class ClienteController extends BaseController
 
         return redirect()->route('admin.clientes.index');
     }
+
+    public function buscarNome($nome)
+    {
+        $dados = Cliente::where('nome', $nome)->get();
+        if (is_null($dados)) {
+            return response()->json('Cliente não encontrado', 404);
+        }
+
+        return response()->json($dados, 200);
+    }
 }
