@@ -6,6 +6,7 @@ use App\Produto;
 use App\Preco;
 use App\Categoria;
 use App\Estoque;
+use App\ImagemProduto;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -18,8 +19,9 @@ class ProdutoController extends Controller
         $precos = Preco::all();
         $categorias = Categoria::all();
         $estoques = Estoque::all();
+        $imagens = ImagemProduto::all();
         $mensagem = $req->session()->get('mensagem');
-        return view('admin.produtos.index', compact('produtos', 'precos', 'categorias', 'mensagem', 'estoques'));
+        return view('admin.produtos.index', compact('produtos', 'precos', 'categorias', 'mensagem', 'estoques', 'imagens'));
     }
 
 
@@ -42,8 +44,6 @@ class ProdutoController extends Controller
         $produto['nm_marca'] = $req['nm_marca'];
         $produto['cd_barra'] = $req['cd_barra'];
 
-        
-
         $categoria = Categoria::where('descricao', $req['ds_categoria'])->first();
 
         $produto['categoria_id'] = $categoria['id'];
@@ -60,20 +60,26 @@ class ProdutoController extends Controller
             $preco['fl_promocao'] = true;
         }
 
+
         $produtoBanco = Produto::create($produto);
         $preco['produto_id'] = $produtoBanco['id'];
         
         $estoque['produto_id'] = $produtoBanco['id'];
         $estoque['qtd_item'] = $req['qtd_item'];
 
+
         Estoque::create($estoque);
 
         //dd($req['fl_promocao']);
 
         Preco::create($preco);
-
+        $imagens = $req->all();
         
+        if ($req->hasFile('link_imagem')){
+            $imagens['link_imagem'] = $this->tratarImagem($req, $imagens);
+        }
 
+        Produto::create($imagens);
         //Cria uma variavel mensagem na sessão atual
         $req->session()->flash('mensagem', 'Produto cadastrado com sucesso');
 
@@ -126,6 +132,17 @@ class ProdutoController extends Controller
         $estoque['produto_id'] = $req['id'];
         Estoque::where('produto_id', $id)->update($estoque);
 
+        ///////
+        //{
+        //    $requisicao = $req->all();
+    //
+        //    if ($req->hasFile('imagem')) {
+        //        $requisicao['imagem'] = $this->tratarImagem($req, $requisicao);
+        //    }
+    //
+        //    $curso = Curso::find($id);
+        //    $curso->update($requisicao);
+
         //Cria uma variavel mensagem na sessão atual
         $req->session()->flash('mensagem', 'Produto editado com sucesso');
 
@@ -143,5 +160,17 @@ class ProdutoController extends Controller
         $req->session()->flash('mensagem', 'Produto deletado com sucesso');
 
         return redirect()->route('admin.produtos.index');
+    }
+
+    public function tratarImagem(Request $req, $imagens)
+    {
+        $imagem = $req->file('link_imagem');
+        $num = rand(1111, 9999);
+        $dir = 'img/teste/';
+        $ext = $imagem->guessClientExtension();
+        $nomeImagem = 'imagem_' . $num . '.' . $ext;
+        $imagem->move($dir, $nomeImagem);
+
+        return $dir . $nomeImagem;
     }
 }

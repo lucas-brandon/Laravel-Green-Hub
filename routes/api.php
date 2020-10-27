@@ -90,3 +90,6 @@ Route::delete('/pedidoItens/deletar/','Api\PedidoItemController@deletar');
 
 //Estoque
 Route::get('/estoque/listar/','Api\EstoqueController@listar');
+
+//Imagem
+Route::post('imagens/salvar/', 'Api\ImagemProdutoController@salvar');

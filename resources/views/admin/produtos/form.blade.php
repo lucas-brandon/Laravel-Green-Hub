@@ -3,7 +3,7 @@
 <div class="form-group">
     <label for="nome_produto">Nome</label>
     <input type="text" class="form-control" id="nome_produto" name="nome_produto"
-        value="{{ $produto->nome_produto ?? '' }}">
+    value="{{ $produto->nome_produto ?? '' }}">
 </div>
 <div class="form-group">
     <label for="ds_produto">Descrição</label>
@@ -32,12 +32,12 @@
 <div class="form-group">
     <label for="dt_vigencia_ini">Data de vigência inicial do preço</label>
     <input type="date" class="form-control" id="dt_vigencia_ini" name="dt_vigencia_ini"
-        value="{{ $preco->dt_vigencia_ini ?? '' }}">
+    value="{{ $preco->dt_vigencia_ini ?? '' }}">
 </div>
 <div class="form-group">
     <label for="dt_vigencia_fim">Data de vigência final do preço</label>
     <input type="date" class="form-control" id="dt_vigencia_fim" name="dt_vigencia_fim"
-        value="{{ $preco->dt_vigencia_fim ?? '' }}">
+    value="{{ $preco->dt_vigencia_fim ?? '' }}">
 </div>
 <div class="form-group">
     <div class="form-check form-check-inline">
@@ -56,15 +56,23 @@
   
     @if(Isset($produto))
       @foreach ($estoques as $estoque)
-        @if ($estoque->produto_id == $produto->id)
-            <input type="number" class="form-control" id="qtd_item" name="qtd_item"
+            @if ($estoque->produto_id == $produto->id)
+                <input type="number" class="form-control" id="qtd_item" name="qtd_item"
                 value="{{ $estoque->qtd_item ?? '' }}">
-        @endif
-    @endforeach
+            @endif
+        @endforeach
     @else 
     <input type="number" class="form-control" id="qtd_item" name="qtd_item"
     value="">  
     @endif
-
-    
+</div>
+<!----><!----><!----><!---->
+<div class="form-group">
+    <label for="imagemProduto">Imagem</label>
+    <input type="file" class="form-control-file" id="imagem" name="imagem">
+    @if(isset($imagens->link_imagem))
+        <div class="form-group">
+            <img width="120" src="{{asset($imagens->link_imagem)}}" />
+        </div>
+    @endif  
 </div>

@@ -23,6 +23,7 @@
                         <th scope="col">Preço (R$)</th>
                         <th scope="col">Código de Barra</th>
                         <th scope="col">Quantidade</th>
+                        <th scope="col">Imagens</th>
                         <th scope="col">Ações</th>
                         
                     </tr>
@@ -43,7 +44,18 @@
                             @if ($produto->id == $estoque->produto_id)
                                 <td>{{ $estoque->qtd_item }}</td>
                             @endif
-                        @endforeach
+                            @endforeach
+
+                            @foreach ($imagens as $img)
+                            @if ($produto->id == $img->produto_id)
+                            <td>
+                                <img width="70" src="{{asset($img->link_imagem)}}">
+                            </td>
+                            @endif
+                            @endforeach
+ 
+
+                            
                             <td>
                                 <a class="btn btn-primary" href="{{route('admin.produtos.editar', $produto->id)}}">Editar</a>
 
@@ -65,4 +77,3 @@
     </div>
     
 @endsection
-
