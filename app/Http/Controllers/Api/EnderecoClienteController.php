@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 
 class EnderecoClienteController extends BaseController
 {
+
     public function __construct()
     {
         $this->classe = EnderecoCliente::class;
@@ -26,4 +27,20 @@ class EnderecoClienteController extends BaseController
 
         return response()->json(EnderecoCliente::create($dados), 201);
     }
+
+    public function deletar($id)
+    {
+        
+        $dado = EnderecoCliente::where('cliente_id', $id)->first();
+
+        if (is_null($dado)) {
+            return response()->json(['erro' => 'Recurso não encontrado'], 404);
+        }
+
+        $dado->delete();
+
+        return response()->json('Item Removido', 200);
+    }
+
+    
 }

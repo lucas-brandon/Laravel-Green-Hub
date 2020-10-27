@@ -132,14 +132,10 @@ class ProdutoController extends Controller
             return response()->json('Produto não encontrado', 404);
         }
 
-<<<<<<< HEAD
-        $preco = Preco::where('produto_id', $id)->first();
-=======
         if (is_null($preco)) {
             return response()->json('Preço não encontrado', 404);
         }
 
->>>>>>> 28efe22f42a67a8926ac32c88350cd63d2a21d8d
         $dados['valor'] = $preco['valor'];
 
         return response()->json($dados, 200);

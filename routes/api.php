@@ -30,9 +30,16 @@ Route::delete('/produtos/deletar/{id}', 'Api\ProdutoController@deletar');
 //Endereço
 Route::get('/endereco/listar', 'Api\EnderecoController@listar');
 Route::get ('/endereco/buscar/{id}','Api\EnderecoController@buscar');
-Route::post ('//salvar/','Api\EnderecoController@salvar');
+Route::post ('/endereco/salvar/','Api\EnderecoController@salvar');
 Route::put ('/endereco/atualizar/{id}','Api\EnderecoController@atualizar');
 Route::delete ('/endereco/deletar/{id}','Api\EnderecoController@deletar');
+
+//Endereco Cliente
+Route::get('/enderecoCliente/listar', 'Api\EnderecoClienteController@listar');
+Route::get ('/enderecoCliente/buscar/{id}','Api\EnderecoClienteController@buscar');
+Route::post ('/enderecoCliente/salvar/','Api\EnderecoClienteController@salvar');
+Route::put ('/enderecoCliente/atualizar/{id}','Api\EnderecoClienteController@atualizar');
+Route::delete ('/enderecoCliente/deletar/{id}','Api\EnderecoClienteController@deletar');
 
 //Categoria
 Route::get('/categoria/listar', 'Api\CategoriaController@listar');

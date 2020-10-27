@@ -16,6 +16,7 @@ class EnderecoCliente extends Model
         'cliente_id', 'endereco_id',
     ];
 
+    protected $primaryKey = 'cliente_id';
 
 
     public function cliente()
