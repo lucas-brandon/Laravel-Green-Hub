@@ -124,6 +124,7 @@ class ProdutoController extends Controller
     {
         $dados = Produto::find($id);
         $preco = Preco::where('produto_id', $id)->first();
+        $imagem = ImagemProduto::where('produto_id', $id)->first();
 
         if (is_null($dados)) {
             return response()->json('Produto não encontrado', 404);
@@ -133,7 +134,12 @@ class ProdutoController extends Controller
             return response()->json('Preço não encontrado', 404);
         }
 
+        if (is_null($imagem)){
+            return response()->json('Imagem não encontrada', 404);
+        }
+
         $dados['valor'] = $preco['valor'];
+        $dados['imagem'] = $imagem['link_imagem'];
 
         return response()->json($dados, 200);
     }
