@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/home', 'Admin\HomeController@index')->name('home');
-Route::get('/', 'Admin\HomeController@index')->name('home');
+Route::get('/home', 'Admin\ClienteController@index')->name('admin.home');
+Route::get('/', 'Admin\ClienteController@index')->name('home');
 
 Route::group(['middleware'=>'auth'], function (){
 
@@ -67,4 +67,5 @@ Auth::routes();
 //Route::get('/home', 'Admin\HomeController@index')->name('home');
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'Admin\HomeController@index')->name('home');
+Route::get('/home', 'Admin\HomeController@index')->name('home');

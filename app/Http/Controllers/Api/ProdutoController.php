@@ -100,18 +100,20 @@ class ProdutoController extends Controller
         //dd($req['fl_promocao']);
 
         Preco::create($preco);
-        
-        if ($req->hasFile('link_imagem')) {
-            $imagemProduto['produto_id'] = $produtoBanco['id'];
-            $imagemProduto['link_imagem'] = $this->tratarImagem($req);
-            ImagemProduto::create($imagemProduto);
-        }
+
+        $imagens['produto_id'] = $produtoBanco['id'];
+        $imagens['link_imagem'] = $req['imagem'];
+        $imagens['descricao'] = '';
+
+        ImagemProduto::create($imagens);
 
         $dado = $produtoBanco;
         $dado['categoria_id'] = $categoria['id'];
         $dado['ds_categoria'] = $req['ds_categoria'];
         $dado['valor'] = $preco['valor'];
         $dado['fl_promocao'] = $preco['fl_promocao'];
+        $dado['link_imagem'] = $req['imagem'];
+        $dado['descricao'] = '';
 
         //Cria uma variavel mensagem na sessão atual
         //$req->session()->flash('mensagem', 'Produto cadastrado com sucesso');
