@@ -155,16 +155,4 @@ class ProdutoController extends Controller
 
         return redirect()->route('admin.produtos.index');
     }
-
-    public function tratarImagem(Request $req, $imagens)
-    {
-        $imagem = $req->file('link_imagem');
-        $num = rand(1111, 9999);
-        $dir = 'img/teste/';
-        $ext = $imagem->guessClientExtension();
-        $nomeImagem = 'imagem_' . $num . '.' . $ext;
-        $imagem->move($dir, $nomeImagem);
-
-        return $dir . $nomeImagem;
-    }
 }
