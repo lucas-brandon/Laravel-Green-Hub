@@ -30,9 +30,16 @@ Route::delete('/produtos/deletar/{id}', 'Api\ProdutoController@deletar');
 //Endereço
 Route::get('/endereco/listar', 'Api\EnderecoController@listar');
 Route::get ('/endereco/buscar/{id}','Api\EnderecoController@buscar');
-Route::post ('//salvar/','Api\EnderecoController@salvar');
+Route::post ('/endereco/salvar/','Api\EnderecoController@salvar');
 Route::put ('/endereco/atualizar/{id}','Api\EnderecoController@atualizar');
 Route::delete ('/endereco/deletar/{id}','Api\EnderecoController@deletar');
+
+//Endereco Cliente
+Route::get('/enderecoCliente/listar', 'Api\EnderecoClienteController@listar');
+Route::get ('/enderecoCliente/buscar/{id}','Api\EnderecoClienteController@buscar');
+Route::post ('/enderecoCliente/salvar/','Api\EnderecoClienteController@salvar');
+Route::put ('/enderecoCliente/atualizar/{id}','Api\EnderecoClienteController@atualizar');
+Route::delete ('/enderecoCliente/deletar/{id}','Api\EnderecoClienteController@deletar');
 
 //Categoria
 Route::get('/categoria/listar', 'Api\CategoriaController@listar');
@@ -74,6 +81,7 @@ Route::delete('/tipoContatos/deletar/{id}', 'Api\TipoContatoController@deletar')
 Route::get('/clientes/listar', 'Api\ClienteController@listar');
 Route::post('/clientes/salvar', 'Api\ClienteController@salvar');
 Route::get('/clientes/buscar/{id}', 'Api\ClienteController@buscar');
+Route::get('/clientes/buscarNome/{nome}', 'Api\ClienteController@buscarNome');
 Route::put('/clientes/atualizar/{id}', 'Api\ClienteController@atualizar');
 Route::delete('/clientes/deletar/{id}', 'Api\ClienteController@deletar');
 
@@ -93,3 +101,10 @@ Route::get('/estoque/listar/','Api\EstoqueController@listar');
 
 //Imagem
 Route::post('imagens/salvar/', 'Api\ImagemProdutoController@salvar');
+//Cartão Cliente
+Route::get('/cartao/listar', 'Api\CartaoClienteController@listar');
+Route::post('/cartao/salvar', 'Api\CartaoClienteController@salvar');
+Route::post('/cartao/cadastrar/{id}', 'Api\CartaoClienteController@cadastrar');
+Route::get('/cartao/buscar/{id}', 'Api\CartaoClienteController@buscar');
+Route::put('/cartao/atualizar/{id}', 'Api\CartaoClienteController@atualizar');
+Route::delete('/cartao/deletar/{id}', 'Api\CartaoClienteController@deletar');

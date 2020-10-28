@@ -19,9 +19,16 @@ abstract class BaseController extends Controller
 
     public function salvar(Request $req)
     {
-        $dados = $req->all();
+        try{
+            $dados = $req->all();
 
-        return response()->json($this->classe::create($dados), 201);
+            return response()->json($this->classe::create($dados), 201);
+        }
+        catch(\Exception $e){
+            return response()->json($e->getMessage());
+        }
+
+        
     }
 
     public function buscar($id)

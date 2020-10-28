@@ -123,9 +123,17 @@ class ProdutoController extends Controller
     public function buscar($id)
     {
         $dados = Produto::find($id);
+        $preco = Preco::where('produto_id', $id)->first();
+
         if (is_null($dados)) {
             return response()->json('Produto não encontrado', 404);
         }
+
+        if (is_null($preco)) {
+            return response()->json('Preço não encontrado', 404);
+        }
+
+        $dados['valor'] = $preco['valor'];
 
         return response()->json($dados, 200);
     }

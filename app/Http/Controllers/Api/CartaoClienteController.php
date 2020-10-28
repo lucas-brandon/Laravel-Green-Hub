@@ -16,12 +16,26 @@ class CartaoClienteController extends BaseController
         $this->classe = CartaoCliente::class;
     }
 
-    public function cadastrar(Request $req)
+    /*
+    $table->foreignId('cliente_id');
+    $table->integer('nr_cartao');
+    $table->string('nome');
+    $table->string('bandeira');
+    $table->date('validade'); 
+    */
+
+    public function cadastrar(Request $req, $id)
     {
         //$dados = $req->all();
-        $dados['id_cliente'] = Cliente::user('id_cliente');
+        $cliente = Cliente::find($id);
+
+        if(is_null($cliente)){
+            return response()->json("Cliente não encontrado", 404);
+        }
+
+        $dados['cliente_id'] = $cliente['id'];
         $dados['nr_cartao'] = $req->nr_cartao;
-        $dados['nome'] = Cliente::user('nome');
+        $dados['nome'] = $req->nome;
         $dados['bandeira'] = $req->bandeira;
         $dados['validade'] = $req->validade;
 
