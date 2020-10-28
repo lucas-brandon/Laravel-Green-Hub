@@ -213,14 +213,14 @@ class ProdutoController extends Controller
         return response()->json('Produto Removido', 200);
     }
 
-    public function tratarImagem(Request $req, $imagens)
+    public function tratarImagem(Request $req, $imagem)
     {
-        $imagems = $req->file('link_imagem');
+        $imagem = $req->file('link_imagem');
         $num = rand(1111, 9999);
         $dir = 'img/teste/';
-        $ext = $imagens->guessClientExtension();
+        $ext = $imagem->guessClientExtension();
         $nomeImagem = 'imagem_' . $num . '.' . $ext;
-        $imagens->move($dir, $nomeImagem);
+        $imagem->move($dir, $nomeImagem);
 
         return $dir . $nomeImagem;
     }

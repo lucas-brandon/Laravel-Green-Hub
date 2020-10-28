@@ -69,10 +69,10 @@
 <!----><!----><!----><!---->
 <div class="form-group">
     <label for="imagemProduto">Imagem</label>
-    <input type="file" class="form-control-file" id="imagem" name="imagem">
+    <input type="text" class="form-control" id="imagem" name="imagem">
     @if(isset($imagens->link_imagem))
         <div class="form-group">
-            <img width="120" src="{{asset($imagens->link_imagem)}}" />
+            <img width="120" src="{{$imagens->link_imagem}}" />
         </div>
     @endif  
 </div>
