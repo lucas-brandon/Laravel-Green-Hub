@@ -49,13 +49,11 @@
                             @foreach ($imagens as $img)
                             @if ($produto->id == $img->produto_id)
                             <td>
-                                <img width="70" src="{{asset($img->link_imagem)}}">
+                                <img width="70" src="{{$img->link_imagem}}">
                             </td>
                             @endif
                             @endforeach
  
-
-                            
                             <td>
                                 <a class="btn btn-primary" href="{{route('admin.produtos.editar', $produto->id)}}">Editar</a>
 
