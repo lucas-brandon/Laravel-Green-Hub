@@ -122,25 +122,20 @@ class ProdutoController extends Controller
             $preco['fl_promocao'] = true;
         }
 
+        
+        $imagens['link_imagem'] = $req['imagem'];
+        $imagens['descricao'] = '';
+        
+
         //$produtoBanco = Produto::create($produto);
         Produto::find($id)->update($produto);
         $preco['produto_id'] = $id;
         Preco::where('produto_id', $id)->update($preco);
-
+        $imagens['produto_id'] = $id;
+        ImagemProduto::where('produto_id', $id)->update($imagens);
         $estoque['qtd_item'] = $req['qtd_item'];
         $estoque['produto_id'] = $req['id'];
         Estoque::where('produto_id', $id)->update($estoque);
-
-        ///////
-        //{
-        //    $requisicao = $req->all();
-    //
-        //    if ($req->hasFile('imagem')) {
-        //        $requisicao['imagem'] = $this->tratarImagem($req, $requisicao);
-        //    }
-    //
-        //    $curso = Curso::find($id);
-        //    $curso->update($requisicao);
 
         //Cria uma variavel mensagem na sessão atual
         $req->session()->flash('mensagem', 'Produto editado com sucesso');
