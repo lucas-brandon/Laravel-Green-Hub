@@ -13,10 +13,13 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/home', 'Admin\ClienteController@index')->name('admin.home');
-Route::get('/', 'Admin\ClienteController@index')->name('home');
+//Route::get('/home', 'Admin\ClienteController@index')->name('admin.home');
+//Route::get('/', 'Admin\ClienteController@index')->name('home');
 
 Route::group(['middleware'=>'auth'], function (){
+
+    Route::get('/home', 'Admin\ClienteController@index')->name('admin.home');
+    Route::get('/', 'Admin\ClienteController@index')->name('home');
 
     //-------Admin Cliente
     Route::get('/admin/clientes', 'Admin\ClienteController@index')->name('admin.clientes.index');
@@ -61,8 +64,6 @@ Route::group(['middleware'=>'auth'], function (){
 Route::get('/pedido/{id}', 'PedidoController@index');
 Route::post('/pedido', 'PedidoController@criar');
 Route::put('/pedido', 'PedidoController@editar');
-
-Auth::routes();
 
 //Route::get('/home', 'Admin\HomeController@index')->name('home');
 Auth::routes();
