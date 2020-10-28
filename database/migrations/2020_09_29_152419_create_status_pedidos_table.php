@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateEnderecosTable extends Migration
+class CreateStatusPedidosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class CreateEnderecosTable extends Migration
      */
     public function up()
     {
-        Schema::create('enderecos', function (Blueprint $table) {
-            $table->id();
+        Schema::create('status_pedidos', function (Blueprint $table) {
+            $table->id(); 
+            $table->string('ds_status');
             $table->timestamps();
         });
     }
@@ -26,6 +27,6 @@ class CreateEnderecosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('enderecos');
+        Schema::dropIfExists('status_pedidos');
     }
 }

@@ -94,6 +94,19 @@
                     <a href="https://vapor.laravel.com">Vapor</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
+                <h2>Teste:</h2>
+                <form action="/pedido" method="post">
+                    @csrf 
+                    <input type="text" name="nome" placeholder="Nome Post">
+                    <button>Enviar</button>
+                </form>
+
+                <form action="/pedido" method="post">
+                    @csrf
+                    <input type="hidden" name="_method" value="put">
+                    <input type="text" name="nome" placeholder="Nome Put">
+                    <button>Enviar</button>
+                </form>
             </div>
         </div>
     </body>

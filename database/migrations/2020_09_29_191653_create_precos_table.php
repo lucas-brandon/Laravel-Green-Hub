@@ -14,12 +14,16 @@ class CreatePrecosTable extends Migration
     public function up()
     {
         Schema::create('precos', function (Blueprint $table) {
-            //$table->foreign('cdProduto')->references('id') on('Produto');
+            $table->foreignId('produto_id');
             $table->float('valor');
             $table->float('desconto');
-            $table->boolean('flPromocao');
-            $table->dateTime('vigencia');
+            $table->boolean('fl_promocao');
+            $table->date('dt_vigencia_ini');
+            $table->date('dt_vigencia_fim');
             $table->timestamps();
+
+            $table->primary('produto_id');
+            $table->foreign('produto_id')->references('id')->on('produtos');
         });
     }
 
