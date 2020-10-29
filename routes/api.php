@@ -44,6 +44,7 @@ Route::delete ('/enderecoCliente/deletar/{id}','Api\EnderecoClienteController@de
 //Contato
 Route::get('/contato/listar', 'Api\ContatoController@listar');
 Route::get ('/contato/buscar/{id}','Api\ContatoController@buscar');
+Route::get('/contato/buscarEmail/{contato}', 'Api\ContatoController@buscarEmail');
 Route::post ('/contato/salvar/','Api\ContatoController@salvar');
 Route::put ('/contato/atualizar/{id}','Api\ContatoController@atualizar');
 Route::delete ('/contato/deletar/{id}','Api\ContatoController@deletar');
@@ -88,6 +89,7 @@ Route::delete('/tipoContatos/deletar/{id}', 'Api\TipoContatoController@deletar')
 Route::get('/clientes/listar', 'Api\ClienteController@listar');
 Route::post('/clientes/salvar', 'Api\ClienteController@salvar');
 Route::get('/clientes/buscar/{id}', 'Api\ClienteController@buscar');
+Route::get('/clientes/logar/{senha}/{email}', 'Api\ClienteController@logar');
 Route::get('/clientes/buscarSenha/{senha}', 'Api\ClienteController@buscarSenha');
 Route::get('/clientes/buscarNome/{nome}', 'Api\ClienteController@buscarNome');
 Route::put('/clientes/atualizar/{id}', 'Api\ClienteController@atualizar');
@@ -109,6 +111,7 @@ Route::get('/estoque/listar/','Api\EstoqueController@listar');
 
 //Imagem
 Route::post('imagens/salvar/', 'Api\ImagemProdutoController@salvar');
+
 //Cartão Cliente
 Route::get('/cartao/listar', 'Api\CartaoClienteController@listar');
 Route::post('/cartao/salvar', 'Api\CartaoClienteController@salvar');
@@ -117,5 +120,4 @@ Route::get('/cartao/buscar/{id}', 'Api\CartaoClienteController@buscar');
 Route::put('/cartao/atualizar/{id}', 'Api\CartaoClienteController@atualizar');
 Route::delete('/cartao/deletar/{id}', 'Api\CartaoClienteController@deletar');
 
-//Contato
-Route::get('/contato/buscarEmail/{contato}', 'Api\ContatoController@buscarEmail');
+

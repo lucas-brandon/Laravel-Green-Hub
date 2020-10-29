@@ -12,6 +12,7 @@ use http\Env\Response;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use PhpParser\Node\Stmt\TryCatch;
 
 class ClienteController extends BaseController
 {
@@ -50,7 +51,7 @@ class ClienteController extends BaseController
         Contato::create($contato2);
 
         //Cria uma variavel mensagem na sessão atual
-        $req->session()->flash('mensagem', 'Cliente cadastrado com sucesso');
+        //$req->session()->flash('mensagem', 'Cliente cadastrado com sucesso');
 
         //return redirect()->route('admin.clientes.index');
         return response()->json($cliente, 200);
@@ -86,7 +87,7 @@ class ClienteController extends BaseController
 
     public function buscarSenha($senha)
     {
-        $cliente = Cliente::where('senha', $senha)->first();
+        $cliente = Cliente::where('senha', $senha);
         if(is_null($cliente))
         {
             return response()->json('Cliente não encontrado', 404);
@@ -94,4 +95,18 @@ class ClienteController extends BaseController
 
         return response()->json($cliente, 200);
     }
+
+    public function logar($senha, $email)
+    {
+        $clienteSenha = Cliente::where('senha', $senha)->get();
+        $clienteEmail = Contato::where('ds_contato', $email)->first();
+        foreach ($clienteSenha as $cliente) {
+            if ($clienteSenha == '' || $clienteEmail == ''){
+                return response()->json('Cliente não encontrado', 404);
+            }
+            else if ($clienteEmail->cliente_id == $cliente->id) {
+                return response()->json($cliente, 200);
+            } 
+        } 
+    } 
 }

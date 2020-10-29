@@ -66,8 +66,6 @@ Route::get('/pedido/{id}', 'PedidoController@index');
 Route::post('/pedido', 'PedidoController@criar');
 Route::put('/pedido', 'PedidoController@editar');
 
-<<<<<<< HEAD
-=======
 //Login
 Route::post('/login/cadastrar', 'LoginController@cadastrar');
 Route::get('/login/logIn', 'LoginController@logIn');
@@ -88,9 +86,12 @@ Route::delete('/cartaoCliente/deletar/{id_cliente}', 'CartaoClienteController@de
 
 Auth::routes();
 
->>>>>>> 6dbb08bc71c00d68f73bbb2bc06e63cdda0e759c
 //Route::get('/home', 'Admin\HomeController@index')->name('home');
 Auth::routes();
 
 //Route::get('/home', 'Admin\HomeController@index')->name('home');
 Route::get('/home', 'Admin\HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

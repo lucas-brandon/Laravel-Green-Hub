@@ -37,28 +37,28 @@ class CartaoClienteController extends BaseController
         $dados['nr_cartao'] = $req->nr_cartao;
         $dados['nome'] = $req->nome;
     }
-    public function salvar(Request $req)
-    {
-        $dados = $req->all();
-        $dados['id_cliente'] = Auth::user()->id_cliente;
-        $dados['nr_cartao'] = $req->nr_cartao;
-        $dados['nome'] = Auth::user()->nome;
-        $dados['bandeira'] = $req->bandeira;
-        $dados['validade'] = $req->validade;
+    // public function salvar(Request $req)
+    // {
+    //     $dados = $req->all();
+    //     $dados['id_cliente'] = Auth::user()->id_cliente;
+    //     $dados['nr_cartao'] = $req->nr_cartao;
+    //     $dados['nome'] = Auth::user()->nome;
+    //     $dados['bandeira'] = $req->bandeira;
+    //     $dados['validade'] = $req->validade;
 
-        return response()->json(CartaoCliente::create($dados), 201);
-    }
+    //     return response()->json(CartaoCliente::create($dados), 201);
+    // }
 
-    public function deletar($id)
-    {
-        $cartao = CartaoCliente::where('cliente_id', $id)->first();
-        if(is_null($cartao)){
-            return response()->json("Cartao do Cliente não encontrado", 404);
-        }
-        $cartao->delete();
+    // public function deletar($id)
+    // {
+    //     $cartao = CartaoCliente::where('cliente_id', $id)->first();
+    //     if(is_null($cartao)){
+    //         return response()->json("Cartao do Cliente não encontrado", 404);
+    //     }
+    //     $cartao->delete();
 
-        return response()->json('Cartao Removido', 200);
-    }   
+    //     return response()->json('Cartao Removido', 200);
+    // }   
     public function listar(Request $req) {
         $array = array();
         $cartoes = CartaoCliente::all();
