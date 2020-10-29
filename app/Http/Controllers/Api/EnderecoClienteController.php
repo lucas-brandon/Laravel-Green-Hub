@@ -19,7 +19,7 @@ class EnderecoClienteController extends BaseController
         $this->classe = EnderecoCliente::class;
     }
 
-    public function cadastrar(Request $req)
+    public function salvar(Request $req)
     {
         $dados = $req->all();
         $dados['id_cliente'] = Cliente::user('id_cliente');
@@ -43,4 +43,25 @@ class EnderecoClienteController extends BaseController
     }
 
     
+    public function listar($idCliente)
+    {
+        $enderecoCliente = [];
+        $cliente = Cliente::find($idCliente);
+        $enderecos = EnderecoCliente::all();
+        foreach($enderecos as $endereco) {
+            if($endereco['id_cliente'] == $cliente){
+                array_push($enderecoCliente, $endereco);
+            }
+        }
+        return response()->json($enderecoCliente, 201);
+    }
+
+    public function buscar($idEnd)
+    {
+        if ($endereco = EnderecoCliente::find($idEnd)){
+            return response()->json($endereco, 200);
+        } else {
+            return response()->json('Endereço não encontrado', 404);
+        }
+    }
 }
