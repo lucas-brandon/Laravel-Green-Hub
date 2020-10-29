@@ -89,4 +89,18 @@ class ClienteController extends BaseController
         return response()->json($cliente, 200);
     }
 
+    public function logar($senha, $email)
+    {
+        $clienteSenha = Cliente::where('senha', $senha)->get();
+        $clienteEmail = Contato::where('ds_contato', $email)->first();
+        foreach ($clienteSenha as $cliente) {
+            if ($clienteSenha == '' || $clienteEmail == ''){
+                return response()->json('Cliente não encontrado', 404);
+            }
+            else if ($clienteEmail->cliente_id == $cliente->id) {
+                return response()->json($cliente, 200);
+            } 
+        } 
+    } 
+
 }
