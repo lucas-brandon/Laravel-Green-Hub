@@ -39,56 +39,61 @@ class PedidoController extends BaseController
 
     public function cadastro(Request $req)
     {
-        $produtos = $req['produtos'];
-        foreach ($produtos as $produto) {
-            $estoqueBanco =  Estoque::where('produto_id', $produto['id'])->first();
-            if ($estoqueBanco['qtd_item'] < $produto['qtd_item']) {
-                return response()->json('Quantidade indisponivel', 400);
+        try{
+            $produtos = $req['produtos'];
+            foreach ($produtos as $produto) {
+                $estoqueBanco =  Estoque::where('produto_id', $produto['id'])->first();
+                if ($estoqueBanco['qtd_item'] < $produto['qtd_item']) {
+                    return response()->json('Quantidade indisponivel', 400);
+                }
             }
+            //$produtos = $req->all();
+            $status = StatusPedido::where('ds_status', 'Em Andamento')->first();
+
+            $pagamento = Pagamento::where('ds_pagamento', 'Cartão de crédito')->first();
+
+            $frete = 15.0;
+
+            $pedido['cliente_id'] = $req['cliente_id'];
+            $pedido['nr_pedido'] = $req['nr_pedido'];
+            $pedido['dt_pedido'] = $req['dt_pedido'];
+            $pedido['status_pedido_id'] = $status['id'];
+            $pedido['pagamento_id'] = $pagamento['id'];
+            $pedido['valor'] = 0.0;
+
+            $pedidoBanco = Pedido::create($pedido);
+
+
+            $valorTotal = 0;
+            foreach ($produtos as $produto) {
+                $item['pedido_id'] = $pedidoBanco['id'];
+                $item['produto_id'] = $produto['id'];
+                $item['valor_unitario'] = Preco::where('produto_id', $produto['id'])->first()['valor'];
+                $item['qtd_item'] = $produto['qtd_item'];
+
+                $estoqueBanco =  Estoque::where('produto_id', $produto['id'])->first();
+                $estoque['qtd_item'] = $estoqueBanco['qtd_item'] - $item['qtd_item'];
+                $estoque['produto_id'] = $estoqueBanco['produto_id'];
+                Estoque::where('produto_id', $produto['id'])->update($estoque);
+
+
+                PedidoItem::create($item);
+
+                $valorTotal += $item['valor_unitario'] * $item['qtd_item'];
+                //return response()->json($produto, 200);
+            }
+
+
+            $valorTotal += $frete;
+            $pedido['valor'] = $valorTotal;
+
+            $pedidoBanco->update($pedido);
+
+            return response()->json($pedido, 200);
         }
-        //$produtos = $req->all();
-        $status = StatusPedido::where('ds_status', 'Em Andamento')->first();
-
-        $pagamento = Pagamento::where('ds_pagamento', 'Cartão de crédito')->first();
-
-        $frete = 15.0;
-
-        $pedido['cliente_id'] = $req['cliente_id'];
-        $pedido['nr_pedido'] = $req['nr_pedido'];
-        $pedido['dt_pedido'] = $req['dt_pedido'];
-        $pedido['status_pedido_id'] = $status['id'];
-        $pedido['pagamento_id'] = $pagamento['id'];
-        $pedido['valor'] = 0.0;
-
-        $pedidoBanco = Pedido::create($pedido);
-
-
-        $valorTotal = 0;
-        foreach ($produtos as $produto) {
-            $item['pedido_id'] = $pedidoBanco['id'];
-            $item['produto_id'] = $produto['id'];
-            $item['valor_unitario'] = Preco::where('produto_id', $produto['id'])->first()['valor'];
-            $item['qtd_item'] = $produto['qtd_item'];
-
-            $estoqueBanco =  Estoque::where('produto_id', $produto['id'])->first();
-            $estoque['qtd_item'] = $estoqueBanco['qtd_item'] - $item['qtd_item'];
-            $estoque['produto_id'] = $estoqueBanco['produto_id'];
-            Estoque::where('produto_id', $produto['id'])->update($estoque);
-
-
-            PedidoItem::create($item);
-
-            $valorTotal += $item['valor_unitario'] * $item['qtd_item'];
-            //return response()->json($produto, 200);
+        catch(\Exception $e){
+            return response()->json($e->getMessage());
         }
-
-
-        $valorTotal += $frete;
-        $pedido['valor'] = $valorTotal;
-
-        $pedidoBanco->update($pedido);
-
-        return response()->json($pedido, 200);
     }
 
     public function listar(Request $req)

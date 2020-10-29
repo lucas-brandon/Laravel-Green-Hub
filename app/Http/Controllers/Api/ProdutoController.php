@@ -23,7 +23,7 @@ class ProdutoController extends Controller
         $produtos = Produto::all();
         $precos = Preco::all();
         $categorias = Categoria::all();
-        $imagensProdutos = ImagemProduto::all();
+        $imagens = ImagemProduto::all();
         
         
         foreach($produtos as $produto)
@@ -32,6 +32,7 @@ class ProdutoController extends Controller
             $dado['nm_produto'] = $produto->nome_produto;
             $dado['nm_marca'] = $produto->nm_marca;
             foreach($categorias as $categoria)
+
             {
                 if ($produto->categoria_id == $categoria->id)
                 {
@@ -50,12 +51,12 @@ class ProdutoController extends Controller
                 }
             }
             $dado['cd_barra'] = $produto->cd_barra;
-            
-            foreach($imagensProdutos as $imagem)
+                        
+            foreach($imagens as $img)
             {
-                if ($imagem->produto_id == $produto->id)
+                if ($produto->id == $img->produto_id)
                 {
-                    $dado['link_imagem'] = $imagem->link_imagem;
+                    $dado['link_imagem'] = url($img['link_imagem']);
                 }
             }
             array_push($array, $dado);
@@ -63,7 +64,6 @@ class ProdutoController extends Controller
         }
         return response()->json($array, 201);
     }
-    
 
     public function salvar(Request $req)
     {   
@@ -81,6 +81,7 @@ class ProdutoController extends Controller
 
         $produto['categoria_id'] = $categoria['id'];
         
+
         $preco['valor'] = $req['valor'];
         $preco['desconto'] = $req['desconto'];
         $preco['dt_vigencia_ini'] = $req['dt_vigencia_ini'];
@@ -99,22 +100,20 @@ class ProdutoController extends Controller
         //dd($req['fl_promocao']);
 
         Preco::create($preco);
-        
-        if ($req->hasFile('imagem')) {
-            $imagemProduto['produto_id'] = $produtoBanco['id'];
-            $imagemProduto['link_imagem'] = $this->tratarImagem($req);
-            $imagemProduto['descricao'] = $req['ds_imagem'];
-            ImagemProduto::create($imagemProduto);
-        }
+
+        $imagens['produto_id'] = $produtoBanco['id'];
+        $imagens['link_imagem'] = $req['imagem'];
+        $imagens['descricao'] = '';
+
+        ImagemProduto::create($imagens);
 
         $dado = $produtoBanco;
         $dado['categoria_id'] = $categoria['id'];
         $dado['ds_categoria'] = $req['ds_categoria'];
         $dado['valor'] = $preco['valor'];
         $dado['fl_promocao'] = $preco['fl_promocao'];
-
-        
-
+        $dado['link_imagem'] = $req['imagem'];
+        $dado['descricao'] = '';
 
         //Cria uma variavel mensagem na sessão atual
         //$req->session()->flash('mensagem', 'Produto cadastrado com sucesso');
@@ -127,6 +126,7 @@ class ProdutoController extends Controller
     {
         $dados = Produto::find($id);
         $preco = Preco::where('produto_id', $id)->first();
+        $imagem = ImagemProduto::where('produto_id', $id)->first();
 
         if (is_null($dados)) {
             return response()->json('Produto não encontrado', 404);
@@ -136,7 +136,12 @@ class ProdutoController extends Controller
             return response()->json('Preço não encontrado', 404);
         }
 
+        if (is_null($imagem)){
+            return response()->json('Imagem não encontrada', 404);
+        }
+
         $dados['valor'] = $preco['valor'];
+        $dados['imagem'] = $imagem['link_imagem'];
 
         return response()->json($dados, 200);
     }
@@ -216,11 +221,11 @@ class ProdutoController extends Controller
         return response()->json('Produto Removido', 200);
     }
 
-    public function tratarImagem(Request $req)
+    public function tratarImagem(Request $req, $imagem)
     {
-        $imagem = $req->file('imagem');
+        $imagem = $req->file('link_imagem');
         $num = rand(1111, 9999);
-        $dir = 'img/cursos/';
+        $dir = 'img/teste/';
         $ext = $imagem->guessClientExtension();
         $nomeImagem = 'imagem_' . $num . '.' . $ext;
         $imagem->move($dir, $nomeImagem);

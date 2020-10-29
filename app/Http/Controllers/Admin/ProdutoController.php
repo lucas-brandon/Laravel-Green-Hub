@@ -6,6 +6,7 @@ use App\Produto;
 use App\Preco;
 use App\Categoria;
 use App\Estoque;
+use App\ImagemProduto;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -18,8 +19,9 @@ class ProdutoController extends Controller
         $precos = Preco::all();
         $categorias = Categoria::all();
         $estoques = Estoque::all();
+        $imagens = ImagemProduto::all();
         $mensagem = $req->session()->get('mensagem');
-        return view('admin.produtos.index', compact('produtos', 'precos', 'categorias', 'mensagem', 'estoques'));
+        return view('admin.produtos.index', compact('produtos', 'precos', 'categorias', 'mensagem', 'estoques', 'imagens'));
     }
 
 
@@ -42,8 +44,6 @@ class ProdutoController extends Controller
         $produto['nm_marca'] = $req['nm_marca'];
         $produto['cd_barra'] = $req['cd_barra'];
 
-        
-
         $categoria = Categoria::where('descricao', $req['ds_categoria'])->first();
 
         $produto['categoria_id'] = $categoria['id'];
@@ -60,20 +60,25 @@ class ProdutoController extends Controller
             $preco['fl_promocao'] = true;
         }
 
+
         $produtoBanco = Produto::create($produto);
         $preco['produto_id'] = $produtoBanco['id'];
         
         $estoque['produto_id'] = $produtoBanco['id'];
         $estoque['qtd_item'] = $req['qtd_item'];
 
+
         Estoque::create($estoque);
 
         //dd($req['fl_promocao']);
 
         Preco::create($preco);
-
         
+        $imagens['produto_id'] = $produtoBanco['id'];
+        $imagens['link_imagem'] = $req['imagem'];
+        $imagens['descricao'] = '';
 
+        ImagemProduto::create($imagens);
         //Cria uma variavel mensagem na sessão atual
         $req->session()->flash('mensagem', 'Produto cadastrado com sucesso');
 
@@ -117,11 +122,17 @@ class ProdutoController extends Controller
             $preco['fl_promocao'] = true;
         }
 
+        
+        $imagens['link_imagem'] = $req['imagem'];
+        $imagens['descricao'] = '';
+        
+
         //$produtoBanco = Produto::create($produto);
         Produto::find($id)->update($produto);
         $preco['produto_id'] = $id;
         Preco::where('produto_id', $id)->update($preco);
-
+        $imagens['produto_id'] = $id;
+        ImagemProduto::where('produto_id', $id)->update($imagens);
         $estoque['qtd_item'] = $req['qtd_item'];
         $estoque['produto_id'] = $req['id'];
         Estoque::where('produto_id', $id)->update($estoque);
