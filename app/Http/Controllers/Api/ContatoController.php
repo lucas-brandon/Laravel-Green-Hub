@@ -15,4 +15,15 @@ class ContatoController extends BaseController
     {
         $this->classe = Contato::class;
     }
+
+    public function buscarEmail($contato)
+    {
+        $email = Contato::where('ds_contato', $contato)->first();
+        if(is_null($email))
+        {
+            return response()->json('Email não encontrado', 404);
+        }
+
+        return response()->json($email, 200);
+    }
 }

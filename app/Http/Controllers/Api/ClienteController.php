@@ -84,4 +84,14 @@ class ClienteController extends BaseController
         return response()->json($cliente, 200);
     }
 
+    public function buscarSenha($senha)
+    {
+        $cliente = Cliente::where('senha', $senha)->first();
+        if(is_null($cliente))
+        {
+            return response()->json('Cliente não encontrado', 404);
+        }
+
+        return response()->json($cliente, 200);
+    }
 }

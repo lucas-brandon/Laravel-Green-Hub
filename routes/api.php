@@ -81,6 +81,7 @@ Route::delete('/tipoContatos/deletar/{id}', 'Api\TipoContatoController@deletar')
 Route::get('/clientes/listar', 'Api\ClienteController@listar');
 Route::post('/clientes/salvar', 'Api\ClienteController@salvar');
 Route::get('/clientes/buscar/{id}', 'Api\ClienteController@buscar');
+Route::get('/clientes/buscarSenha/{senha}', 'Api\ClienteController@buscarSenha');
 Route::get('/clientes/buscarNome/{nome}', 'Api\ClienteController@buscarNome');
 Route::put('/clientes/atualizar/{id}', 'Api\ClienteController@atualizar');
 Route::delete('/clientes/deletar/{id}', 'Api\ClienteController@deletar');
@@ -106,3 +107,6 @@ Route::post('/cartao/cadastrar/{id}', 'Api\CartaoClienteController@cadastrar');
 Route::get('/cartao/buscar/{id}', 'Api\CartaoClienteController@buscar');
 Route::put('/cartao/atualizar/{id}', 'Api\CartaoClienteController@atualizar');
 Route::delete('/cartao/deletar/{id}', 'Api\CartaoClienteController@deletar');
+
+//Contato
+Route::get('/contato/buscarEmail/{contato}', 'Api\ContatoController@buscarEmail');
