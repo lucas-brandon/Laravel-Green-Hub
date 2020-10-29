@@ -27,6 +27,7 @@ class ClienteController extends BaseController
         //'nome', 'sobrenome', 'cpf', 'dt_nascimento', 'senha',
         
         //$cliente = $req->all();
+        try{
         $cliente['nome'] = $req['nome'];
         $cliente['sobrenome'] = $req['sobrenome'];
         $cliente['cpf'] = $req['cpf'];
@@ -55,6 +56,10 @@ class ClienteController extends BaseController
 
         //return redirect()->route('admin.clientes.index');
         return response()->json($cliente, 200);
+        }
+        catch(\Exception $e){
+            return response()->json($e->getMessage());
+        }
     }
 
     public function buscarNome($nome)

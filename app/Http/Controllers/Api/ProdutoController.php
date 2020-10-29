@@ -32,8 +32,8 @@ class ProdutoController extends Controller
             $dado['nm_produto'] = $produto->nome_produto;
             $dado['nm_marca'] = $produto->nm_marca;
             foreach($categorias as $categoria)
-
             {
+                //dd($produto->categoria_id);
                 if ($produto->categoria_id == $categoria->id)
                 {
                     $dado['categoria'] = $categoria->descricao;
