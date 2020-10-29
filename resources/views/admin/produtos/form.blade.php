@@ -11,7 +11,7 @@
 </div>
 <div class="form-group">
     <label for="categoria">Categoria</label>
-    <select class="form-control" id="categoria" name="categoria">
+    <select class="form-control" id="ds_categoria" name="ds_categoria">
         @foreach ($categorias as $categoria)
             <option>{{ $categoria->descricao }}</option>
         @endforeach

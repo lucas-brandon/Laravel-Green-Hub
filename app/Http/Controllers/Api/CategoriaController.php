@@ -20,6 +20,8 @@ class CategoriaController extends BaseController
     {
         $categoria = Categoria::find($id);
 
+        //dd($categoria);
+
         $produtos = Produto::all();
 
         if (is_null($categoria)) {
