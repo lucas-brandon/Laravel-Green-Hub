@@ -18,28 +18,17 @@ class ContatoController extends BaseController
         $this->classe = Contato::class;
     }
 
-    public function salvar(Request $req)
+    public function buscarEmail($contato)
     {
-        $cliente = Cliente::find($req['cliente_id']);
-
-        if(is_null($cliente))
+        $email = Contato::where('ds_contato', $contato)->first();
+        if(is_null($email))
         {
-            return response()->json('Cliente não encontrado', 404);
+            return response()->json('Email não encontrado', 404);
         }
 
-        $contato['cliente_id'] = $req['cliente_id'];
-        $tipo_contato1 = TipoContato::where('descricao', $req['tipo'])->first();
-
-        $contato['ds_contato'] = $req['ds_contato'];
-        $contato['tipo_contato_id'] = $tipo_contato1['id'];
-
-        Contato::create($contato);
-        $contato['tipo'] = $req['tipo'];
-
-        return response()->json($contato, 201);
-
+        return response()->json($email, 200);
     }
-
+    
     public function listar(Request $req)
     {
         $contatos = Contato::all();

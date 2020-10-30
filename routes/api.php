@@ -88,6 +88,7 @@ Route::delete('/tipoContatos/deletar/{id}', 'Api\TipoContatoController@deletar')
 //Cliente
 Route::get('/clientes/listar', 'Api\ClienteController@listar');
 Route::post('/clientes/salvar', 'Api\ClienteController@salvar');
+Route::get('/clientes/logar/{senha}/{email}', 'Api\ClienteController@logar');
 Route::get('/clientes/buscar/{id}', 'Api\ClienteController@buscar');
 Route::get('/clientes/logar/{senha}/{email}', 'Api\ClienteController@logar');
 Route::get('/clientes/buscarSenha/{senha}', 'Api\ClienteController@buscarSenha');
