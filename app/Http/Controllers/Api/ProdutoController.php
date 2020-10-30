@@ -29,7 +29,7 @@ class ProdutoController extends Controller
         foreach($produtos as $produto)
         {
             $dado['id'] = $produto->id;
-            $dado['nm_produto'] = $produto->nome_produto;
+            $dado['nome_produto'] = $produto->nome_produto;
             $dado['nm_marca'] = $produto->nm_marca;
             foreach($categorias as $categoria)
             {
