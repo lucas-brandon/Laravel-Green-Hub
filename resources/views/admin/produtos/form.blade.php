@@ -31,7 +31,7 @@
 </div>
 <div class="form-group">
     <label for="dt_vigencia_ini">Data de vigência inicial do preço</label>
-    <input type="date" class="form-control" id="dt_vigencia_ini" name="dt_vigencia_ini"
+    <input type="date" class="form-control" step="any" id="dt_vigencia_ini" name="dt_vigencia_ini"
     value="{{ $preco->dt_vigencia_ini ?? '' }}">
 </div>
 <div class="form-group">
