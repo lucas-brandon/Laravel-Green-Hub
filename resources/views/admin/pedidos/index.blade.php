@@ -48,20 +48,23 @@
                             <td>
                                 <a class="btn btn-primary" href="{{route('admin.pedidos.editar', $pedido->id)}}">Editar</a>
 
+                                {{--
                                 <form action="{{route('admin.pedidos.deletar', $pedido->id)}}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Deletar</button>
                                 </form>
+                                --}}
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-        </div>
+        </div>{{--
         <div class="row">
             <a href="{{route('admin.pedidos.adicionar')}}" class="btn btn-success">Adicionar pedido</a>
         </div>
+        --}}
     </div>
     
 @endsection

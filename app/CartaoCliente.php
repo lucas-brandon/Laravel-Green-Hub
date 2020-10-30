@@ -19,6 +19,7 @@ class CartaoCliente extends Model
         'cliente_id', 'nr_cartao', 'nome', 'bandeira', 'validade',
     ];
 
+
     protected $primaryKey = 'cliente_id';
 
     public function cliente(){
