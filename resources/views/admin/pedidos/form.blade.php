@@ -37,5 +37,5 @@
 </div>
 <div class="form-group">
     <label for="valor">Valor total</label>
-    <input type="number" class="form-control" id="valor" name="valor" value="{{$pedido->valor ?? ''}}">
+    <input type="number" class="form-control" type="any" id="valor" name="valor" value="{{$pedido->valor ?? ''}}">
 </div>

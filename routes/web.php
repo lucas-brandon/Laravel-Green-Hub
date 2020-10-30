@@ -69,4 +69,4 @@ Route::put('/pedido', 'PedidoController@editar');
 Auth::routes();
 
 //Route::get('/home', 'Admin\HomeController@index')->name('home');
-Route::get('/home', 'Admin\HomeController@index')->name('home');
+//Route::get('/home', 'Admin\HomeController@index')->name('home');
