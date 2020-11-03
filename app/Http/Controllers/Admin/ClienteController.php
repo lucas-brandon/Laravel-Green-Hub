@@ -39,6 +39,8 @@ class ClienteController extends Controller
         $cliente['dt_nascimento'] = $req['dt_nascimento'];
         $cliente['senha'] = $req['senha'];
 
+        $cliente['status_cliente'] = true;
+
         $tipo_contato1 = TipoContato::where('descricao', 'email')->first();
 
         $contato1['ds_contato'] = $req['email'];
@@ -76,6 +78,7 @@ class ClienteController extends Controller
         $cliente = $req->all();
 
         Cliente::find($id)->update($cliente);
+      
 
         //Cria uma variavel mensagem na sessão atual
         $req->session()->flash('mensagem', 'Cliente editado com sucesso');

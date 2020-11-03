@@ -11,7 +11,7 @@ class Cliente extends Model
 
     //no fillable tem que ser o mesmo nome de coluna e variavel pra dar match
     protected $fillable = [
-        'nome', 'sobrenome', 'cpf', 'dt_nascimento', 'senha',
+        'nome', 'sobrenome', 'cpf', 'dt_nascimento', 'senha', 'status_cliente'
     ];
 
     public function cartao_cliente()

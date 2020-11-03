@@ -33,6 +33,8 @@ class ClienteController extends BaseController
         $cliente['dt_nascimento'] = $req['dt_nascimento'];
         $cliente['senha'] = $req['senha'];
 
+        $cliente['status_cliente'] = true;
+
         $tipo_contato1 = TipoContato::where('descricao', 'email')->first();
 
         $contato1['ds_contato'] = $req['email'];

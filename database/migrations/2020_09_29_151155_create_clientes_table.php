@@ -20,6 +20,7 @@ class CreateClientesTable extends Migration
             $table->string('cpf');
             $table->date('dt_nascimento');
             $table->string('senha');
+            $table->boolean('status_cliente');
             $table->timestamps();
         });
     }
