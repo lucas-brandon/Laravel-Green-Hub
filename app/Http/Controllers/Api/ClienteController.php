@@ -6,10 +6,6 @@ use App\Cliente;
 use App\Contato;
 use App\TipoContato;
 use http\Env\Response;
-
-
-
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 

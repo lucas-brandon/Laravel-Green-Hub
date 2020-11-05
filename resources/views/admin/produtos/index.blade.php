@@ -12,6 +12,10 @@
             </div>
         @endif
 
+        <div class="row">
+            <a href="{{route('admin.produtos.adicionar')}}" class="btn btn-success">Adicionar produto</a>
+        </div>
+
         <!--'nome_produto', 'ds_produto', 'nm_marca', 'cd_barra'-->
         <div class="row">
             <table class="table">
@@ -69,9 +73,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="row">
-            <a href="{{route('admin.produtos.adicionar')}}" class="btn btn-success">Adicionar produto</a>
-        </div>
+        
     </div>
     
 @endsection

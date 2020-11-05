@@ -12,6 +12,10 @@
             </div>
         @endif
 
+        <div class="row">
+            <a href="{{route('admin.pedidos.adicionar')}}" class="btn btn-success">Adicionar pedido</a>
+        </div>
+
         <!--protected $fillable = [
             'nr_pedido', 'dt_pedido',
         ];-->
@@ -59,9 +63,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="row">
-            <a href="{{route('admin.pedidos.adicionar')}}" class="btn btn-success">Adicionar pedido</a>
-        </div>
+      
     </div>
     
 @endsection

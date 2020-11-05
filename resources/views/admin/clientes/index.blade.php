@@ -37,7 +37,7 @@
                             <td>{{ $cliente->nome }}</td>
                             <td>{{ $cliente->sobrenome }}</td>
                             <td>{{ $cliente->cpf }}</td>
-                            <td>{{ $cliente->dt_nascimento }}</td>
+                            <td>{{ date ('d/m/Y', strtotime( $cliente->dt_nascimento)) }}</td>
                             <td>
                             @foreach ($contatos as $contato)
                                 
@@ -66,8 +66,6 @@
                             </td>
                             <td>
                                 <a class="btn btn-primary" href="{{route('admin.clientes.editar', $cliente->id, $contatos)}}">Editar</a>
-
-                              
                             </td>
                         </tr>
                     @endforeach
@@ -78,4 +76,3 @@
     </div>
     
 @endsection
-
