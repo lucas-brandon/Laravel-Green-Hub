@@ -15,7 +15,6 @@
 <div class="form-group">
     <label for="dt_nascimento">Data de Nascimento</label>
     <input type="date" class="form-control" id="dt-nascimento" name="dt_nascimento" value="{{$cliente->dt_nascimento ?? ''}}" required>
-    <button type="button" onclick='return validarData()'>Validar</button>
     <div class="alert alert-warning" id="aviso-data" style="display:none;" role="alert">
         Desculpe, pessoas com menos de 18 anos não podem se cadastrar.
     </div>

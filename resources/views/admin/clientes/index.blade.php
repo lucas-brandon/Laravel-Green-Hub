@@ -4,14 +4,14 @@
 
 @section('content')
     <div class="container">
-        <h3>Lista de Clientes</h3>
+        <h3 style="margin-top: 20px">Lista de Clientes</h3>
 
         @if(!@empty($mensagem))
             <div class="alert alert-success">
                 {{$mensagem}}
             </div>
         @endif
-        <div class="row">
+        <div class="row d-flex justify-content-end" style="margin-bottom: 25px">
             <a href="{{route('admin.clientes.adicionar')}}" class="btn btn-success">Adicionar cliente</a>
         </div>
 

@@ -20,7 +20,6 @@ class ClienteController extends Controller
         return view('admin.clientes.index', compact('clientes', 'contatos', 'mensagem'));
     }
 
-
     public function adicionar()
     {
         return view('admin.clientes.adicionar');

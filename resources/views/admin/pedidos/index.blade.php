@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container">
-        <h3>Lista de Pedidos</h3>
+        <h3 style="margin-top: 20px">Lista de Pedidos</h3>
 
         @if(!@empty($mensagem))
             <div class="alert alert-success">
@@ -12,7 +12,7 @@
             </div>
         @endif
 
-        <div class="row">
+        <div class="row d-flex justify-content-end" style="margin-bottom: 25px">
             <a href="{{route('admin.pedidos.adicionar')}}" class="btn btn-success">Adicionar pedido</a>
         </div>
 

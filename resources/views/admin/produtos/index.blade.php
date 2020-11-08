@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container">
-        <h3>Lista de Produtos</h3>
+        <h3 style="margin-top: 20px">Lista de Produtos</h3>
 
         @if(!@empty($mensagem))
             <div class="alert alert-success">
@@ -12,7 +12,7 @@
             </div>
         @endif
 
-        <div class="row">
+        <div class="row d-flex justify-content-end" style="margin-bottom: 25px">
             <a href="{{route('admin.produtos.adicionar')}}" class="btn btn-success">Adicionar produto</a>
         </div>
 
@@ -43,6 +43,10 @@
                                     <td>{{ $preco->valor }}</td>
                                 @endif
                             @endforeach
+
+
+
+
                             <td>{{ $produto->cd_barra }}</td>
                             @foreach ($estoques as $estoque)
                             @if ($produto->id == $estoque->produto_id)
