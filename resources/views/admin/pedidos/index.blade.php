@@ -4,13 +4,17 @@
 
 @section('content')
     <div class="container">
-        <h3>Lista de Pedidos</h3>
+        <h3 style="margin-top: 20px">Lista de Pedidos</h3>
 
         @if(!@empty($mensagem))
             <div class="alert alert-success">
                 {{$mensagem}}
             </div>
         @endif
+
+        <div class="row d-flex justify-content-end" style="margin-bottom: 25px">
+            <a href="{{route('admin.pedidos.adicionar')}}" class="btn btn-success">Adicionar pedido</a>
+        </div>
 
         <!--protected $fillable = [
             'nr_pedido', 'dt_pedido',
@@ -59,9 +63,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="row">
-            <a href="{{route('admin.pedidos.adicionar')}}" class="btn btn-success">Adicionar pedido</a>
-        </div>
+      
     </div>
     
 @endsection

@@ -6,10 +6,6 @@ use App\Cliente;
 use App\Contato;
 use App\TipoContato;
 use http\Env\Response;
-
-
-
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use PhpParser\Node\Stmt\TryCatch;
@@ -33,6 +29,8 @@ class ClienteController extends BaseController
         $cliente['cpf'] = $req['cpf'];
         $cliente['dt_nascimento'] = $req['dt_nascimento'];
         $cliente['senha'] = $req['senha'];
+
+        $cliente['status_cliente'] = true;
 
         $tipo_contato1 = TipoContato::where('descricao', 'email')->first();
 

@@ -20,7 +20,6 @@ class ClienteController extends Controller
         return view('admin.clientes.index', compact('clientes', 'contatos', 'mensagem'));
     }
 
-
     public function adicionar()
     {
         return view('admin.clientes.adicionar');
@@ -38,6 +37,8 @@ class ClienteController extends Controller
         $cliente['cpf'] = $req['cpf'];
         $cliente['dt_nascimento'] = $req['dt_nascimento'];
         $cliente['senha'] = $req['senha'];
+
+        $cliente['status_cliente'] = true;
 
         $tipo_contato1 = TipoContato::where('descricao', 'email')->first();
 
@@ -76,6 +77,7 @@ class ClienteController extends Controller
         $cliente = $req->all();
 
         Cliente::find($id)->update($cliente);
+      
 
         //Cria uma variavel mensagem na sessão atual
         $req->session()->flash('mensagem', 'Cliente editado com sucesso');
