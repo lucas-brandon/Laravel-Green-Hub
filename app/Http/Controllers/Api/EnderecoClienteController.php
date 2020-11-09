@@ -64,4 +64,14 @@ class EnderecoClienteController extends BaseController
             return response()->json('Endereço não encontrado', 404);
         }
     }
+
+    public function enderecosCliente($cliente_id)
+    {
+        $dados = EnderecoCliente::where('cliente_id', $cliente_id)->get();
+        if (is_null($dados)) {
+            return response()->json('Cliente sem endereço registrado', 404);
+        }
+
+        return response()->json($dados, 200);
+    }
 }

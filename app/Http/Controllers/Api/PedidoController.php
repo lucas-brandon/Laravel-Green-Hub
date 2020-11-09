@@ -127,4 +127,10 @@ class PedidoController extends BaseController
 
         return response()->json($dados, 201);
     }
+
+    public function buscarPedidos($id)
+    {
+        $pedidos = Pedido::where('cliente_id', $id)->get();
+        return response()->json($pedidos, 200);
+    }
 }

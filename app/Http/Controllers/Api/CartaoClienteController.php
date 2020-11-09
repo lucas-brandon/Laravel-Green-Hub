@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\CartaoCliente;
+use App\Cartao_cliente;
 use App\Cliente;
 use http\Env\Response;
 use App\Http\Controllers\Controller;
@@ -13,55 +13,29 @@ class CartaoClienteController extends BaseController
 {
     public function __construct()
     {
-        $this->classe = CartaoCliente::class;
+        $this->classe = Cartao_cliente::class;
     }
 
-    /*
-    $table->foreignId('cliente_id');
-    $table->integer('nr_cartao');
-    $table->string('nome');
-    $table->string('bandeira');
-    $table->date('validade'); 
-    */
-
-    public function cadastrar(Request $req, $id)
+    public function salvar(Request $req)
     {
-        //$dados = $req->all();
-        $cliente = Cliente::find($id);
+        $cliente = Cliente::find($req["cliente_id"]);
 
         if(is_null($cliente)){
             return response()->json("Cliente não encontrado", 404);
         }
 
-        $dados['cliente_id'] = $cliente['id'];
-        $dados['nr_cartao'] = $req->nr_cartao;
-        $dados['nome'] = $req->nome;
+        $dados['cliente_id'] = $cliente["id"];
+        $dados['nr_cartao'] = $req["nr_cartao"];
+        $dados['nome'] = $req["nome"];
+        $dados['bandeira'] = $req["bandeira"];
+        $dados['validade'] = $req["validade"];
+
+        return response()->json($dados, 200);
     }
-    // public function salvar(Request $req)
-    // {
-    //     $dados = $req->all();
-    //     $dados['id_cliente'] = Auth::user()->id_cliente;
-    //     $dados['nr_cartao'] = $req->nr_cartao;
-    //     $dados['nome'] = Auth::user()->nome;
-    //     $dados['bandeira'] = $req->bandeira;
-    //     $dados['validade'] = $req->validade;
-
-    //     return response()->json(CartaoCliente::create($dados), 201);
-    // }
-
-    // public function deletar($id)
-    // {
-    //     $cartao = CartaoCliente::where('cliente_id', $id)->first();
-    //     if(is_null($cartao)){
-    //         return response()->json("Cartao do Cliente não encontrado", 404);
-    //     }
-    //     $cartao->delete();
-
-    //     return response()->json('Cartao Removido', 200);
-    // }   
+    
     public function listar(Request $req) {
         $array = array();
-        $cartoes = CartaoCliente::all();
+        $cartoes = Cartao_cliente::all();
         $clientes = Cliente::all();
 
         foreach ($cartoes as $cartao) {
@@ -77,7 +51,7 @@ class CartaoClienteController extends BaseController
 
     public function editar($id)
     {
-        $cartao = CartaoCliente::find($id);
+        $cartao = Cartao_cliente::find($id);
         $cliente = Cliente::where('id_cliente', $id)->first();
 
         return view('cartoes.editar', compact('cartao', 'cliente'));
@@ -85,9 +59,19 @@ class CartaoClienteController extends BaseController
 
     public function buscar($id)
     {
-        $dados = CartaoCliente::find($id);
+        $dados = Cartao_cliente::find($id);
         if (is_null($dados)) {
             return response()->json('Cartao não encontrado', 404);
+        }
+
+        return response()->json($dados, 200);
+    }
+
+    public function cartoesCliente($cliente_id)
+    {
+        $dados = Cartao_cliente::where('cliente_id', $cliente_id)->get();
+        if (is_null($dados)) {
+            return response()->json('Cliente sem cartão registrado', 404);
         }
 
         return response()->json($dados, 200);
@@ -99,7 +83,7 @@ class CartaoClienteController extends BaseController
         $cartao['bandeira'] = $req['bandeira'];
         $cartao['validade'] = $req['validade'];
 
-        $cartaoCliente = CartaoCliente::find($id);
+        $cartaoCliente = Cartao_cliente::find($id);
 
         if (is_null($cartaoCliente)){
             return response()->json(['erro' => 'Recurso não encontrado'], 404);
@@ -112,7 +96,7 @@ class CartaoClienteController extends BaseController
 
     public function deletar($id)
     {
-        $cartaoCliente = CartaoCliente::find($id);
+        $cartaoCliente = Cartao_cliente::find($id);
         if (is_null($cartaoCliente)) {
             return response()->json(['erro' => 'Cartão não encontrado'], 404);
         }

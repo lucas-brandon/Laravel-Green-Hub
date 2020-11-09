@@ -16,7 +16,7 @@ class Cliente extends Model
 
     public function cartao_cliente()
     {
-        return $this->hasMany(CartaoCliente::class);
+        return $this->hasMany(Cartao_cliente::class);
     }
 
     public function endereco_cliente()
