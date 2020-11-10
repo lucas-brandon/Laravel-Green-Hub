@@ -14,7 +14,7 @@ class ClienteController extends Controller
     //
     public function index(Request $req)
     {
-        $clientes = Cliente::all();
+        $clientes = Cliente::paginate(5);
         $contatos = Contato::all();
         $mensagem = $req->session()->get('mensagem');
         return view('admin.clientes.index', compact('clientes', 'contatos', 'mensagem'));

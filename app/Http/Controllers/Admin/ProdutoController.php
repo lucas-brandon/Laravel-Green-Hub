@@ -15,7 +15,7 @@ class ProdutoController extends Controller
     //
     public function index(Request $req)
     {
-        $produtos = Produto::all();
+        $produtos = Produto::paginate(5);
         $precos = Preco::all();
         $categorias = Categoria::all();
         $estoques = Estoque::all();
@@ -43,6 +43,7 @@ class ProdutoController extends Controller
         $produto['ds_produto'] = $req['ds_produto'];
         $produto['nm_marca'] = $req['nm_marca'];
         $produto['cd_barra'] = $req['cd_barra'];
+        $produto['status_produto'] = true;
 
         $categoria = Categoria::where('descricao', $req['ds_categoria'])->first();
 
@@ -105,6 +106,7 @@ class ProdutoController extends Controller
         $produto['ds_produto'] = $req['ds_produto'];
         $produto['nm_marca'] = $req['nm_marca'];
         $produto['cd_barra'] = $req['cd_barra'];
+        $produto['status_produto'] = $req['status_produto'];
 
         $categoria = Categoria::where('descricao', $req['ds_categoria'])->first();
 
