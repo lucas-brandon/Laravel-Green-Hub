@@ -63,26 +63,58 @@ class CategoriaController extends BaseController
         return response()->json($array, 200);
     }
     
-    public function buscaTermo(Request $req)
-    {        
+    public function buscaTermo($termo)
+    {   
+        $array = array();             
+        $categorias = Categoria::all();
+        $produtos = Produto::all();
+        //dd($termo);
+        $s = '%'.$termo.'%';
 
-    $categorias = Categoria::all();
-    $produtos = Produto::all();
+        $findProdutos = Produto::where('nome_produto', 'like', $s)
+                                ->orWhere('nm_marca', 'like', $s)
+                                ->get();
 
-    foreach($categorias as $ctg)
-    {
-        if($req->descricao == $ctg->descricao){
-            return response()->json($ctg, 200);
-        }           
-    } 
-    
-    foreach($produtos as $prod)
-    {
-        if($req->nome_produto == $prod->nome_produto){
-            return response()->json($prod, 200);
-        }           
-    }
-    return response()->json('Item não encontrado', 404);
-    
+                                
+        /*
+        foreach($categorias as $ctg)
+        {
+            if($req->descricao == $ctg->descricao){
+                return response()->json($ctg, 200);
+            }           
+        } 
+        
+        foreach($produtos as $prod)
+        {
+            if($req->nome_produto == $prod->nome_produto){
+                return response()->json($prod, 200);
+            }
+
+            if($req->nm_marca == $prod->nm_marca){
+                return response()->json($prod, 200);
+            }
+            
+        }
+        */
+        if(is_null($findProdutos)){
+            return response()->json('Item não encontrado', 404);
+        }
+
+        foreach($findProdutos as $produto)
+        {
+            $preco = Preco::where('produto_id', $produto->id)->first();
+            $produto['preco_valor'] = $preco->valor;
+            $produto['preco_fl_promocao'] = $preco->fl_promocao;
+            $produto['preco_desconto'] = $preco->desconto;
+            $produto['preco_dt_vigencia_ini'] = $preco->dt_vigencia_ini;
+            $produto['preco_dt_vigencia_fim'] = $preco->dt_vigencia_fim;
+
+            $img = ImagemProduto::where('produto_id', $produto->id)->first();
+            $produto['link_imagem'] = url($img['link_imagem']);
+            
+        }
+
+        return response()->json($findProdutos, 200);
+
     }
 }

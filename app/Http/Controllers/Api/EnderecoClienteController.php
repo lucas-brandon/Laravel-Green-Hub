@@ -42,5 +42,18 @@ class EnderecoClienteController extends BaseController
         return response()->json('Item Removido', 200);
     }
 
+    public function listarEnderecos($cliente_id){
+
+        $array = array(); 
+        $enderecos = EnderecoCliente::where('cliente_id', $cliente_id)->get();
+
+        foreach($enderecos as $endereco){
+            $dado = Endereco::find($endereco['endereco_id']);
+            array_push($array, $dado);
+        }
+
+        return response()->json($array, 201);
+    }
+
     
 }

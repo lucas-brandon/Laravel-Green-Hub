@@ -46,11 +46,24 @@ class ContatoController extends BaseController
 
         foreach($contatos as $contato)
         {
-
             $tipo = TipoContato::where('id', $contato['tipo_contato_id'])->first();
             $contato['tipo'] = $tipo['descricao'];
         }
 
         return response()->json($contatos, 201);
+    }
+
+    public function listarContatos($cliente_id)
+    {
+        $array = array();
+        $contatos = Contato::where('cliente_id', $cliente_id)->get();
+        foreach($contatos as $contato)
+        {
+            $tipo = TipoContato::where('id', $contato['tipo_contato_id'])->first();
+            $contato['tipo'] = $tipo['descricao'];
+            array_push($array, $contato);
+        }
+        return response()->json($array, 201);
+
     }
 }
