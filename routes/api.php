@@ -46,6 +46,8 @@ Route::delete ('/enderecoCliente/deletar/{id}','Api\EnderecoClienteController@de
 Route::get('/contato/listar', 'Api\ContatoController@listar');
 Route::get ('/contato/buscar/{id}','Api\ContatoController@buscar');
 Route::get('/contato/buscarEmail/{contato}', 'Api\ContatoController@buscarEmail');
+Route::get('/contato/emailCliente/{id}', 'Api\ContatoController@emailCliente');
+Route::get('/contato/telefoneCliente/{id}', 'Api\ContatoController@telefoneCliente');
 Route::post ('/contato/salvar/','Api\ContatoController@salvar');
 Route::put ('/contato/atualizar/{id}','Api\ContatoController@atualizar');
 Route::delete ('/contato/deletar/{id}','Api\ContatoController@deletar');

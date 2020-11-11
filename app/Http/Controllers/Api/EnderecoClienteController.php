@@ -21,9 +21,14 @@ class EnderecoClienteController extends BaseController
 
     public function salvar(Request $req)
     {
-        $dados = $req->all();
-        $dados['id_cliente'] = Cliente::user('id_cliente');
-        $dados['id_endereco'] = Endereco::user('id_endereco');
+        $dados = "";
+        if (!is_null(Cliente::where('id', $req["id_cliente"]))){
+            $dados['id_cliente'] = Cliente::where('id', $req["id_cliente"]);
+        } else if (!is_null(Endereco::where('id', $req["id_endereco"]))){
+            $dados['id_endereco'] = Endereco::where('id', $req["id_endereco"]);
+        }
+        // $dados['id_cliente'] = Cliente::where('id', $req["id_cliente"]);
+        // $dados['id_endereco'] = Endereco::where('id', $req["id_endereco"]);
 
         return response()->json(EnderecoCliente::create($dados), 201);
     }

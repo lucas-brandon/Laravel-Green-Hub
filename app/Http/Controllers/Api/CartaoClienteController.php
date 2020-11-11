@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Cartao_cliente;
+use App\CartaoCliente;
 use App\Cliente;
 use http\Env\Response;
 use App\Http\Controllers\Controller;
@@ -13,13 +13,12 @@ class CartaoClienteController extends BaseController
 {
     public function __construct()
     {
-        $this->classe = Cartao_cliente::class;
+        $this->classe = CartaoCliente::class;
     }
 
     public function salvar(Request $req)
     {
-        $cliente = Cliente::find($req["cliente_id"]);
-
+        $cliente = Cliente::where("id", $req["cliente_id"])->first();
         if(is_null($cliente)){
             return response()->json("Cliente não encontrado", 404);
         }
@@ -30,28 +29,27 @@ class CartaoClienteController extends BaseController
         $dados['bandeira'] = $req["bandeira"];
         $dados['validade'] = $req["validade"];
 
-        return response()->json($dados, 200);
+        return response()->json(CartaoCliente::create($dados), 200);
     }
     
     public function listar(Request $req) {
         $array = array();
-        $cartoes = Cartao_cliente::all();
-        $clientes = Cliente::all();
+        $cartoes = CartaoCliente::all();
 
         foreach ($cartoes as $cartao) {
-            $dados['id_cliente'] = $cartao->id_cliente;
-            $dados['nr_cartao'] = $cartao->nr_cartao;
-            $dados['nome'] = $cartao->nome;
-            $dados['bandeira'] = $cartao->bandeira;
-            $dados['validade'] = $cartao->validade;
+            $dados['cliente_id'] = $cartao["cliente_id"];
+            $dados['nr_cartao'] = $cartao["nr_cartao"];
+            $dados['nome'] = $cartao["nome"];
+            $dados['bandeira'] = $cartao["bandeira"];
+            $dados['validade'] = $cartao["validade"];
+            array_push($array, $dados);
         }
-        array_push($array, $dados);
         return response()->json($array, 201);
     }
 
-    public function editar($id)
+    public function editar($id, Request $req)
     {
-        $cartao = Cartao_cliente::find($id);
+        $cartao = CartaoCliente::find($id);
         $cliente = Cliente::where('id_cliente', $id)->first();
 
         return view('cartoes.editar', compact('cartao', 'cliente'));
@@ -59,7 +57,7 @@ class CartaoClienteController extends BaseController
 
     public function buscar($id)
     {
-        $dados = Cartao_cliente::find($id);
+        $dados = CartaoCliente::find($id);
         if (is_null($dados)) {
             return response()->json('Cartao não encontrado', 404);
         }
@@ -69,7 +67,7 @@ class CartaoClienteController extends BaseController
 
     public function cartoesCliente($cliente_id)
     {
-        $dados = Cartao_cliente::where('cliente_id', $cliente_id)->get();
+        $dados = CartaoCliente::where('cliente_id', $cliente_id)->get();
         if (is_null($dados)) {
             return response()->json('Cliente sem cartão registrado', 404);
         }
@@ -83,7 +81,7 @@ class CartaoClienteController extends BaseController
         $cartao['bandeira'] = $req['bandeira'];
         $cartao['validade'] = $req['validade'];
 
-        $cartaoCliente = Cartao_cliente::find($id);
+        $cartaoCliente = CartaoCliente::find($id);
 
         if (is_null($cartaoCliente)){
             return response()->json(['erro' => 'Recurso não encontrado'], 404);
@@ -96,7 +94,7 @@ class CartaoClienteController extends BaseController
 
     public function deletar($id)
     {
-        $cartaoCliente = Cartao_cliente::find($id);
+        $cartaoCliente = $this->classe::where('id', $id)->get();
         if (is_null($cartaoCliente)) {
             return response()->json(['erro' => 'Cartão não encontrado'], 404);
         }
