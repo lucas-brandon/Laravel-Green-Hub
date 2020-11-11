@@ -50,7 +50,7 @@
                                 @endif
                             @endforeach
                             <td>{{ $pedido->nr_pedido }}</td>
-                            <td>{{ $pedido->dt_pedido }}</td>
+                            <td>{{ date ('d/m/Y', strtotime($pedido->dt_pedido)) }}</td>
                             <td>{{ $pedido->valor ?? '' }}</td>
                             <td>
                                 <a class="btn btn-primary" href="{{route('admin.pedidos.editar', $pedido->id)}}">Editar</a>
