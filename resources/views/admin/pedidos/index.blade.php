@@ -12,13 +12,6 @@
             </div>
         @endif
 
-        <div class="row d-flex justify-content-end" style="margin-bottom: 25px">
-            <a href="{{route('admin.pedidos.adicionar')}}" class="btn btn-success">Adicionar pedido</a>
-        </div>
-
-        <!--protected $fillable = [
-            'nr_pedido', 'dt_pedido',
-        ];-->
         <div class="row">
             <table class="table">
                 <thead>

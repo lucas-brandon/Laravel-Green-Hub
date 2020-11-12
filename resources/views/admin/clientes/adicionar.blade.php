@@ -12,7 +12,9 @@
 
                
                 
-                <button type="submit" class="btn btn-success" onclick='return validadata()'>Salvar</button>
+                <button type="submit" class="btn btn-success" 
+                onclick='return validadata()'>Salvar</button>
+                <!--onclick vai retornar a validaçao do campo data de nascimento-->
             </form>
         </div>    
     </div>

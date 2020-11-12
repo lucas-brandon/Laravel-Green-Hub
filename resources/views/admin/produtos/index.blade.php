@@ -40,7 +40,8 @@
                             <td>{{ $produto->nm_marca }}</td>
                             @foreach ($precos as $preco)
                                 @if ($produto->id == $preco->produto_id)
-                                    <td>{{ $preco->valor }}</td>
+
+                                    <td>{{ str_replace('.', ',', $preco->valor) }}</td>
                                 @endif
                             @endforeach
                             <td>{{ $produto->cd_barra }}</td>

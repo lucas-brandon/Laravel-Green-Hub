@@ -23,8 +23,7 @@
 </div>
 <div class="form-group">
     <label for="valor">Preço (R$)</label>
-    <input type="text" class="form-control" id="valor" name="valor" value="{{ $preco->valor ?? '' }}" maxlength="11" required>
-    <button onclick="return numeroParaReal()"></button>
+    <input type="number" class="form-control" id="valor" name="valor" value="{{ $preco->valor ?? '' }}" step="any" required>
 </div>
 <div class="form-group">
     <label for="desconto">Desconto (%)</label>
@@ -83,20 +82,14 @@
 </div>
 
 
-
 <script>
 
     function getElem(elem) {
         return document.querySelector(elem);
     }    
-    //const mascaraPreco = (int) => {
-    //     //let tmp = int + '';
-    //    int = int.replace(/([0-9]{2})$/g, ",$1");
-    //    if( int.length > 6 ){
-    //        int = int.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
-    //    }
-    //    valor.value = int;
-    //}
+
+
+
 
                                     //DESCONTO//
 
@@ -150,6 +143,5 @@
         }
         
         getElem("#aviso-data").style.display = "none";
-    }
-        
+    }        
 </script>
