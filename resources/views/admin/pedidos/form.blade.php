@@ -5,7 +5,7 @@
 -->
 <div class="form-group">
     <label for="statusPedido">Status</label>
-    <select class="form-control" id="ds_status" name="ds_status">      
+    <select class="form-control" id="status" name="status">      
       @foreach ($statusPedidos as $status)
         @if (isset($pedido->status_pedido_id) && $pedido->status_pedido_id == $status->id)
             <option value="{{$status->ds_status}}" selected>{{$status->ds_status}}</option>
