@@ -94,11 +94,27 @@ class CartaoClienteController extends BaseController
 
     public function deletar($id)
     {
-        $cartaoCliente = $this->classe::where('id', $id)->get();
+        $cartaoCliente = CartaoCliente::where('id', $id)->first();
         if (is_null($cartaoCliente)) {
             return response()->json(['erro' => 'Cartão não encontrado'], 404);
         }
         $cartaoCliente->delete();
         return response()->json('Cartão Removido', 200);
+    }
+
+    public function cadastrar($id, Request $req)
+    {
+        $cliente = Cliente::where("id", $id)->first();
+        if(is_null($cliente)){
+            return response()->json("Cliente não encontrado", 404);
+        }
+
+        $dados['cliente_id'] = $cliente["id"];
+        $dados['nr_cartao'] = $req["nr_cartao"];
+        $dados['nome'] = $req["nome"];
+        $dados['bandeira'] = $req["bandeira"];
+        $dados['validade'] = $req["validade"];
+
+        return response()->json(CartaoCliente::create($dados), 200);
     }
 }

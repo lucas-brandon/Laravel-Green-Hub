@@ -25,6 +25,7 @@ class CreateProdutosTable extends Migration
             $table->double('largura', 8, 2)->nullable();
             $table->date('altura', 8 , 2)->nullable();
             $table->date('comprimento', 8, 2)->nullable();
+            $table->boolean('status_produto');
             $table->timestamps();
 
             $table->foreign('categoria_id')->references('id')->on('categorias');

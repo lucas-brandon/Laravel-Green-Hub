@@ -21,14 +21,16 @@ class EnderecoClienteController extends BaseController
 
     public function salvar(Request $req)
     {
-        $dados = "";
-        if (!is_null(Cliente::where('id', $req["id_cliente"]))){
-            $dados['id_cliente'] = Cliente::where('id', $req["id_cliente"]);
-        } else if (!is_null(Endereco::where('id', $req["id_endereco"]))){
-            $dados['id_endereco'] = Endereco::where('id', $req["id_endereco"]);
+        $dados = [];
+        $cliente = Cliente::where('id', $req["cliente_id"])->first();
+        $endereco = Endereco::where('id', $req["endereco_id"])->first();
+        if (is_null($cliente)){
+            return response()->json("Cliente não encontrado!", 404);
+        } else if (is_null($endereco)){
+            return response()->json("Endereco não encontrado!", 404);
         }
-        // $dados['id_cliente'] = Cliente::where('id', $req["id_cliente"]);
-        // $dados['id_endereco'] = Endereco::where('id', $req["id_endereco"]);
+        $dados['cliente_id'] = $cliente["id"];
+        $dados['endereco_id'] = $endereco["id"];
 
         return response()->json(EnderecoCliente::create($dados), 201);
     }
@@ -76,7 +78,11 @@ class EnderecoClienteController extends BaseController
         if (is_null($dados)) {
             return response()->json('Cliente sem endereço registrado', 404);
         }
-
-        return response()->json($dados, 200);
+        $enderecos = [];
+        foreach ($dados as $dado) {
+            $endereco = Endereco::find($dado["endereco_id"])->first();
+            array_push($enderecos, $endereco);
+        }
+        return response()->json($enderecos, 200);
     }
 }
