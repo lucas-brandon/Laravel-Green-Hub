@@ -71,16 +71,17 @@ class ProdutoController extends Controller
         $produto['ds_produto'] = $req['ds_produto'];
         $produto['nm_marca'] = $req['nm_marca'];
         $produto['cd_barra'] = $req['cd_barra'];
+        $produto['status_produto'] = true;
 
         $categoria = Categoria::where('descricao', $req['ds_categoria'])->first();
-
+       
         if(is_null($categoria))
         {
+
             return response()->json('Categoria inválida', 200);
         }
 
-        $produto['categoria_id'] = $categoria['id'];
-        
+        $produto['categoria_id'] = $categoria['id'];        
 
         $preco['valor'] = $req['valor'];
         $preco['desconto'] = $req['desconto'];
@@ -167,6 +168,7 @@ class ProdutoController extends Controller
         $produto['ds_produto'] = $req['ds_produto'];
         $produto['nm_marca'] = $req['nm_marca'];
         $produto['cd_barra'] = $req['cd_barra'];
+        $produto['status_produto'] = $req['status_produto'];
 
         $categoria = Categoria::where('descricao', $req['ds_categoria'])->first();
 

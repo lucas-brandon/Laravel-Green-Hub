@@ -29,28 +29,8 @@
                     </select>
                 </div>
 
-
-                <script>
-
-                        //CPF//
-                    const cpf = document.getElementById('cpf')
-                    
-                    cpf.addEventListener('keypress', (e) => mascaraCPF(e.target.value))
-                    cpf.addEventListener('change', (e) => mascaraCPF(e.target.value))
-                    
-                    const mascaraCPF = (valor) => {
-                        valor = valor.replace(/\D/g, "")
-                        valor = valor.replace(/^(\d{3})(\d)/, "$1.$2")
-                        valor = valor.replace(/(\d{3})(\d)/, "$1.$2")
-                        valor = valor.replace(/(\d{3})(\d{1,2})$/, "$1-$2")
-                        
-                        cpf.value = valor 
-                    }
-
-                </script>
-
                 
-                <button type="submit" class="btn btn-success">Salvar</button>
+                <button type="submit" class="btn btn-success" onclick='return validadata()'>Salvar</button>
             </form>
         </div>    
     </div>

@@ -27,9 +27,9 @@
                         <th scope="col">Preço (R$)</th>
                         <th scope="col">Código de Barra</th>
                         <th scope="col">Quantidade</th>
+                        <th scope="col">Status Produto</th>
                         <th scope="col">Imagens</th>
                         <th scope="col">Ações</th>
-                        
                     </tr>
                 </thead>
                 <tbody>
@@ -43,16 +43,19 @@
                                     <td>{{ $preco->valor }}</td>
                                 @endif
                             @endforeach
-
-
-
-
                             <td>{{ $produto->cd_barra }}</td>
                             @foreach ($estoques as $estoque)
                             @if ($produto->id == $estoque->produto_id)
                                 <td>{{ $estoque->qtd_item }}</td>
                             @endif
                             @endforeach
+                            <td>    
+                                @if ($produto->status_produto == '1')
+                                    {{"Produto Ativo"}}
+                                @elseif ($produto->status_produto == '2')
+                                    {{"Produto Inativo"}}
+                                @endif
+                            </td>
 
                             @foreach ($imagens as $img)
                             @if ($produto->id == $img->produto_id)
@@ -61,7 +64,6 @@
                             </td>
                             @endif
                             @endforeach
- 
                             <td>
                                 <a class="btn btn-primary" href="{{route('admin.produtos.editar', $produto->id)}}">Editar</a>
                                 {{--
@@ -77,6 +79,7 @@
                     @endforeach
                 </tbody>
             </table>
+            {{$produtos->links()}}
         </div>
         
     </div>

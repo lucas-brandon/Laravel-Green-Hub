@@ -14,7 +14,7 @@ class ClienteController extends Controller
     //
     public function index(Request $req)
     {
-        $clientes = Cliente::all();
+        $clientes = Cliente::paginate(5);
         $contatos = Contato::all();
 
         $tipo_email = TipoContato::where('descricao', 'email')->first();

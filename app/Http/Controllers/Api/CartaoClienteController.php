@@ -94,7 +94,7 @@ class CartaoClienteController extends BaseController
 
     public function deletar($id)
     {
-        $cartaoCliente = $this->classe::where('id', $id)->get();
+        $cartaoCliente = CartaoCliente::where('id', $id)->first();
         if (is_null($cartaoCliente)) {
             return response()->json(['erro' => 'Cartão não encontrado'], 404);
         }
@@ -102,11 +102,28 @@ class CartaoClienteController extends BaseController
         return response()->json('Cartão Removido', 200);
     }
 
+<<<<<<< HEAD
     public function listarCartoes($cliente_id)
     {
         $cartoes = CartaoCliente::where('cliente_id', $cliente_id)->get();
 
         return response()->json($cartoes, 201);
 
+=======
+    public function cadastrar($id, Request $req)
+    {
+        $cliente = Cliente::where("id", $id)->first();
+        if(is_null($cliente)){
+            return response()->json("Cliente não encontrado", 404);
+        }
+
+        $dados['cliente_id'] = $cliente["id"];
+        $dados['nr_cartao'] = $req["nr_cartao"];
+        $dados['nome'] = $req["nome"];
+        $dados['bandeira'] = $req["bandeira"];
+        $dados['validade'] = $req["validade"];
+
+        return response()->json(CartaoCliente::create($dados), 200);
+>>>>>>> e98045faf264472fbeef6434ef5d92a807e00f26
     }
 }

@@ -11,9 +11,9 @@
                 {{$mensagem}}
             </div>
         @endif
-        <div class="row d-flex justify-content-end" style="margin-bottom: 25px">
-            <a href="{{route('admin.clientes.adicionar')}}" class="btn btn-success">Adicionar cliente</a>
-        </div>
+        <!--<div class="row d-flex justify-content-end" style="margin-bottom: 25px">
+            <a href="//route('admin.clientes.adicionar')}}" class="btn btn-success">Adicionar cliente</a>
+        </div>-->
 
         <div class="row">
             <table class="table">
@@ -71,9 +71,7 @@
                     @endforeach
                 </tbody>
             </table>
-        </div>{{--
-        <div class="row">
-            <a href="{{route('admin.clientes.adicionar')}}" class="btn btn-success">Adicionar cliente</a>
+            {{$clientes->links()}}
         </div>
         --}}
     </div>

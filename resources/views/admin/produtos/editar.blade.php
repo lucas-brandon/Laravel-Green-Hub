@@ -11,8 +11,22 @@
                 <input type="hidden" name="_method" value="put">
 
                 @include('admin.produtos.form')
+
+                <div class="form-group">
+                    <label for="status_cliente">Status do produto</label>
+                    <select class="form-control" id="status_produto" name="status_produto">     
+                        <option value="1">{{ "Ativo" }}</option>
+                        <option value="2">{{"Inativo"}}</option>
+
+                        @if("Ativo")
+                            {{$produto->status_produto = true}}
+                        @elseif("Inativo")
+                            {{$produto->status_produto = false}}
+                        @endif
+                    </select>
+                </div>
                 
-                <button type="submit" class="btn btn-success">Salvar</button>
+                <button type="submit" class="btn btn-success" onclick='return compararData()'>Salvar</button>
             </form>
         </div>    
     </div>
