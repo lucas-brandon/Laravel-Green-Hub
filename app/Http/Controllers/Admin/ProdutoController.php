@@ -17,6 +17,11 @@ class ProdutoController extends Controller
     {
         $produtos = Produto::paginate(5);
         $precos = Preco::all();
+        foreach($precos as $preco){
+            $preco['valor'] = str_replace(".",",",$preco['valor']);
+        }
+
+
         $categorias = Categoria::all();
         $estoques = Estoque::all();
         $imagens = ImagemProduto::all();
