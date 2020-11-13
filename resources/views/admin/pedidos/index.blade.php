@@ -33,7 +33,7 @@
 
                             @foreach ($statusPedidos as $status)
                                 @if ($pedido->status_pedido_id == $status->id)
-                                   {{$status->ds_status}}
+                                   <td>{{$status->ds_status}}</td>
                                 @endif
                             @endforeach
 
