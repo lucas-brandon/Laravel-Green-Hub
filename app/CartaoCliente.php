@@ -14,10 +14,12 @@ class CartaoCliente extends Model
     $table->date('validade'); 
     */
     protected $table = 'cartao_clientes';
+    //protected $dateFormat = 'd/m/Y';
 
     protected $fillable = [
         'cliente_id', 'nr_cartao', 'nome', 'bandeira', 'validade',
     ];
+
 
     protected $primaryKey = 'cliente_id';
 

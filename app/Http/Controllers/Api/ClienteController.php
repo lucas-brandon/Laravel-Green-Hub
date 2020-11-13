@@ -6,6 +6,14 @@ use App\Cliente;
 use App\Contato;
 use App\TipoContato;
 use http\Env\Response;
+//use App\Http\Controllers\Mail;
+use \Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\Mail\GreenHub;
+use stdClass;
+
+
+
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -49,8 +57,16 @@ class ClienteController extends BaseController
         Contato::create($contato2);
 
         //Cria uma variavel mensagem na sessão atual
-        $req->session()->flash('mensagem', 'Cliente cadastrado com sucesso');
+        //$req->session()->flash('mensagem', 'Cliente cadastrado com sucesso');
 
+        $user = new stdClass();
+        $user->name = $req['name'];
+        $user->email = $req['email'];
+        $user->msg = $req['msg'];
+        $user->subject = $req['assunto'];
+
+        Mail::send(new GreenHub($user));
+        //return new GreenHub($user);
         //return redirect()->route('admin.clientes.index');
         return response()->json($cliente, 200);
         }
@@ -89,15 +105,21 @@ class ClienteController extends BaseController
 
     public function logar($senha, $email)
     {
-        $clienteSenha = Cliente::where('senha', $senha)->get();
-        $clienteEmail = Contato::where('ds_contato', $email)->first();
-        foreach ($clienteSenha as $cliente) {
+        try{
+            $clienteSenha = Cliente::where('senha', $senha)->get();
+            $clienteEmail = Contato::where('ds_contato', $email)->first();
             if ($clienteSenha == '' || $clienteEmail == ''){
                 return response()->json('Cliente não encontrado', 404);
             }
-            else if ($clienteEmail->cliente_id == $cliente->id) {
-                return response()->json($cliente, 200);
-            } 
+            foreach ($clienteSenha as $cliente) {
+                if ($clienteEmail->cliente_id == $cliente->id) {
+                    $cliente['email'] = $clienteEmail['ds_contato'];
+                    return response()->json($cliente, 200);
+                } 
+            }
+        }
+        catch(\Exception $e){
+            return response()->json($e);
         } 
     } 
 
