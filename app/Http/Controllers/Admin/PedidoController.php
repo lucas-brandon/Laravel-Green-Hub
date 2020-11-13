@@ -6,8 +6,13 @@ use App\Pedido;
 use App\Cliente;
 use App\StatusPedido;
 use App\Pagamento;
+use App\Contato;
+use App\TipoContato;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use \Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\Mail\GreenHub;
+use stdClass;
 
 class PedidoController extends Controller
 {
@@ -69,17 +74,29 @@ class PedidoController extends Controller
     {
         //echo 'salvando no banco';
         $pedido = $req->all();
+        $f = Pedido::find($id);
+        $cliente = Cliente::find($f['cliente_id']);
+        $tipo_contato1 = TipoContato::where('descricao', 'email')->first();
+
+        $tipoEmail = Contato::where('cliente_id', $f['cliente_id'])->where('tipo_contato_id', $tipo_contato1['id'])->first();
+
+        //dd($tipoEmail);
+
+        $status = StatusPedido::where('ds_status', $req['status'])->first();    
+
+        $pedido['status_pedido_id'] = $status['id'];
+        //dd($pedido);
 
         Pedido::find($id)->update($pedido);
-        /*
+        
         $user = new stdClass();
-        $user->name = $req['name'];
-        $user->email = $req['email'];
-        $user->msg = $req['msg'];
-        $user->subject = $req['assunto'];
+        $user->name = $cliente['nome'];
+        $user->email = $tipoEmail['ds_contato'];
+        $user->msg = "O pedido de número ".$f['nr_pedido']." foi atualizado com o status: ".$req['status'];
+        $user->subject = "Pedido ".$req['status'];
 
         Mail::send(new GreenHub($user));
-        */
+        
         //Cria uma variavel mensagem na sessão atual
         $req->session()->flash('mensagem', 'Pedido editado com sucesso');
 

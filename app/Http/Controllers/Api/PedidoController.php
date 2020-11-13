@@ -54,13 +54,13 @@ class PedidoController extends BaseController
             //$produtos = $req->all();
             $status = StatusPedido::where('ds_status', 'Em Andamento')->first();
 
-            $pagamento = Pagamento::where('ds_pagamento', 'Cartão de crédito')->first();
+            $pagamento = Pagamento::where('ds_pagamento', $req['pagamento'])->first();
 
             $frete = 15.0;
 
             $pedido['cliente_id'] = $req['cliente_id'];
             $pedido['nr_pedido'] = $req['nr_pedido'];
-            $pedido['dt_pedido'] = date('d-m-Y');
+            $pedido['dt_pedido'] = $req['dt_pedido'];
             $pedido['status_pedido_id'] = $status['id'];
             $pedido['pagamento_id'] = $pagamento['id'];
             $pedido['valor'] = 0.0;
