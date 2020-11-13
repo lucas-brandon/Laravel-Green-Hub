@@ -101,4 +101,12 @@ class CartaoClienteController extends BaseController
         $cartaoCliente->delete();
         return response()->json('Cartão Removido', 200);
     }
+
+    public function listarCartoes($cliente_id)
+    {
+        $cartoes = CartaoCliente::where('cliente_id', $cliente_id)->get();
+
+        return response()->json($cartoes, 201);
+
+    }
 }

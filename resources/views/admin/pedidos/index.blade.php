@@ -1,6 +1,6 @@
 @extends('layout.site')
 
-@section('title', 'Pedidos Título')
+@section('title', 'Lista de Pedidos')
 
 @section('content')
     <div class="container">
@@ -52,18 +52,23 @@
                             <td>
                                 <a class="btn btn-primary" href="{{route('admin.pedidos.editar', $pedido->id)}}">Editar</a>
 
+                                {{--
                                 <form action="{{route('admin.pedidos.deletar', $pedido->id)}}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Deletar</button>
                                 </form>
+                                --}}
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+        </div>{{--
+        <div class="row">
+            <a href="{{route('admin.pedidos.adicionar')}}" class="btn btn-success">Adicionar pedido</a>
         </div>
-      
+        --}}
     </div>
     
 @endsection

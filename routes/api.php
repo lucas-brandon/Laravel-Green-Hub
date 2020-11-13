@@ -37,7 +37,7 @@ Route::delete ('/endereco/deletar/{id}','Api\EnderecoController@deletar');
 //Endereco Cliente
 Route::get('/enderecoCliente/listar', 'Api\EnderecoClienteController@listar');
 Route::get ('/enderecoCliente/buscar/{id}','Api\EnderecoClienteController@buscar');
-Route::get('/enderecoCliente/enderecosCliente/{cliente_id}', 'Api\EnderecoClienteController@enderecosCliente');
+Route::get('/enderecoCliente/listarEnderecos/{cliente_id}', 'Api\EnderecoClienteController@listarEnderecos');
 Route::post ('/enderecoCliente/salvar/','Api\EnderecoClienteController@salvar');
 Route::put ('/enderecoCliente/atualizar/{id}','Api\EnderecoClienteController@atualizar');
 Route::delete ('/enderecoCliente/deletar/{id}','Api\EnderecoClienteController@deletar');
@@ -45,9 +45,7 @@ Route::delete ('/enderecoCliente/deletar/{id}','Api\EnderecoClienteController@de
 //Contato
 Route::get('/contato/listar', 'Api\ContatoController@listar');
 Route::get ('/contato/buscar/{id}','Api\ContatoController@buscar');
-Route::get('/contato/buscarEmail/{contato}', 'Api\ContatoController@buscarEmail');
-Route::get('/contato/emailCliente/{id}', 'Api\ContatoController@emailCliente');
-Route::get('/contato/telefoneCliente/{id}', 'Api\ContatoController@telefoneCliente');
+Route::get ('/contato/listarContatos/{cliente_id}','Api\ContatoController@listarContatos');
 Route::post ('/contato/salvar/','Api\ContatoController@salvar');
 Route::put ('/contato/atualizar/{id}','Api\ContatoController@atualizar');
 Route::delete ('/contato/deletar/{id}','Api\ContatoController@deletar');
@@ -59,6 +57,7 @@ Route::post('/categoria/salvar', 'Api\CategoriaController@salvar');
 Route::put('/categoria/atualizar/{id}', 'Api\CategoriaController@atualizar');
 Route::delete('/categoria/deletar/{id}','Api\CategoriaController@deletar');
 Route::get('/categoria/buscarProdutos/{id}', 'Api\CategoriaController@buscarProdutos');
+Route::get('/categoria/buscarTermo/{string}', 'Api\CategoriaController@buscaTermo');
 
 //Status Pedido
 Route::get ('/status_pedido/listar/','Api\StatusPedidoController@listar');
@@ -119,6 +118,7 @@ Route::post('imagens/salvar/', 'Api\ImagemProdutoController@salvar');
 
 //Cartão Cliente
 Route::get('/cartao/listar', 'Api\CartaoClienteController@listar');
+Route::get('/cartao/listarCartoes/{cliente_id}', 'Api\CartaoClienteController@listarCartoes');
 Route::post('/cartao/salvar', 'Api\CartaoClienteController@salvar');
 Route::post('/cartao/cadastrar/{id}', 'Api\CartaoClienteController@cadastrar');
 Route::get('/cartao/buscar/{id}', 'Api\CartaoClienteController@buscar');
@@ -126,4 +126,7 @@ Route::get('/cartao/cartoesCliente/{id_cliente}', 'Api\CartaoClienteController@c
 Route::put('/cartao/atualizar/{id}', 'Api\CartaoClienteController@atualizar');
 Route::delete('/cartao/deletar/{id}', 'Api\CartaoClienteController@deletar');
 
+//Mail
+Route::get('/sendmail', 'Mail\GreenHub@mail');
 
+Route::get('/send', 'Api\AtendimentoController@enviar');

@@ -8,13 +8,15 @@
     <select class="form-control" id="status" name="status">      
       @foreach ($statusPedidos as $status)
         @if (isset($pedido->status_pedido_id) && $pedido->status_pedido_id == $status->id)
-            <option selected>{{$status->ds_status}}</option>
+            <option value="{{$status->ds_status}}" selected>{{$status->ds_status}}</option>
         @else
-            <option>{{$status->ds_status}}</option>
+            <option value="{{$status->ds_status}}">{{$status->ds_status}}</option>
         @endif
       @endforeach
     </select>
 </div>
+
+{{--
 <div class="form-group">
     <label for="cliente_nome">Cliente</label>
     <select class="form-control" id="cliente_nome" name="cliente_nome">      
@@ -39,3 +41,4 @@
     <label for="valor">Valor total</label>
     <input type="number" class="form-control" type="any" id="valor" name="valor" value="{{$pedido->valor ?? ''}}">
 </div>
+--}}

@@ -42,23 +42,17 @@ class ContatoController extends BaseController
         return response()->json($contatos, 201);
     }
 
-    public function emailCliente($id)
+    public function listarContatos($cliente_id)
     {
-        $contatos = Contato::where('cliente_id', $id)->get();
-        foreach ($contatos as $contato){
-            if ($contato->tipo_contato_id == 1){
-                return response()->json($contato->ds_contato, 200);
-            }
-        }        
-    }
+        $array = array();
+        $contatos = Contato::where('cliente_id', $cliente_id)->get();
+        foreach($contatos as $contato)
+        {
+            $tipo = TipoContato::where('id', $contato['tipo_contato_id'])->first();
+            $contato['tipo'] = $tipo['descricao'];
+            array_push($array, $contato);
+        }
+        return response()->json($array, 201);
 
-    public function telefoneCliente($id)
-    {
-        $contatos = Contato::where('cliente_id', $id)->get();
-        foreach ($contatos as $contato){
-            if ($contato->tipo_contato_id == 2){
-                return response()->json($contato->ds_contato, 200);
-            }
-        }        
     }
 }

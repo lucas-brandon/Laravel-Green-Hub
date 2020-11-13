@@ -23,11 +23,11 @@
 </div>
 <div class="form-group">
     <label for="valor">Preço (R$)</label>
-    <input type="text" class="form-control" id="valor" name="valor" value="{{ $preco->valor ?? '' }}" maxlength="11">
+    <input type="number" step="any" class="form-control" id="valor" name="valor" value="{{ $preco->valor ?? '' }}">
 </div>
 <div class="form-group">
     <label for="desconto">Desconto (%)</label>
-    <input type="number" class="form-control" id="desconto" name="desconto" value="{{ $preco->desconto ?? '' }}" min="0" max="100">
+    <input type="number" step="any" class="form-control" id="desconto" name="desconto" value="{{ $preco->desconto ?? '' }}">
 </div>
 <div class="form-group">
     <label for="dt_vigencia_ini">Data de vigência inicial do preço</label>

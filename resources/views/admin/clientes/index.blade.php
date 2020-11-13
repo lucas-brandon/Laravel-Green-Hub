@@ -41,7 +41,7 @@
                             <td>
                             @foreach ($contatos as $contato)
                                 
-                                @if ($contato->tipo_contato_id == 1 && $contato->cliente_id == $cliente->id)
+                                @if ($contato->tipo_contato_id == $tipo_email->id && $contato->cliente_id == $cliente->id)
                                     {{ $contato->ds_contato }}<br>
                                 @endif
                             @endforeach
@@ -50,29 +50,32 @@
                             <td>
                                 @foreach ($contatos as $contato)
                                     
-                                    @if ($contato->tipo_contato_id == 2 && $contato->cliente_id == $cliente->id)
+                                    @if ($contato->tipo_contato_id == $tipo_telefone->id && $contato->cliente_id == $cliente->id)
                                         {{ $contato->ds_contato }}<br>
                                     @endif
                                 @endforeach
-                            </td>
-
-                            <td>
-                                @if ($cliente->status_cliente == '1')
-                                    {{"Cliente Ativo"}}
-                                @elseif ($cliente->status_cliente == '2')
-                                    {{"Cliente Inativo"}}
-                                @endif
-
-                            </td>
-                            <td>
+    
+                                </td>
+                            <td>{{--
+                            
                                 <a class="btn btn-primary" href="{{route('admin.clientes.editar', $cliente->id, $contatos)}}">Editar</a>
+
+                                <form action="{{route('admin.clientes.deletar', $cliente->id)}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Deletar</button>
+                                </form>
+                                 --}}
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+        </div>{{--
+        <div class="row">
+            <a href="{{route('admin.clientes.adicionar')}}" class="btn btn-success">Adicionar cliente</a>
         </div>
-      
+        --}}
     </div>
     
 @endsection

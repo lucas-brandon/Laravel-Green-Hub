@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class CartaoCliente extends Model
 {
     protected $table = 'cartao_clientes';
+    //protected $dateFormat = 'd/m/Y';
 
     protected $fillable = [
         'cliente_id', 'nr_cartao', 'nome', 'bandeira', 'validade',
     ];
+
 
     protected $primaryKey = 'cliente_id';
 
