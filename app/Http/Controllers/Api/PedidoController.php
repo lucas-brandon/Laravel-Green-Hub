@@ -60,7 +60,7 @@ class PedidoController extends BaseController
 
             $pedido['cliente_id'] = $req['cliente_id'];
             $pedido['nr_pedido'] = $req['nr_pedido'];
-            $pedido['dt_pedido'] = date('d-m-Y');
+            $pedido['dt_pedido'] = $req['dt_pedido'];
             $pedido['status_pedido_id'] = $status['id'];
             $pedido['pagamento_id'] = $pagamento['id'];
             $pedido['valor'] = 0.0;
