@@ -54,7 +54,7 @@ class PedidoController extends BaseController
             //$produtos = $req->all();
             $status = StatusPedido::where('ds_status', 'Em Andamento')->first();
 
-            $pagamento = Pagamento::where('ds_pagamento', 'Cartão de crédito')->first();
+            $pagamento = Pagamento::where('ds_pagamento', $req['pagamento'])->first();
 
             $frete = 15.0;
 
