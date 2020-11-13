@@ -11,7 +11,11 @@ use App\StatusPedido;
 use App\Pagamento;
 use App\Preco;
 use App\Estoque;
+use App\Cliente;
 use Illuminate\Http\Request;
+use \Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\Mail\GreenHub;
+use stdClass;
 
 class PedidoController extends BaseController
 {
@@ -56,7 +60,7 @@ class PedidoController extends BaseController
 
             $pedido['cliente_id'] = $req['cliente_id'];
             $pedido['nr_pedido'] = $req['nr_pedido'];
-            $pedido['dt_pedido'] = $req['dt_pedido'];
+            $pedido['dt_pedido'] = date('d-m-Y');
             $pedido['status_pedido_id'] = $status['id'];
             $pedido['pagamento_id'] = $pagamento['id'];
             $pedido['valor'] = 0.0;
@@ -89,6 +93,15 @@ class PedidoController extends BaseController
 
             $pedidoBanco->update($pedido);
 
+            //$clienteBanco = Cliente::find($req['cliente_id']);
+            $user = new stdClass();
+            $user->name = $req['name'];
+            $user->email = $req['email'];
+            $user->msg = $req['msg'];
+            $user->subject = $req['assunto'];
+
+            Mail::send(new GreenHub($user));
+
             return response()->json($pedido, 200);
         }
         catch(\Exception $e){
@@ -98,20 +111,29 @@ class PedidoController extends BaseController
 
     public function listar(Request $req)
     {
-        $pedidos = Pedido::all();
-        $dados = array();
+        try{
+            $pedidos = Pedido::all();
+            $dados = array();
 
-        foreach ($pedidos as $pedido) {
-            $status = StatusPedido::where('id', $pedido['status_pedido_id'])->first();
+            foreach ($pedidos as $pedido) {
+                $status = StatusPedido::where('id', $pedido['status_pedido_id'])->first();
 
-            $pedido['ds_status'] = $status['ds_status'];
+                $pedido['ds_status'] = $status['ds_status'];
+                //$pedido['dt_pedido'] = $pedido['dt_pedido']->format('dd/mm/YY')
+                //$d = 
 
-            //dd($pedido);
+                $pedido['dt_pedido'] = date('d/m/Y', strtotime($pedido->dt_pedido));
 
-            array_push($dados, $pedido);
+                //dd($pedido);
+
+                array_push($dados, $pedido);
+            }
+
+            return response()->json($dados, 201);
         }
-
-        return response()->json($dados, 201);
+        catch(\Exception $e){
+            return response()->json($e->getMessage());
+        }
     }
 
     public function listarProdutos($id)

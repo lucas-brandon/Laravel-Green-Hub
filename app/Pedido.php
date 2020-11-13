@@ -8,6 +8,7 @@ class Pedido extends Model
 {
 
     protected $table = 'pedidos';
+    //protected $dateFormat = 'd/m/Y';
 
     /*
         $table->foreignId('cliente_id')->nullable();

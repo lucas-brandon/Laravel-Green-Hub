@@ -38,7 +38,7 @@
                             <td>
                             @foreach ($contatos as $contato)
                                 
-                                @if ($contato->tipo_contato_id == 1 && $contato->cliente_id == $cliente->id)
+                                @if ($contato->tipo_contato_id == $tipo_email->id && $contato->cliente_id == $cliente->id)
                                     {{ $contato->ds_contato }}<br>
                                 @endif
                             @endforeach
@@ -47,7 +47,7 @@
                             <td>
                                 @foreach ($contatos as $contato)
                                     
-                                    @if ($contato->tipo_contato_id == 2 && $contato->cliente_id == $cliente->id)
+                                    @if ($contato->tipo_contato_id == $tipo_telefone->id && $contato->cliente_id == $cliente->id)
                                         {{ $contato->ds_contato }}<br>
                                     @endif
                                 @endforeach

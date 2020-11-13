@@ -16,8 +16,13 @@ class ClienteController extends Controller
     {
         $clientes = Cliente::all();
         $contatos = Contato::all();
+
+        $tipo_email = TipoContato::where('descricao', 'email')->first();
+
+        $tipo_telefone = TipoContato::where('descricao', 'telefone')->first();
+
         $mensagem = $req->session()->get('mensagem');
-        return view('admin.clientes.index', compact('clientes', 'contatos', 'mensagem'));
+        return view('admin.clientes.index', compact('clientes', 'contatos', 'tipo_email', 'tipo_telefone',  'mensagem'));
     }
 
 

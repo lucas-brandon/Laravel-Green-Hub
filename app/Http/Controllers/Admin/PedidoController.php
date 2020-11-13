@@ -19,6 +19,13 @@ class PedidoController extends Controller
         $statusPedidos = StatusPedido::all();
         $pagamentos = Pagamento::all();
         $pedidos = Pedido::all();
+
+        foreach ($pedidos as $pedido) {
+            $pedido['dt_pedido'] = date('d/m/Y', strtotime($pedido->dt_pedido));
+
+            $pedido['valor'] = number_format($pedido['valor'], 2, ',', '');
+        }
+
         $mensagem = $req->session()->get('mensagem');
         return view('admin.pedidos.index', compact('pedidos', 'clientes', 'statusPedidos', 'pagamentos','mensagem'));
     }
@@ -64,7 +71,15 @@ class PedidoController extends Controller
         $pedido = $req->all();
 
         Pedido::find($id)->update($pedido);
+        /*
+        $user = new stdClass();
+        $user->name = $req['name'];
+        $user->email = $req['email'];
+        $user->msg = $req['msg'];
+        $user->subject = $req['assunto'];
 
+        Mail::send(new GreenHub($user));
+        */
         //Cria uma variavel mensagem na sessão atual
         $req->session()->flash('mensagem', 'Pedido editado com sucesso');
 

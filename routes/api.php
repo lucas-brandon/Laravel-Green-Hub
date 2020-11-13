@@ -120,3 +120,8 @@ Route::post('/cartao/cadastrar/{id}', 'Api\CartaoClienteController@cadastrar');
 Route::get('/cartao/buscar/{id}', 'Api\CartaoClienteController@buscar');
 Route::put('/cartao/atualizar/{id}', 'Api\CartaoClienteController@atualizar');
 Route::delete('/cartao/deletar/{id}', 'Api\CartaoClienteController@deletar');
+
+//Mail
+Route::get('/sendmail', 'Mail\GreenHub@mail');
+
+Route::get('/send', 'Api\AtendimentoController@enviar');
