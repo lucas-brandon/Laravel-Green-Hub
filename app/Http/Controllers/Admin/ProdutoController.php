@@ -15,10 +15,11 @@ class ProdutoController extends Controller
     //
     public function index(Request $req)
     {
-        $produtos = Produto::paginate(5);
+        $produtos = Produto::paginate(10);
         $precos = Preco::all();
         foreach($precos as $preco){
-            $preco['valor'] = str_replace(".",",",$preco['valor']);
+            $preco['valor'] = number_format($preco['valor'], 2, ',', '');
+            //$preco['valor'] = str_replace(".",",",$preco['valor']);
         }
 
 

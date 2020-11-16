@@ -102,7 +102,7 @@ class PedidoController extends BaseController
 
             Mail::send(new GreenHub($user));
 
-            return response()->json($pedido, 200);
+            return response()->json($pedidoBanco, 200);
         }
         catch(\Exception $e){
             return response()->json($e->getMessage());
@@ -116,6 +116,35 @@ class PedidoController extends BaseController
             $dados = array();
 
             foreach ($pedidos as $pedido) {
+                //if($pedido['cliente_id'])
+                $status = StatusPedido::where('id', $pedido['status_pedido_id'])->first();
+
+                $pedido['ds_status'] = $status['ds_status'];
+                //$pedido['dt_pedido'] = $pedido['dt_pedido']->format('dd/mm/YY')
+                //$d = 
+
+                $pedido['dt_pedido'] = date('d/m/Y', strtotime($pedido->dt_pedido));
+
+                //dd($pedido);
+
+                array_push($dados, $pedido);
+            }
+
+            return response()->json($dados, 201);
+        }
+        catch(\Exception $e){
+            return response()->json($e->getMessage());
+        }
+    }
+
+    public function listarCliente($id)
+    {
+        try{
+            $pedidos = Pedido::where('cliente_id', $id)->get();
+            $dados = array();
+
+            foreach ($pedidos as $pedido) {
+                //if($pedido['cliente_id'])
                 $status = StatusPedido::where('id', $pedido['status_pedido_id'])->first();
 
                 $pedido['ds_status'] = $status['ds_status'];

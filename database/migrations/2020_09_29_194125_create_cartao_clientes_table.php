@@ -15,7 +15,7 @@ class CreateCartaoClientesTable extends Migration
     {
         Schema::create('cartao_clientes', function (Blueprint $table) {
             $table->foreignId('cliente_id');
-            $table->integer('nr_cartao');
+            $table->string('nr_cartao');
             $table->string('nome');
             $table->string('bandeira');
             $table->date('validade'); 

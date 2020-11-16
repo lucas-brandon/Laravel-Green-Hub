@@ -25,9 +25,12 @@ class ProdutoController extends Controller
         $categorias = Categoria::all();
         $imagens = ImagemProduto::all();
         
-        
+        $cont = 0;
         foreach($produtos as $produto)
         {
+            if($cont == 6){
+                break;
+            }
             $dado['id'] = $produto->id;
             $dado['nome_produto'] = $produto->nome_produto;
             $dado['nm_marca'] = $produto->nm_marca;
@@ -60,6 +63,7 @@ class ProdutoController extends Controller
                 }
             }
             array_push($array, $dado);
+            $cont += 1;
             
         }
         return response()->json($array, 201);

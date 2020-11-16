@@ -101,6 +101,7 @@ Route::delete('/clientes/deletar/{id}', 'Api\ClienteController@deletar');
 Route::post('/pedidos/salvar/','Api\PedidoController@cadastro');
 Route::get('/pedidos/listar/','Api\PedidoController@listar');
 Route::get('/pedidos/listarProdutos/{id}','Api\PedidoController@listarProdutos');
+Route::get('/pedidos/listarCliente/{id}','Api\PedidoController@listarCliente');
 Route::delete('/pedidos/deletar/{id}','Api\PedidoController@deletar');
 
 //Pedido Item
