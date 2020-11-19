@@ -17,7 +17,7 @@ class CartaoCliente extends Model
     //protected $dateFormat = 'd/m/Y';
 
     protected $fillable = [
-        'cliente_id', 'nr_cartao', 'nome', 'bandeira', 'validade',
+        'cliente_id', 'nr_cartao', 'nome', 'bandeira', 'mes_validade', 'ano_validade'
     ];
 
 

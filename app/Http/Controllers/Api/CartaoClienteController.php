@@ -37,7 +37,8 @@ class CartaoClienteController extends BaseController
         $dados['nr_cartao'] = $req->nr_cartao;
         $dados['nome'] = $req->nome;
         $dados['bandeira'] = $req->bandeira;
-        $dados['validade'] = $req->validade;
+        $dados['mes_validade'] = $req->mes_validade;
+        $dados['ano_validade'] = $req->ano_validade;
 
         return response()->json(CartaoCliente::create($dados), 201);
     }

@@ -23,7 +23,7 @@
 </div>
 <div class="form-group">
     <label for="valor">Preço (R$)</label>
-    <input type="number" class="form-control" id="valor" name="valor" value="{{ $preco->valor ?? '' }}" step="any" required>
+    <input type="number" class="form-control" id="valor" name="valor" value="{{ $preco->valor ?? '' }}" step="any" min="0" required>
 </div>
 <div class="form-group">
     <label for="desconto">Desconto (%)</label>
