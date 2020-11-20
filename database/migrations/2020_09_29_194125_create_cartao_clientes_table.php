@@ -18,7 +18,8 @@ class CreateCartaoClientesTable extends Migration
             $table->string('nr_cartao');
             $table->string('nome');
             $table->string('bandeira');
-            $table->date('validade'); 
+            $table->string('mes_validade');
+            $table->string('ano_validade'); 
             $table->timestamps();
 
             $table->foreign('cliente_id')->references('id')->on('clientes');
