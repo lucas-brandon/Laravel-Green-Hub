@@ -90,17 +90,24 @@ class ClienteController extends BaseController
     
     public function atualizar(Request $req, $id)
     {
-        //echo 'salvando no banco';
-        $cliente = $req->all();
+        try{
+            //echo 'salvando no banco';
+            $cliente = $req->all();
 
-        Cliente::find($id)->update($cliente);
+            Cliente::find($id)->update($cliente);
 
-        //Cria uma variavel mensagem na sessão atual
-        $req->session()->flash('mensagem', 'Cliente editado com sucesso');
+            //Cria uma variavel mensagem na sessão atual
+            $req->session()->flash('mensagem', 'Cliente editado com sucesso');
 
-        //return redirect()->route('admin.clientes.index');
+            //return redirect()->route('admin.clientes.index');
 
-        return response()->json($cliente, 200);
+            return response()->json($cliente, 200);
+
+        }
+        catch(\Exception $e){
+            return response()->json($e);
+        } 
+        
     }
 
     public function logar($senha, $email)
@@ -117,6 +124,28 @@ class ClienteController extends BaseController
                     return response()->json($cliente, 200);
                 } 
             }
+        }
+        catch(\Exception $e){
+            return response()->json($e);
+        } 
+    }
+    
+    public function verificaCliente($cpf, $email)
+    {
+        try{
+            $clienteCPF = Cliente::where('cpf', $cpf)->get();
+            $clienteEmail = Contato::where('ds_contato', $email)->first();
+            if ($clienteCPF == '' || $clienteEmail == ''){
+                return 0;
+            }
+            foreach ($clienteCPF as $cliente) {
+                if ($clienteEmail->cliente_id == $cliente->id) {
+                    //$cliente['email'] = $clienteEmail['ds_contato'];
+                    //return response()->json($cliente, 200);
+                    return $cliente->id;
+                } 
+            }
+            return 0;
         }
         catch(\Exception $e){
             return response()->json($e);
