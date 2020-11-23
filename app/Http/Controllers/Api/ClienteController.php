@@ -101,6 +101,22 @@ class ClienteController extends BaseController
 
             //return redirect()->route('admin.clientes.index');
 
+            $cliente = Cliente::find($id)->get();
+
+
+            $user = new stdClass();
+            $user->name = $cliente['nome'];
+
+            $tipo_contato1 = TipoContato::where('descricao', 'email')->first();
+
+            $contato1 = Contato::where('cliente_id', $id)->where('tipo_contato_id', $tipo_contato1['id'])
+            
+            $user->email = $contato1['ds_contato'];
+            $user->msg = "Sua senha foi alterada com sucesso";
+            $user->subject = "Green Hub Suplementos - Aviso de alteração de senha";
+
+            Mail::send(new GreenHub($user));
+
             return response()->json($cliente, 200);
 
         }
