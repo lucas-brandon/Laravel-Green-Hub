@@ -19,10 +19,7 @@ use Illuminate\Http\Request;
 
 class ClienteController extends BaseController
 {
-    public function __construct()
-    {
-        $this->classe = Cliente::class;
-    }
+    
 
     public function salvar(Request $req)
     {
@@ -101,20 +98,25 @@ class ClienteController extends BaseController
 
             //return redirect()->route('admin.clientes.index');
 
-            $cliente = Cliente::find($id)->get();
+            $c = Cliente::where('id', $id)->get();
+
+            //dd($cliente);
 
 
             $user = new stdClass();
-            $user->name = $cliente['nome'];
+            $user->name = $c['nome'];
 
             $tipo_contato1 = TipoContato::where('descricao', 'email')->first();
 
-            $contato1 = Contato::where('cliente_id', $id)->where('tipo_contato_id', $tipo_contato1['id'])
+            $contato1 = Contato::where('cliente_id', $id)->where('tipo_contato_id', $tipo_contato1['id'])->first();
             
             $user->email = $contato1['ds_contato'];
             $user->msg = "Sua senha foi alterada com sucesso";
             $user->subject = "Green Hub Suplementos - Aviso de alteração de senha";
 
+            //return response()->json($user);
+            //error_log($user);
+            return "aaaaaaaaaaaa";
             Mail::send(new GreenHub($user));
 
             return response()->json($cliente, 200);
@@ -142,7 +144,7 @@ class ClienteController extends BaseController
             }
         }
         catch(\Exception $e){
-            return response()->json($e);
+            return response()->json($e->getMessage());
         } 
     }
     
@@ -164,7 +166,7 @@ class ClienteController extends BaseController
             return 0;
         }
         catch(\Exception $e){
-            return response()->json($e);
+            return response()->json($e->getMessage());
         } 
     } 
 
