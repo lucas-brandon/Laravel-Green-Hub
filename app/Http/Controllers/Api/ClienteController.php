@@ -87,44 +87,39 @@ class ClienteController extends BaseController
     
     public function atualizar(Request $req, $id)
     {
-        try{
+        
             //echo 'salvando no banco';
             $cliente = $req->all();
-
             Cliente::find($id)->update($cliente);
-
-            //Cria uma variavel mensagem na sessão atual
-            $req->session()->flash('mensagem', 'Cliente editado com sucesso');
 
             //return redirect()->route('admin.clientes.index');
 
-            $c = Cliente::where('id', $id)->get();
+            $c = Cliente::where('id', $id)->first();
 
             //dd($cliente);
 
 
             $user = new stdClass();
-            $user->name = $c['nome'];
+            $user->name = $c['nome'].' '.$c['sobrenome'];
 
             $tipo_contato1 = TipoContato::where('descricao', 'email')->first();
-
-            $contato1 = Contato::where('cliente_id', $id)->where('tipo_contato_id', $tipo_contato1['id'])->first();
+        
+            $contato1 = Contato::where([
+                ['cliente_id', '=', $id],
+                ['tipo_contato_id', '=', $tipo_contato1['id']],
+            ])->first();
             
             $user->email = $contato1['ds_contato'];
-            $user->msg = "Sua senha foi alterada com sucesso";
-            $user->subject = "Green Hub Suplementos - Aviso de alteração de senha";
+            $user->msg = 'Sua senha foi alterada com sucesso';
+            $user->subject = 'Green Hub Suplementos - Aviso de alteração de senha';
 
             //return response()->json($user);
             //error_log($user);
-            return "aaaaaaaaaaaa";
+            //return "aaaaaaaaaaaa";
+
             Mail::send(new GreenHub($user));
-
-            return response()->json($cliente, 200);
-
-        }
-        catch(\Exception $e){
-            return response()->json($e);
-        } 
+            return response()->json($cliente, 201);
+        
         
     }
 
