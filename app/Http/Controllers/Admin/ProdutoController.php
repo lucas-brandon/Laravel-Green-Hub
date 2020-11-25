@@ -10,6 +10,9 @@ use App\ImagemProduto;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Storage;
+
 class ProdutoController extends Controller
 {
     //
@@ -45,6 +48,7 @@ class ProdutoController extends Controller
         produto: 'nome_produto', 'ds_produto', 'categoria_id', 'nm_marca', 'cd_barra',
         preco: 'produto_id', 'valor', 'desconto', 'fl_promocao', 'dt_vigencia_ini', 'dt_vigencia_fim',
         */
+
         $produto['nome_produto'] = $req['nome_produto'];
         $produto['ds_produto'] = $req['ds_produto'];
         $produto['nm_marca'] = $req['nm_marca'];
@@ -82,10 +86,19 @@ class ProdutoController extends Controller
         Preco::create($preco);
         
         $imagens['produto_id'] = $produtoBanco['id'];
-        $imagens['link_imagem'] = $req['imagem'];
+        //$imagens['link_imagem'] = $req['imagem'];
         $imagens['descricao'] = '';
 
+        $img = $req['imagem'];
+        //$path = Storage::disk('local')->put('imagens/'.$fileName, $img);
+        Storage::putFileAs('public/imagens', new File($img->getRealPath()), $img->getClientOriginalName());
+        $imagens['link_imagem'] = 'http://modelagem.test/storage/imagens/'.$img->getClientOriginalName();
+        //dd($c);
+
         ImagemProduto::create($imagens);
+
+        
+
         //Cria uma variavel mensagem na sessão atual
         $req->session()->flash('mensagem', 'Produto cadastrado com sucesso');
 
