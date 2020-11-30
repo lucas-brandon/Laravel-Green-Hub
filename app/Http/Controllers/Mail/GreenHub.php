@@ -42,7 +42,7 @@ class GreenHub extends Mailable
         $this->subject($this->user->subject);
         $this->to($this->user->email, $this->user->name);
         
-        return $this->view('mail.GreenHub', [
+        return $this->markdown('mail.GreenHub', [
             'user' => $this->user,
         ]);
     }
