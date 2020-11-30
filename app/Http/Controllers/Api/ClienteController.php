@@ -15,10 +15,7 @@ use Illuminate\Http\Request;
 
 class ClienteController extends BaseController
 {
-    public function __construct()
-    {
-        $this->classe = Cliente::class;
-    }
+    
 
     public function salvar(Request $req)
     {
@@ -105,17 +102,40 @@ class ClienteController extends BaseController
     
     public function atualizar(Request $req, $id)
     {
-        //echo 'salvando no banco';
-        $cliente = $req->all();
+        
+            //echo 'salvando no banco';
+            $cliente = $req->all();
+            Cliente::find($id)->update($cliente);
 
-        Cliente::find($id)->update($cliente);
+            //return redirect()->route('admin.clientes.index');
 
-        //Cria uma variavel mensagem na sessão atual
-        $req->session()->flash('mensagem', 'Cliente editado com sucesso');
+            $c = Cliente::where('id', $id)->first();
 
-        //return redirect()->route('admin.clientes.index');
+            //dd($cliente);
 
-        return response()->json($cliente, 200);
+
+            $user = new stdClass();
+            $user->name = $c['nome'].' '.$c['sobrenome'];
+
+            $tipo_contato1 = TipoContato::where('descricao', 'email')->first();
+        
+            $contato1 = Contato::where([
+                ['cliente_id', '=', $id],
+                ['tipo_contato_id', '=', $tipo_contato1['id']],
+            ])->first();
+            
+            $user->email = $contato1['ds_contato'];
+            $user->msg = 'Sua senha foi alterada com sucesso';
+            $user->subject = 'Green Hub Suplementos - Aviso de alteração de senha';
+
+            //return response()->json($user);
+            //error_log($user);
+            //return "aaaaaaaaaaaa";
+
+            Mail::send(new GreenHub($user));
+            return response()->json($cliente, 201);
+        
+        
     }
 
     public function logar($senha, $email)
@@ -134,7 +154,29 @@ class ClienteController extends BaseController
             }
         }
         catch(\Exception $e){
-            return response()->json($e);
+            return response()->json($e->getMessage());
+        } 
+    }
+    
+    public function verificaCliente($cpf, $email)
+    {
+        try{
+            $clienteCPF = Cliente::where('cpf', $cpf)->get();
+            $clienteEmail = Contato::where('ds_contato', $email)->first();
+            if ($clienteCPF == '' || $clienteEmail == ''){
+                return 0;
+            }
+            foreach ($clienteCPF as $cliente) {
+                if ($clienteEmail->cliente_id == $cliente->id) {
+                    //$cliente['email'] = $clienteEmail['ds_contato'];
+                    //return response()->json($cliente, 200);
+                    return $cliente->id;
+                } 
+            }
+            return 0;
+        }
+        catch(\Exception $e){
+            return response()->json($e->getMessage());
         } 
     } 
 

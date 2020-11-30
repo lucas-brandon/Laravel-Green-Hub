@@ -93,6 +93,7 @@ Route::post('/clientes/salvar', 'Api\ClienteController@salvar');
 Route::get('/clientes/logar/{senha}/{email}', 'Api\ClienteController@logar');
 Route::get('/clientes/buscar/{id}', 'Api\ClienteController@buscar');
 Route::get('/clientes/buscarNome/{nome}', 'Api\ClienteController@buscarNome');
+Route::get('/clientes/verificar/{cpf}/{email}', 'Api\ClienteController@verificaCliente');
 Route::put('/clientes/atualizar/{id}', 'Api\ClienteController@atualizar');
 Route::delete('/clientes/deletar/{id}', 'Api\ClienteController@deletar');
 Route::post('/clientes/enviarMensagem', 'Api\ClienteController@enviarMensagem');

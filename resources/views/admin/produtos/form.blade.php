@@ -73,7 +73,7 @@
 <!----><!----><!----><!---->
 <div class="form-group">
     <label for="imagemProduto">Imagem</label>
-    <input type="text" class="form-control" id="imagem" name="imagem" required>
+    <input type="file" class="form-control" id="imagem" name="imagem" required>
     @if(isset($imagens->link_imagem))
         <div class="form-group">
             <img width="120" src="{{$imagens->link_imagem}}" />
