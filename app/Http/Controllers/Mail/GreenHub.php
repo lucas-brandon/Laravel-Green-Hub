@@ -41,10 +41,21 @@ class GreenHub extends Mailable
     {
         $this->subject($this->user->subject);
         $this->to($this->user->email, $this->user->name);
-        
+
         return $this->view('mail.GreenHub', [
             'user' => $this->user,
         ]);
+    }
+
+    public function testMail(Request $req)
+    {
+        $user = new \stdClass();
+        $user->name = $req['name'];
+        $user->email = $req['email'];
+        $user->msg = $req['msg'];
+        $user->subject = $req['assunto'];
+
+        return view('mail.GreenHub', compact('user'));
     }
 
     public function mail(Request $req)
@@ -70,6 +81,8 @@ class GreenHub extends Mailable
             Mail::send(
                 new GreenHub($user)
             );
+
+
         }
         catch(\Exception $e){
             return response()->json($e->getMessage());
