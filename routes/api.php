@@ -95,6 +95,7 @@ Route::get('/clientes/buscar/{id}', 'Api\ClienteController@buscar');
 Route::get('/clientes/buscarNome/{nome}', 'Api\ClienteController@buscarNome');
 Route::put('/clientes/atualizar/{id}', 'Api\ClienteController@atualizar');
 Route::delete('/clientes/deletar/{id}', 'Api\ClienteController@deletar');
+Route::post('/clientes/enviarMensagem', 'Api\ClienteController@enviarMensagem');
 
 
 //Pedido
