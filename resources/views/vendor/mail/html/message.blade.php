@@ -24,4 +24,8 @@
 © {{ date('Y') }} {{ config('app.name') }}. @lang('All rights reserved.')
 @endcomponent
 @endslot
+<<<<<<< HEAD
 @endcomponent
+=======
+@endcomponent
+>>>>>>> 89cfb0916b19304135e7b189c154d1a92b9f3d1c

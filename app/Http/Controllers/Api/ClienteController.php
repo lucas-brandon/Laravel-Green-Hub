@@ -10,10 +10,6 @@ use http\Env\Response;
 use \Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Mail\GreenHub;
 use stdClass;
-
-
-
-
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -71,6 +67,25 @@ class ClienteController extends BaseController
             return response()->json($e->getMessage());
         }
     }
+
+    public function enviarMensagem(Request $req)
+    {
+        try{
+        $user = new stdClass();
+        $user->name = $req['name'];
+        $user->email = $req['email'];
+        $user->msg = $req['msg'];
+        $user->subject = $req['assunto'];
+
+        Mail::send(new GreenHub($user));
+        return response()->json($cliente, 200);
+        }
+
+        catch(\Exception $e){
+            return response()->json($e->getMessage());
+        }
+    }
+
 
     public function buscarNome($nome)
     {
